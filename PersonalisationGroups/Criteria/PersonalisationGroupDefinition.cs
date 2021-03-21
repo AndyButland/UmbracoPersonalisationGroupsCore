@@ -1,4 +1,4 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Models
+﻿namespace Our.Umbraco.PersonalisationGroups.Criteria
 {
     using System.Collections.Generic;
 

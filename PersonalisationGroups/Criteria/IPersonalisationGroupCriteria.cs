@@ -1,4 +1,4 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Models
+﻿namespace Our.Umbraco.PersonalisationGroups.Criteria
 {
     /// <summary>
     /// Specifies an interface for a personalisation group criteria

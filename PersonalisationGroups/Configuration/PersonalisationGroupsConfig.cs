@@ -1,4 +1,6 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Configuration
+﻿using Our.Umbraco.PersonalisationGroups.Providers.GeoLocation;
+
+namespace Our.Umbraco.PersonalisationGroups.Configuration
 {
     public class PersonalisationGroupsConfig
     {
@@ -38,7 +40,7 @@
 
         public string TestFixedIp { get; }
 
-        //public CountryCodeProvider CountryCodeProvider { get; }
+        public CountryCodeProvider CountryCodeProvider { get; }
 
         public string CdnCountryCodeHttpHeaderName { get; }
 

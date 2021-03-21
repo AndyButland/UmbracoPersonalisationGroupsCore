@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Our.Umbraco.PersonalisationGroups.Attributes;
+using Our.Umbraco.PersonalisationGroups.Criteria;
 using Our.Umbraco.PersonalisationGroups.Extensions;
-using Our.Umbraco.PersonalisationGroups.Models;
 using Our.Umbraco.PersonalisationGroups.Services;
 using System.Linq;
 using System.Reflection;

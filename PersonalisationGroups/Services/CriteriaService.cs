@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using Our.Umbraco.PersonalisationGroups.Configuration;
+using Our.Umbraco.PersonalisationGroups.Criteria;
 using Our.Umbraco.PersonalisationGroups.Extensions;
-using Our.Umbraco.PersonalisationGroups.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

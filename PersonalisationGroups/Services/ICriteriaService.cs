@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Our.Umbraco.PersonalisationGroups.Models;
+using Our.Umbraco.PersonalisationGroups.Criteria;
 
 namespace Our.Umbraco.PersonalisationGroups.Services
 {

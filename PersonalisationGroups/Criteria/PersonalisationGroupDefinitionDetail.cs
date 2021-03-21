@@ -1,4 +1,4 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Models
+﻿namespace Our.Umbraco.PersonalisationGroups.Criteria
 {
     /// <summary>
     /// The definition of a detail record for a personalisation group

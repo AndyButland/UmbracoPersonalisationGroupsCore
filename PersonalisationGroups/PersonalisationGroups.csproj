@@ -6,6 +6,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Provider\**" />
+    <EmbeddedResource Remove="Provider\**" />
+    <None Remove="Provider\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Criteria\DayOfWeek\definition.editor.controller.js" />
+    <None Remove="Criteria\DayOfWeek\definition.editor.html" />
+    <None Remove="Criteria\DayOfWeek\definition.translator.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Criteria\DayOfWeek\definition.editor.controller.js" />
+    <EmbeddedResource Include="Criteria\DayOfWeek\definition.editor.html" />
+    <EmbeddedResource Include="Criteria\DayOfWeek\definition.translator.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaxMind.GeoIP2" Version="4.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Umbraco.Cms.Core" Version="9.0.0-beta001.20210222.10" />
