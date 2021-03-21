@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Our.Umbraco.PersonalisationGroups.Configuration;
+using System;
 
 namespace Our.Umbraco.PersonalisationGroups.Providers.Cookie
 {
@@ -33,7 +34,7 @@ namespace Our.Umbraco.PersonalisationGroups.Providers.Cookie
             return _httpContextAccessor.HttpContext.Request.Cookies[key];
         }
 
-        public void SetCookie(string key, string value)
+        public void SetCookie(string key, string value, System.DateTime? expires = null, bool httpOnly = true)
         {
             if (AreCookiesDeclined())
             {
@@ -45,7 +46,12 @@ namespace Our.Umbraco.PersonalisationGroups.Providers.Cookie
                 _httpContextAccessor.HttpContext.Items[$"personalisationGroups.cookie.{key}"] = value;
             }
 
-            _httpContextAccessor.HttpContext.Response.Cookies.Append(key, value);
+            var cookieOptions = new CookieOptions
+            { 
+                Expires = expires.HasValue ? new DateTimeOffset(expires.Value) : (DateTimeOffset?)null,
+                HttpOnly = httpOnly,
+            };
+            _httpContextAccessor.HttpContext.Response.Cookies.Append(key, value, cookieOptions);
         }
 
         public void DeleteCookie(string key) => _httpContextAccessor.HttpContext.Response.Cookies.Delete(key);

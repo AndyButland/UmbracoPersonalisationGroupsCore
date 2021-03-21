@@ -16,15 +16,15 @@
 
         public const string PersonalisationGroupDefinitionPropertyAlias = "definition";
 
-        public const string CommonAssemblyName = "Zone.UmbracoPersonalisationGroups.Common";
+        public const string CommonAssemblyName = "Our.Umbraco.PersonalisationGroups";
 
         public const string ResourceRoot = "/App_Plugins/UmbracoPersonalisationGroups/GetResource/";
 
-        public const string ResourceRootNameSpace = "Zone.UmbracoPersonalisationGroups.Common.PropertyEditors.";
+        public const string ResourceRootNameSpace = "Our.Umbraco.PersonalisationGroups.PropertyEditors.";
 
         public const string ResourceForCriteriaRoot = "/App_Plugins/UmbracoPersonalisationGroups/GetResourceForCriteria/";
 
-        public const string ResourceForCriteriaRootNameSpace = "Zone.UmbracoPersonalisationGroups.Common.Criteria.";
+        public const string ResourceForCriteriaRootNameSpace = "Our.Umbraco.PersonalisationGroups.Criteria.";
 
         public const string ResourceExtension = ".umb";
 

@@ -1,0 +1,33 @@
+﻿<div class="umb-panel" ng-controller="UmbracoPersonalisationGroups.AuthenticationStatusPersonalisationGroupCriteriaController">
+
+    <div class="umb-panel-body no-header with-footer compact" style="padding-left: 16px; padding-right: 16px">
+
+        <p>Please enter the authentication status settings:</p>
+
+        <umb-pane>
+            <table class="table">
+                <tr>
+                    <td><label class="control-label" for="isAuthenticated">Is logged in?</label></td>
+                    <td>
+                        <input type="checkbox" ng-model="renderModel.isAuthenticated" value="true"/>
+                    </td>
+                </tr>
+            </table>
+        </umb-pane>
+    </div>
+
+    <div class="umb-panel-footer">
+        <div class="umb-el-wrap umb-panel-buttons">
+            <div class="btn-toolbar umb-btn-toolbar pull-right">
+                <a href ng-click="close()" class="btn btn-link">
+                    <localize key="general_cancel">Cancel</localize>
+                </a>
+
+                <a href ng-click="saveAndClose()" class="btn btn-primary">
+                    <localize key="buttons_save">Save</localize>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+

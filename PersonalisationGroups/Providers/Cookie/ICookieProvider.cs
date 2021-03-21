@@ -6,7 +6,7 @@
 
         string GetCookieValue(string key);
 
-        void SetCookie(string key, string value);
+        void SetCookie(string key, string value, System.DateTime? expires = null, bool httpOnly = true);
 
         void DeleteCookie(string key);
     }

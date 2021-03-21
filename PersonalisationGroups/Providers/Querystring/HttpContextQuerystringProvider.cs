@@ -11,9 +11,9 @@ namespace Our.Umbraco.PersonalisationGroups.Providers.Querystring
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public QueryString GetQuerystring()
+        public IQueryCollection GetQuerystring()
         {
-            return _httpContextAccessor.HttpContext.Request.QueryString;
+            return _httpContextAccessor.HttpContext.Request.Query;
         }
     }
 }

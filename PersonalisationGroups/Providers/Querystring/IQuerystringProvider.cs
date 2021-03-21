@@ -4,6 +4,6 @@ namespace Our.Umbraco.PersonalisationGroups.Providers.Querystring
 {
     public interface IQuerystringProvider
     {
-        QueryString GetQuerystring();
+        IQueryCollection GetQuerystring();
     }
 }

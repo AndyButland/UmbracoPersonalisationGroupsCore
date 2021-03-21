@@ -12,20 +12,117 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Criteria\AuthenticationStatus\definition.editor.controller.js" />
+    <None Remove="Criteria\AuthenticationStatus\definition.editor.html" />
+    <None Remove="Criteria\AuthenticationStatus\definition.translator.js" />
+    <None Remove="Criteria\Continent\definition.editor.controller.js" />
+    <None Remove="Criteria\Continent\definition.editor.html" />
+    <None Remove="Criteria\Continent\definition.translator.js" />
+    <None Remove="Criteria\Cookie\definition.editor.controller.js" />
+    <None Remove="Criteria\Cookie\definition.editor.html" />
+    <None Remove="Criteria\Cookie\definition.translator.js" />
+    <None Remove="Criteria\Country\definition.editor.controller.js" />
+    <None Remove="Criteria\Country\definition.editor.html" />
+    <None Remove="Criteria\Country\definition.translator.js" />
+    <None Remove="Criteria\Country\geolocation.service.js" />
     <None Remove="Criteria\DayOfWeek\definition.editor.controller.js" />
     <None Remove="Criteria\DayOfWeek\definition.editor.html" />
     <None Remove="Criteria\DayOfWeek\definition.translator.js" />
+    <None Remove="Criteria\Host\definition.editor.controller.js" />
+    <None Remove="Criteria\Host\definition.editor.html" />
+    <None Remove="Criteria\Host\definition.translator.js" />
+    <None Remove="Criteria\MemberGroup\definition.editor.controller.js" />
+    <None Remove="Criteria\MemberGroup\definition.editor.html" />
+    <None Remove="Criteria\MemberGroup\definition.translator.js" />
+    <None Remove="Criteria\MemberProfileField\definition.editor.controller.js" />
+    <None Remove="Criteria\MemberProfileField\definition.editor.html" />
+    <None Remove="Criteria\MemberProfileField\definition.translator.js" />
+    <None Remove="Criteria\MemberType\definition.editor.controller.js" />
+    <None Remove="Criteria\MemberType\definition.editor.html" />
+    <None Remove="Criteria\MemberType\definition.translator.js" />
+    <None Remove="Criteria\MonthOfYear\definition.editor.controller.js" />
+    <None Remove="Criteria\MonthOfYear\definition.editor.html" />
+    <None Remove="Criteria\MonthOfYear\definition.translator.js" />
+    <None Remove="Criteria\NumberOfVisits\definition.editor.controller.js" />
+    <None Remove="Criteria\NumberOfVisits\definition.editor.html" />
+    <None Remove="Criteria\NumberOfVisits\definition.translator.js" />
+    <None Remove="Criteria\PagesViewed\definition.editor.controller.js" />
+    <None Remove="Criteria\PagesViewed\definition.editor.html" />
+    <None Remove="Criteria\PagesViewed\definition.translator.js" />
+    <None Remove="Criteria\Querystring\definition.editor.controller.js" />
+    <None Remove="Criteria\Querystring\definition.editor.html" />
+    <None Remove="Criteria\Querystring\definition.translator.js" />
+    <None Remove="Criteria\Referral\definition.editor.controller.js" />
+    <None Remove="Criteria\Referral\definition.editor.html" />
+    <None Remove="Criteria\Referral\definition.translator.js" />
+    <None Remove="Criteria\Region\definition.editor.controller.js" />
+    <None Remove="Criteria\Region\definition.editor.html" />
+    <None Remove="Criteria\Region\definition.translator.js" />
+    <None Remove="Criteria\Session\definition.editor.controller.js" />
+    <None Remove="Criteria\Session\definition.editor.html" />
+    <None Remove="Criteria\Session\definition.translator.js" />
+    <None Remove="Criteria\TimeOfDay\definition.editor.controller.js" />
+    <None Remove="Criteria\TimeOfDay\definition.editor.html" />
+    <None Remove="Criteria\TimeOfDay\definition.translator.js" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Criteria\AuthenticationStatus\definition.editor.controller.js" />
+    <EmbeddedResource Include="Criteria\AuthenticationStatus\definition.editor.html" />
+    <EmbeddedResource Include="Criteria\AuthenticationStatus\definition.translator.js" />
+    <EmbeddedResource Include="Criteria\Continent\definition.editor.controller.js" />
+    <EmbeddedResource Include="Criteria\Continent\definition.editor.html" />
+    <EmbeddedResource Include="Criteria\Continent\definition.translator.js" />
+    <EmbeddedResource Include="Criteria\Cookie\definition.editor.controller.js" />
+    <EmbeddedResource Include="Criteria\Cookie\definition.editor.html" />
+    <EmbeddedResource Include="Criteria\Cookie\definition.translator.js" />
+    <EmbeddedResource Include="Criteria\Country\definition.editor.controller.js" />
+    <EmbeddedResource Include="Criteria\Country\definition.editor.html" />
+    <EmbeddedResource Include="Criteria\Country\definition.translator.js" />
+    <EmbeddedResource Include="Criteria\Country\geolocation.service.js" />
     <EmbeddedResource Include="Criteria\DayOfWeek\definition.editor.controller.js" />
     <EmbeddedResource Include="Criteria\DayOfWeek\definition.editor.html" />
     <EmbeddedResource Include="Criteria\DayOfWeek\definition.translator.js" />
+    <EmbeddedResource Include="Criteria\Host\definition.editor.controller.js" />
+    <EmbeddedResource Include="Criteria\Host\definition.editor.html" />
+    <EmbeddedResource Include="Criteria\Host\definition.translator.js" />
+    <EmbeddedResource Include="Criteria\MemberGroup\definition.editor.controller.js" />
+    <EmbeddedResource Include="Criteria\MemberGroup\definition.editor.html" />
+    <EmbeddedResource Include="Criteria\MemberGroup\definition.translator.js" />
+    <EmbeddedResource Include="Criteria\MemberProfileField\definition.editor.controller.js" />
+    <EmbeddedResource Include="Criteria\MemberProfileField\definition.editor.html" />
+    <EmbeddedResource Include="Criteria\MemberProfileField\definition.translator.js" />
+    <EmbeddedResource Include="Criteria\MemberType\definition.editor.controller.js" />
+    <EmbeddedResource Include="Criteria\MemberType\definition.editor.html" />
+    <EmbeddedResource Include="Criteria\MemberType\definition.translator.js" />
+    <EmbeddedResource Include="Criteria\MonthOfYear\definition.editor.controller.js" />
+    <EmbeddedResource Include="Criteria\MonthOfYear\definition.editor.html" />
+    <EmbeddedResource Include="Criteria\MonthOfYear\definition.translator.js" />
+    <EmbeddedResource Include="Criteria\NumberOfVisits\definition.editor.controller.js" />
+    <EmbeddedResource Include="Criteria\NumberOfVisits\definition.editor.html" />
+    <EmbeddedResource Include="Criteria\NumberOfVisits\definition.translator.js" />
+    <EmbeddedResource Include="Criteria\PagesViewed\definition.editor.controller.js" />
+    <EmbeddedResource Include="Criteria\PagesViewed\definition.editor.html" />
+    <EmbeddedResource Include="Criteria\PagesViewed\definition.translator.js" />
+    <EmbeddedResource Include="Criteria\Querystring\definition.editor.controller.js" />
+    <EmbeddedResource Include="Criteria\Querystring\definition.editor.html" />
+    <EmbeddedResource Include="Criteria\Querystring\definition.translator.js" />
+    <EmbeddedResource Include="Criteria\Referral\definition.editor.controller.js" />
+    <EmbeddedResource Include="Criteria\Referral\definition.editor.html" />
+    <EmbeddedResource Include="Criteria\Referral\definition.translator.js" />
+    <EmbeddedResource Include="Criteria\Region\definition.editor.controller.js" />
+    <EmbeddedResource Include="Criteria\Region\definition.editor.html" />
+    <EmbeddedResource Include="Criteria\Region\definition.translator.js" />
+    <EmbeddedResource Include="Criteria\Session\definition.editor.controller.js" />
+    <EmbeddedResource Include="Criteria\Session\definition.editor.html" />
+    <EmbeddedResource Include="Criteria\Session\definition.translator.js" />
+    <EmbeddedResource Include="Criteria\TimeOfDay\definition.editor.controller.js" />
+    <EmbeddedResource Include="Criteria\TimeOfDay\definition.editor.html" />
+    <EmbeddedResource Include="Criteria\TimeOfDay\definition.translator.js" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MaxMind.GeoIP2" Version="4.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Umbraco.Cms.Core" Version="9.0.0-beta001.20210222.10" />
