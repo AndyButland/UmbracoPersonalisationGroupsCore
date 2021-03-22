@@ -46,15 +46,17 @@ namespace Our.Umbraco.PersonalisationGroups.Providers.Ip
                 return false;
             }
 
-            // We might not have a single IP here, so we should check for multiple strings in our StringValues value.
-            // The originating value (the client IP) is the first one.
-            ip = RemovePortNumberFromIp(value.First());
+            // We might not have a single IP here, as it's possible if the request has passed through multiple proxies, there will be 
+            // additional ones in the header
+            // If so, the original requesting IP is the first one in a comma+space delimited list
+            value = value.ToString().Split(new[] { ", " }, StringSplitOptions.None).First();
+            ip = RemovePortNumberFromIp(value);
 
             // Finally, ensure we have a valid IP.
             return IsValidIp(ip);
         }
 
-        private string RemovePortNumberFromIp(string ip)
+        private static string RemovePortNumberFromIp(string ip)
         {
             if (ip.Contains(":"))
             {

@@ -42,7 +42,7 @@ namespace Our.Umbraco.PersonalisationGroups.Configuration
 
         public CountryCodeProvider CountryCodeProvider { get; }
 
-        public string CdnCountryCodeHttpHeaderName { get; }
+        public string CdnCountryCodeHttpHeaderName { get; } = AppConstants.DefaultCdnCountryCodeHttpHeaderName;
 
         public bool DisableHttpContextItemsUseInCookieOperations { get; }
     }

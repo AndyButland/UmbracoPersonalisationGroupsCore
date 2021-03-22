@@ -23,26 +23,10 @@ namespace Our.Umbraco.PersonalisationGroups.Providers.PagesViewed
 
             if (!string.IsNullOrEmpty(cookieValue))
             {
-                return ParseCookieValue(cookieValue);
+                return cookieValue.ParsePageIds();
             }
 
             return Enumerable.Empty<int>();
-        }
-
-        public static List<int> ParseCookieValue(string cookieValue)
-        {
-            return cookieValue
-                .Split(',')
-                .Aggregate(new List<int>(),
-                            (result, value) =>
-                            {
-                                if (int.TryParse(value, out var item))
-                                {
-                                    result.Add(item);
-                                }
-
-                                return result;
-                            });
         }
     }
 }

@@ -64,6 +64,11 @@
     <None Remove="Criteria\TimeOfDay\definition.editor.controller.js" />
     <None Remove="Criteria\TimeOfDay\definition.editor.html" />
     <None Remove="Criteria\TimeOfDay\definition.translator.js" />
+    <None Remove="Data\continents.txt" />
+    <None Remove="Data\countries.txt" />
+    <None Remove="Data\regions.txt" />
+    <None Remove="PropertyEditors\property.editor.controller.js" />
+    <None Remove="PropertyEditors\property.editor.html" />
   </ItemGroup>
 
   <ItemGroup>
@@ -119,6 +124,11 @@
     <EmbeddedResource Include="Criteria\TimeOfDay\definition.editor.controller.js" />
     <EmbeddedResource Include="Criteria\TimeOfDay\definition.editor.html" />
     <EmbeddedResource Include="Criteria\TimeOfDay\definition.translator.js" />
+    <EmbeddedResource Include="Data\continents.txt" />
+    <EmbeddedResource Include="Data\countries.txt" />
+    <EmbeddedResource Include="Data\regions.txt" />
+    <EmbeddedResource Include="PropertyEditors\property.editor.controller.js" />
+    <EmbeddedResource Include="PropertyEditors\property.editor.html" />
   </ItemGroup>
 
   <ItemGroup>
@@ -127,7 +137,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Attributes\" />
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>PersonalisationGroups.Tests</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
 
 </Project>

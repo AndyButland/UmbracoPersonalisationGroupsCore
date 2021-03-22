@@ -7,11 +7,11 @@ namespace Our.Umbraco.PersonalisationGroups.Criteria.MemberProfileField
     /// <summary>
     /// Implements a personalisation group criteria based on the presence, absence or value of a session key
     /// </summary>
-    public abstract class MemberProfileFieldPersonalisationGroupCriteriaBase : PersonalisationGroupCriteriaBase
+    public class MemberProfileFieldPersonalisationGroupCriteria : PersonalisationGroupCriteriaBase
     {
         private readonly IMemberProfileFieldProvider _memberProfileFieldProvider;
 
-        protected MemberProfileFieldPersonalisationGroupCriteriaBase(IMemberProfileFieldProvider memberProfileFieldProvider)
+        public MemberProfileFieldPersonalisationGroupCriteria(IMemberProfileFieldProvider memberProfileFieldProvider)
         {
             _memberProfileFieldProvider = memberProfileFieldProvider;
         }

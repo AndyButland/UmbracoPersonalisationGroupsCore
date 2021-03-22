@@ -1,10 +1,11 @@
 using Microsoft.Extensions.Options;
 using Our.Umbraco.PersonalisationGroups.Configuration;
+using Our.Umbraco.PersonalisationGroups.Criteria.PagesViewed;
 using Our.Umbraco.PersonalisationGroups.Providers.Cookie;
 using Our.Umbraco.PersonalisationGroups.Providers.DateTime;
 using Our.Umbraco.PersonalisationGroups.Providers.PagesViewed;
 
-namespace Our.Umbraco.PersonalisationGroups.Criteria.PagesViewed
+namespace Our.Umbraco.PersonalisationGroups.Services
 {
     public class UserActivityTracker : IUserActivityTracker
     {
@@ -36,9 +37,9 @@ namespace Our.Umbraco.PersonalisationGroups.Criteria.PagesViewed
             _cookieProvider.SetCookie(key, value, expires);
         }
 
-        internal string AppendPageIdIfNotPreviouslyViewed(string viewedPageIds, int pageId)
+        internal static string AppendPageIdIfNotPreviouslyViewed(string viewedPageIds, int pageId)
         {
-            var ids = CookiePagesViewedProvider.ParseCookieValue(viewedPageIds);
+            var ids = viewedPageIds.ParsePageIds();
 
             if (!ids.Contains(pageId))
             {
