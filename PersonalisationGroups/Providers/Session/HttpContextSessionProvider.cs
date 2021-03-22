@@ -1,18 +1,18 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Umbraco.Cms.Core.Web;
 
 namespace Our.Umbraco.PersonalisationGroups.Providers.Session
 {
     public class HttpContextSessionProvider : ISessionProvider
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ISessionManager _sessionManager;
 
-        public HttpContextSessionProvider(IHttpContextAccessor httpContextAccessor)
+        public HttpContextSessionProvider(ISessionManager sessionManager)
         {
-            _httpContextAccessor = httpContextAccessor;
+            _sessionManager = sessionManager;
         }
 
-        public bool KeyExists(string key) => _httpContextAccessor.HttpContext.Session?.GetString(key) != null;
+        public bool KeyExists(string key) => _sessionManager.GetSessionValue(key) != null;
 
-        public string GetValue(string key) => _httpContextAccessor.HttpContext.Session?.GetString(key)?.ToString() ?? string.Empty;
+        public string GetValue(string key) => _sessionManager.GetSessionValue(key)?.ToString() ?? string.Empty;
     }
 }

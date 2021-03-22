@@ -1,11 +1,11 @@
 ﻿using MaxMind.GeoIP2;
 using MaxMind.GeoIP2.Exceptions;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using Our.Umbraco.PersonalisationGroups.Configuration;
 using System.IO;
 using System.Linq;
 using Umbraco.Cms.Core.Cache;
+using Umbraco.Cms.Core.Hosting;
 
 namespace Our.Umbraco.PersonalisationGroups.Providers.GeoLocation
 {
@@ -17,8 +17,8 @@ namespace Our.Umbraco.PersonalisationGroups.Providers.GeoLocation
 
         public MaxMindGeoLocationProvider(IOptions<PersonalisationGroupsConfig> config, IHostingEnvironment hostingEnvironment, IAppPolicyCache runtimeCache)
         {
-            _pathToCountryDb = Path.Combine(hostingEnvironment.WebRootPath, config.Value.GeoLocationCountryDatabasePath);
-            _pathToCityDb = Path.Combine(hostingEnvironment.WebRootPath, config.Value.GeoLocationCityDatabasePath);
+            _pathToCountryDb = hostingEnvironment.MapPathWebRoot(config.Value.GeoLocationCountryDatabasePath);
+            _pathToCityDb = hostingEnvironment.MapPathWebRoot(config.Value.GeoLocationCityDatabasePath);
             _runtimeCache = runtimeCache;
         }
 

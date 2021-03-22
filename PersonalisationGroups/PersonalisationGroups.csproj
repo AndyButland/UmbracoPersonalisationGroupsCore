@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <RootNamespace>Our.Umbraco.PersonalisationGroups</RootNamespace>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -123,9 +123,7 @@
 
   <ItemGroup>
     <PackageReference Include="MaxMind.GeoIP2" Version="4.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
-    <PackageReference Include="Umbraco.Cms.Core" Version="9.0.0-beta001.20210222.10" />
+    <PackageReference Include="Umbraco.Cms.Web.Common" Version="9.0.0-alpha004.20210311.16" />
   </ItemGroup>
 
   <ItemGroup>
