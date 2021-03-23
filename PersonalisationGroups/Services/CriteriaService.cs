@@ -43,52 +43,6 @@ namespace Our.Umbraco.PersonalisationGroups.Services
         }
 
         /// <summary>
-        /// Gets a count of the number of the definition details for a given personalisation group definition that matches
-        /// the current site visitor
-        /// </summary>
-        /// <param name="definition">Personalisation group definition</param>
-        /// <returns>Number of definition details that match</returns>
-        public int CountMatchingDefinitionDetails(PersonalisationGroupDefinition definition)
-        {
-            var matchCount = 0;
-            foreach (var detail in definition.Details)
-            {
-                var isMatch = IsMatch(detail);
-                if (isMatch)
-                {
-                    matchCount++;
-                }
-
-                // We can short-cut here if matching any and found one match, or matching all and found one mismatch
-                if ((isMatch && definition.Match == PersonalisationGroupDefinitionMatch.Any) ||
-                    (!isMatch && definition.Match == PersonalisationGroupDefinitionMatch.All))
-                {
-                    break;
-                }
-            }
-
-            return matchCount;
-        }
-
-        /// <summary>
-        /// Checks if a given detail record of a personalisation group definition matches the current site visitor
-        /// </summary>
-        /// <param name="definitionDetail">Personalisation group definition detail record</param>
-        /// <returns>True of the current site visitor matches the definition</returns>
-        public bool IsMatch(PersonalisationGroupDefinitionDetail definitionDetail)
-        {
-            try
-            {
-                var criteria = AvailableCriteria.Value[definitionDetail.Alias];
-                return criteria.MatchesVisitor(definitionDetail.Definition);
-            }
-            catch (KeyNotFoundException)
-            {
-                throw new KeyNotFoundException($"Personalisation group criteria not found with alias '{definitionDetail.Alias}'");
-            }
-        }
-
-        /// <summary>
         /// Helper to scan the loaded assemblies and retrieve the available personalisation group criteria (that implement the
         /// <see cref="IPersonalisationGroupCriteria"/> interface
         /// </summary>

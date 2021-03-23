@@ -5,31 +5,22 @@ namespace Our.Umbraco.PersonalisationGroups.Tests.TestHelpers
 {
     public static class Definitions
     {
-        public static PersonalisationGroupDefinitionDetail MatchingDayOfWeekDefinition()
+        public static PersonalisationGroupDefinitionDetail MatchingDayOfWeekDefinition() => new PersonalisationGroupDefinitionDetail
         {
-            return new PersonalisationGroupDefinitionDetail
-            {
-                Alias = "dayOfWeek",
-                Definition = $"[ {(int)DateTime.Now.DayOfWeek + 1} ]",
-            };
-        }
+            Alias = "dayOfWeek",
+            Definition = $"[ {(int)DateTime.Now.DayOfWeek + 1} ]",
+        };
 
-        public static PersonalisationGroupDefinitionDetail NonMatchingDayOfWeekDefinition()
+        public static PersonalisationGroupDefinitionDetail NonMatchingDayOfWeekDefinition() => new PersonalisationGroupDefinitionDetail
         {
-            return new PersonalisationGroupDefinitionDetail
-            {
-                Alias = "dayOfWeek",
-                Definition = $"[ {(int)DateTime.Now.DayOfWeek + 2} ]",
-            };
-        }
+            Alias = "dayOfWeek",
+            Definition = $"[ {(int)DateTime.Now.DayOfWeek + 2} ]",
+        };
 
-        public static PersonalisationGroupDefinitionDetail MatchingTimeOfDayDefinition()
+        public static PersonalisationGroupDefinitionDetail MatchingTimeOfDayDefinition() => new PersonalisationGroupDefinitionDetail
         {
-            return new PersonalisationGroupDefinitionDetail
-            {
-                Alias = "timeOfDay",
-                Definition = "[ { \"from\": \"0000\", \"to\": \"2359\" } ]"
-            };
-        }
+            Alias = "timeOfDay",
+            Definition = "[ { \"from\": \"0000\", \"to\": \"2359\" } ]"
+        };
     }
 }
