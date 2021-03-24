@@ -6,6 +6,8 @@ namespace Our.Umbraco.PersonalisationGroups.Services
 {
     public interface IGroupMatchingService
     {
+        IList<IPublishedContent> GetPickedGroups(IPublishedElement content);
+
         bool MatchGroup(IPublishedContent pickedGroup);
 
         bool MatchGroups(IList<IPublishedContent> pickedGroups);

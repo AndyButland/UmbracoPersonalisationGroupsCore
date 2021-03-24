@@ -4,46 +4,46 @@ namespace Our.Umbraco.PersonalisationGroups.Configuration
 {
     public class PersonalisationGroupsConfig
     {
-        public bool DisablePackage { get; set; }
+        public bool DisablePackage { get; set; } = false;
 
-        public string GroupPickerAlias { get; set; }
+        public string GroupPickerAlias { get; set; } = AppConstants.DefaultGroupPickerAlias;
 
-        public string GeoLocationCountryDatabasePath { get; set; }
+        public string GeoLocationCountryDatabasePath { get; set; } = AppConstants.DefaultGeoLocationCityDatabasePath;
 
-        public string GeoLocationCityDatabasePath { get; set; }
+        public string GeoLocationCityDatabasePath { get; set; } = AppConstants.DefaultGeoLocationCityDatabasePath;
 
-        public string GeoLocationRegionListPath { get; set; }
+        public string GeoLocationRegionListPath { get; set; } = string.Empty;
 
-        public string IncludeCriteria { get; set; }
+        public string IncludeCriteria { get; set; } = string.Empty;
 
-        public string ExcludeCriteria { get; set; }
+        public string ExcludeCriteria { get; set; } = string.Empty;
 
-        public int NumberOfVisitsTrackingCookieExpiryInDays { get; set; }
+        public int NumberOfVisitsTrackingCookieExpiryInDays { get; set; } = AppConstants.DefaultNumberOfVisitsTrackingCookieExpiryInDays;
 
-        public int ViewedPagesTrackingCookieExpiryInDays { get; set; }
+        public int ViewedPagesTrackingCookieExpiryInDays { get; set; } = AppConstants.DefaultViewedPagesTrackingCookieExpiryInDays;
 
-        public string CookieKeyForTrackingNumberOfVisits { get; set; }
+        public string CookieKeyForTrackingNumberOfVisits { get; set; } = AppConstants.DefaultCookieKeyForTrackingNumberOfVisits;
 
-        public string CookieKeyForTrackingIfSessionAlreadyTracked { get; set; }
+        public string CookieKeyForTrackingIfSessionAlreadyTracked { get; set; } = AppConstants.DefaultCookieKeyForTrackingIfSessionAlreadyTracked;
 
-        public string CookieKeyForTrackingPagesViewed { get; set; }
+        public string CookieKeyForTrackingPagesViewed { get; set; } = AppConstants.DefaultCookieKeyForTrackingPagesViewed;
 
-        public string CookieKeyForSessionMatchedGroups { get; set; }
+        public string CookieKeyForSessionMatchedGroups { get; set; } = AppConstants.DefaultCookieKeyForSessionMatchedGroups;
 
-        public string CookieKeyForPersistentMatchedGroups { get; set; }
+        public string CookieKeyForPersistentMatchedGroups { get; set; } = AppConstants.DefaultCookieKeyForPersistentMatchedGroups;
 
-        public string CookieKeyForTrackingCookiesDeclined { get; set; }
+        public string CookieKeyForTrackingCookiesDeclined { get; set; } = AppConstants.DefaultCookieKeyForTrackingCookiesDeclined;
 
-        public string SessionKeyForTrackingCookiesDeclined { get; set; }
+        public string SessionKeyForTrackingCookiesDeclined { get; set; } = AppConstants.DefaultSessionKeyForTrackingCookiesDeclined;
 
-        public int PersistentMatchedGroupsCookieExpiryInDays { get; set; }
+        public int PersistentMatchedGroupsCookieExpiryInDays { get; set; } = AppConstants.DefaultPersistentMatchedGroupsCookieExpiryInDays;
 
-        public string TestFixedIp { get; set; }
+        public string TestFixedIp { get; set; } = string.Empty;
 
-        public CountryCodeProvider CountryCodeProvider { get; set; }
+        public CountryCodeProvider CountryCodeProvider { get; set; } = CountryCodeProvider.MaxMindDatabase;
 
         public string CdnCountryCodeHttpHeaderName { get; set; } = AppConstants.DefaultCdnCountryCodeHttpHeaderName;
 
-        public bool DisableHttpContextItemsUseInCookieOperations { get; set; }
+        public bool DisableHttpContextItemsUseInCookieOperations { get; set; } = false;
     }
 }

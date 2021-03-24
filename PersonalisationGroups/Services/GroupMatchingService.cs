@@ -29,6 +29,29 @@ namespace Our.Umbraco.PersonalisationGroups.Services
             _publishedValueFallback = publishedValueFallback;
         }
 
+        /// <summary>
+        /// Gets the list of personalisation group content items associated with the current content item
+        /// </summary>
+        /// <param name="content">Instance of IPublished content</param>
+        /// <returns>List of personalisation group content items</returns>
+        public IList<IPublishedContent> GetPickedGroups(IPublishedElement content)
+        {
+            var propertyAlias = _config.GroupPickerAlias;
+            if (content.HasProperty(propertyAlias))
+            {
+                var rawValue = content.Value(propertyAlias);
+                switch (rawValue)
+                {
+                    case IEnumerable<IPublishedContent> list:
+                        return list.ToList();
+                    case IPublishedContent group:
+                        return new List<IPublishedContent> { group };
+                }
+            }
+
+            return new List<IPublishedContent>();
+        }
+
         public bool MatchGroup(IPublishedContent pickedGroup) => MatchGroups(new List<IPublishedContent> { pickedGroup });
 
         public bool MatchGroups(IList<IPublishedContent> pickedGroups)

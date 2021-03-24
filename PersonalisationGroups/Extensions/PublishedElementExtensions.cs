@@ -1,5 +1,4 @@
-﻿using Our.Umbraco.PersonalisationGroups;
-using Our.Umbraco.PersonalisationGroups.Services;
+﻿using Our.Umbraco.PersonalisationGroups.Services;
 using System.Collections.Generic;
 using System.Linq;
 using Umbraco.Cms.Core.Models.PublishedContent;
@@ -22,7 +21,7 @@ namespace Umbraco.Extensions
         /// <returns>True if content should be shown to visitor</returns>
         public static bool ShowToVisitor(this IPublishedElement content, IGroupMatchingService groupMatchingService, bool showIfNoGroupsDefined = true)
         {
-            var pickedGroups = GetPickedGroups(content);
+            var pickedGroups = groupMatchingService.GetPickedGroups(content);
             return ShowToVisitor(groupMatchingService, pickedGroups, showIfNoGroupsDefined);
         }
 
@@ -35,7 +34,7 @@ namespace Umbraco.Extensions
         /// <returns>True if content should be shown to visitor</returns>
         public static int ScoreForVisitor(this IPublishedElement content, IGroupMatchingService groupMatchingService)
         {
-            var pickedGroups = GetPickedGroups(content);
+            var pickedGroups = groupMatchingService.GetPickedGroups(content);
             return ScoreForVisitor(groupMatchingService, pickedGroups);
         }
 
@@ -101,29 +100,6 @@ namespace Umbraco.Extensions
             }
 
             return groupMatchingService.ScoreGroups(pickedGroups);
-        }
-
-        /// <summary>
-        /// Gets the list of personalisation group content items associated with the current content item
-        /// </summary>
-        /// <param name="content">Instance of IPublished content</param>
-        /// <param name="propertyAlias">Property alias for the group picker.</param>
-        /// <returns>List of personalisation group content items</returns>
-        private static IList<IPublishedContent> GetPickedGroups(IPublishedElement content, string propertyAlias = AppConstants.DefaultGroupPickerAlias)
-        {
-            if (content.HasProperty(propertyAlias))
-            {
-                var rawValue = content.Value(propertyAlias);
-                switch (rawValue)
-                {
-                    case IEnumerable<IPublishedContent> list:
-                        return list.ToList();
-                    case IPublishedContent group:
-                        return new List<IPublishedContent> { group };
-                }
-            }
-
-            return new List<IPublishedContent>();
         }
      }
 }

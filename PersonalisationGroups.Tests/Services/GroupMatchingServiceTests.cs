@@ -357,8 +357,5 @@ namespace Our.Umbraco.PersonalisationGroups.Tests.Services
 
             return mockContent.Object;
         }
-
-
-
     }
 }

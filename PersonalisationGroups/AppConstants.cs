@@ -118,5 +118,10 @@
         {
             public const string PersonalisationGroupsEnsureSession = "PersonalisationGroups.EnsureSession";
         }
+
+        public static class System
+        {
+            public const string MigrationPlanName = "UmbracoPersonalisationGroups";
+        }
     }
 }
