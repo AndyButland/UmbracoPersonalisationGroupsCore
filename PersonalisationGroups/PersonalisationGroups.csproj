@@ -133,7 +133,7 @@
 
   <ItemGroup>
     <PackageReference Include="MaxMind.GeoIP2" Version="4.0.1" />
-    <PackageReference Include="Umbraco.Cms.Web.Common" Version="9.0.0-alpha004.20210322.3" />
+    <PackageReference Include="Umbraco.Cms.Web.Common" Version="9.0.0-alpha004" />
   </ItemGroup>
 
   <ItemGroup>

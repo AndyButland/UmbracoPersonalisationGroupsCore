@@ -154,7 +154,7 @@ namespace Our.Umbraco.PersonalisationGroups.Migrations.V_3_0_0
                 _jsonSerializer);
             var dataType = new DataType(propertyEditor, _configurationEditorJsonSerializer)
             {
-                Name = "Personalisation Group Definition",
+                Name = "Personalisation Group Picker",
                 Configuration = new MultiNodePickerConfiguration
                 {
                     TreeSource = new MultiNodePickerConfigurationTreeSource
