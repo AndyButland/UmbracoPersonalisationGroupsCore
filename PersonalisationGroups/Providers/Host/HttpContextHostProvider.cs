@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Our.Umbraco.PersonalisationGroups.Providers.Host;
 
-namespace Our.Umbraco.PersonalisationGroups.Criteria.Host
+namespace Our.Umbraco.PersonalisationGroups.Providers.Host
 {
     public class HttpContextHostProvider : IHostProvider
     {

@@ -64,22 +64,16 @@ namespace Our.Umbraco.PersonalisationGroups.Migrations.V_3_0_0
         /// <inheritdoc/>
         public override void Migrate()
         {
-            _logger.LogDebug("Creating schema for package Personalisation Groups");
+            _logger.LogInformation("Creating schema for package Personalisation Groups");
 
-            if (_dataTypeService.GetByEditorAlias("personalisationGroupDefinition").Any())
-            {
-                // Migration has already run, so exit.
-                return;
-            }
-
-            var definitionDataType = CreateDefinitionDataType();
-            var groupContentType = CreateGroupContentType(definitionDataType);
-            var folderContentType = CreateFolderContentType(groupContentType);
-            var rootContentFolder = CreateRootContentFolder(folderContentType);
-            CreatePickerDataType(rootContentFolder);
+            var definitionDataType = EnsureDefinitionDataType();
+            var groupContentType = EnsureGroupContentType(definitionDataType);
+            var folderContentType = EnsureFolderContentType(groupContentType);
+            var rootContentFolder = EnsureRootContentFolder(folderContentType);
+            EnsurePickerDataType(rootContentFolder);
         }
 
-        private IDataType CreateDefinitionDataType()
+        private IDataType EnsureDefinitionDataType()
         {
             var propertyEditor = new PersonalisationGroupDefinitionPropertyEditor(
                 _loggerFactory,
@@ -88,20 +82,37 @@ namespace Our.Umbraco.PersonalisationGroups.Migrations.V_3_0_0
                 _localizedTextService,
                 _shortStringHelper,
                 _jsonSerializer);
-            var dataType = new DataType(propertyEditor, _configurationEditorJsonSerializer)
+
+            var dataType = _dataTypeService.GetByEditorAlias(propertyEditor.Alias).FirstOrDefault();
+            if (dataType != null)
+            {
+                return dataType;
+            }
+            
+            dataType = new DataType(propertyEditor, _configurationEditorJsonSerializer)
             {
                 Name = "Personalisation Group Definition",
             };
             _dataTypeService.Save(dataType);
+
+            _logger.LogInformation("Personalisation Groups: created definintion data type");
+
             return dataType;
         }
 
-        private IContentType CreateGroupContentType(IDataType definitionDataType)
+        private IContentType EnsureGroupContentType(IDataType definitionDataType)
         {
-            var contentType = new ContentType(_shortStringHelper, -1)
+            const string alias = "personalisationGroup";
+            var contentType = _contentTypeService.Get(alias);
+            if (contentType != null)
+            {
+                return contentType;
+            }
+
+            contentType = new ContentType(_shortStringHelper, -1)
             {
                 Name = "Personalisation Group",
-                Alias = "personalisationGroup",
+                Alias = alias,
                 Icon = "icon-operator color-green",
                 Thumbnail = "folder.png",
             };
@@ -117,12 +128,22 @@ namespace Our.Umbraco.PersonalisationGroups.Migrations.V_3_0_0
 
             contentType.PropertyGroups.Add(new PropertyGroup(new PropertyTypeCollection(false, properties)) { Name = "Settings" });
             _contentTypeService.Save(contentType);
+
+            _logger.LogInformation("Personalisation Groups: created group content type");
+
             return contentType;
         }
 
-        private IContentType CreateFolderContentType(IContentType groupContentType)
+        private IContentType EnsureFolderContentType(IContentType groupContentType)
         {
-            var contentType = new ContentType(_shortStringHelper, -1)
+            const string alias = "personalisationGroupsFolder";
+            var contentType = _contentTypeService.Get(alias);
+            if (contentType != null)
+            {
+                return contentType;
+            }
+
+            contentType = new ContentType(_shortStringHelper, -1)
             {
                 Name = "Personalisation Groups Folder",
                 Alias = "personalisationGroupsFolder",
@@ -131,19 +152,36 @@ namespace Our.Umbraco.PersonalisationGroups.Migrations.V_3_0_0
                 AllowedAsRoot = true,
             };
             contentType.AllowedContentTypes = new List<ContentTypeSort> { new ContentTypeSort(groupContentType.Id, 1) };
+
             _contentTypeService.Save(contentType);
+
+            _logger.LogInformation("Personalisation Groups: created folder content type");
+
             return contentType;
         }
 
-        private IContent CreateRootContentFolder(IContentType folderContentType)
+        private IContent EnsureRootContentFolder(IContentType folderContentType)
         {
-            var content = _contentService.Create("Personalisation Groups", -1, folderContentType.Alias);
-            _contentService.SaveAndPublish(content);
+            const string name = "Personalisation Groups";
+            var content = _contentService.GetRootContent().FirstOrDefault(x => x.Name == name);
+            if (content != null)
+            {
+                return content;
+            }
+
+            content = _contentService.Create("Personalisation Groups", -1, folderContentType.Alias);
+
+            // Can't SaveAndPublish here as get error.
+            _contentService.Save(content, raiseEvents: false);
+
+            _logger.LogInformation("Personalisation Groups: created root content folder");
+
             return content;
         }
 
-        private void CreatePickerDataType(IContent rootContentFolder)
+        private void EnsurePickerDataType(IContent rootContentFolder)
         {
+            const string name = "Personalisation Group Picker";
             var propertyEditor = new MultiNodeTreePickerPropertyEditor(
                 _loggerFactory,
                 _dataTypeService,
@@ -152,20 +190,28 @@ namespace Our.Umbraco.PersonalisationGroups.Migrations.V_3_0_0
                 _ioHelper,
                 _shortStringHelper,
                 _jsonSerializer);
-            var dataType = new DataType(propertyEditor, _configurationEditorJsonSerializer)
+            var dataType = _dataTypeService.GetByEditorAlias(propertyEditor.Alias).FirstOrDefault(x => x.Name == name);
+            if (dataType != null)
             {
-                Name = "Personalisation Group Picker",
+                return;
+            }
+
+            dataType = new DataType(propertyEditor, _configurationEditorJsonSerializer)
+            {
+                Name = name,
                 Configuration = new MultiNodePickerConfiguration
                 {
                     TreeSource = new MultiNodePickerConfigurationTreeSource
                     {
-                        ObjectType = Constants.ObjectTypes.ContentItem.ToString(),
+                        ObjectType = "content",
                         StartNodeId = Udi.Create("document", rootContentFolder.Key),
                     },
                     Filter = "personalisationGroup",
                 }
             };
             _dataTypeService.Save(dataType);
+
+            _logger.LogInformation("Personalisation Groups: created picker data type");
         }
     }
 }

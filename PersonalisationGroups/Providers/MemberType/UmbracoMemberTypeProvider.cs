@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Our.Umbraco.PersonalisationGroups.Providers.MemberType;
 
-namespace Our.Umbraco.PersonalisationGroups.Criteria.MemberType
+namespace Our.Umbraco.PersonalisationGroups.Providers.MemberType
 {
     public class UmbracoMemberTypeProvider : IMemberTypeProvider
     {

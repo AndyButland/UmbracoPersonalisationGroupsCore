@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Our.Umbraco.PersonalisationGroups.Providers.MemberProfileField;
 
-namespace Our.Umbraco.PersonalisationGroups.Criteria.MemberProfileField
+namespace Our.Umbraco.PersonalisationGroups.Providers.MemberProfileField
 {
     public class UmbracoMemberProfileFieldProvider : IMemberProfileFieldProvider
     {
@@ -15,7 +14,7 @@ namespace Our.Umbraco.PersonalisationGroups.Criteria.MemberProfileField
         public string GetMemberProfileFieldValue(string alias)
         {
             return _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated
-                ? GetAuthenticatedMemberProfileFieldValue(alias) 
+                ? GetAuthenticatedMemberProfileFieldValue(alias)
                 : string.Empty;
         }
 
