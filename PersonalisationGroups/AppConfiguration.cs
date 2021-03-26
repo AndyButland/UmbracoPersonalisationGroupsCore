@@ -26,32 +26,20 @@ namespace Our.Umbraco.PersonalisationGroups
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "Criteria resources",
-                    pattern: "App_Plugins/UmbracoPersonalisationGroups/GetResourceForCriteria/{criteriaAlias}/{fileName}",
-                    defaults: new { controller = "Resource", action = "GetResourceForCriteria" }
-                    //namespaces: new[] { controllersNamespace }
-                    );
-                endpoints.MapControllerRoute(
-                    name: "Core resources",
-                    pattern: "App_Plugins/UmbracoPersonalisationGroups/GetResource/{fileName}",
-                    defaults: new { controller = "Resource", action = "GetResource" }
-                    //namespaces: new[] { controllersNamespace }
-                    );
-                endpoints.MapControllerRoute(
                     name: "Criteria methods",
-                    pattern: "App_Plugins/UmbracoPersonalisationGroups/Criteria/{action}",
+                    pattern: "App_Plugins/PersonalisationGroups/Criteria/{action}",
                     defaults: new { controller = "Criteria", action = "Index" }
                     //namespaces: new[] { controllersNamespace }
                     );
                 endpoints.MapControllerRoute(
                     name: "Geo location methods",
-                    pattern: "App_Plugins/UmbracoPersonalisationGroups/GeoLocation/{action}",
+                    pattern: "App_Plugins/PersonalisationGroups/GeoLocation/{action}",
                     defaults: new { controller = "GeoLocation", action = "Index" }
                     //namespaces: new[] { controllersNamespace }
                     );
                 endpoints.MapControllerRoute(
                     name: "Member methods",
-                    pattern: "App_Plugins/UmbracoPersonalisationGroups/Member/{action}",
+                    pattern: "App_Plugins/PersonalisationGroups/Member/{action}",
                     defaults: new { controller = "Member", action = "Index" }
                     //namespaces: new[] { controllersNamespace }
                     );

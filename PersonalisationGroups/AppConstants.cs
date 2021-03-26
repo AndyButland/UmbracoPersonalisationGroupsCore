@@ -18,16 +18,6 @@
 
         public const string CommonAssemblyName = "Our.Umbraco.PersonalisationGroups";
 
-        public const string ResourceRoot = "/App_Plugins/UmbracoPersonalisationGroups/GetResource/";
-
-        public const string ResourceRootNameSpace = "Our.Umbraco.PersonalisationGroups.PropertyEditors.";
-
-        public const string ResourceForCriteriaRoot = "/App_Plugins/UmbracoPersonalisationGroups/GetResourceForCriteria/";
-
-        public const string ResourceForCriteriaRootNameSpace = "Our.Umbraco.PersonalisationGroups.Criteria.";
-
-        public const string ResourceExtension = ".umb";
-
         public const string DefaultGeoLocationCountryDatabasePath = "/App_Data/GeoLite2-Country.mmdb";
 
         public const string DefaultGeoLocationCityDatabasePath = "/App_Data/GeoLite2-City.mmdb";
@@ -121,7 +111,7 @@
 
         public static class System
         {
-            public const string MigrationPlanName = "UmbracoPersonalisationGroups";
+            public const string MigrationPlanName = "PersonalisationGroups";
         }
     }
 }

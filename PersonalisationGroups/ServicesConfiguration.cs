@@ -17,7 +17,6 @@ using Our.Umbraco.PersonalisationGroups.Providers.Referrer;
 using Our.Umbraco.PersonalisationGroups.Providers.RequestHeaders;
 using Our.Umbraco.PersonalisationGroups.Providers.Session;
 using Our.Umbraco.PersonalisationGroups.Services;
-using System.Linq;
 using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Extensions;
 
@@ -34,10 +33,6 @@ namespace Our.Umbraco.PersonalisationGroups
 
             AddProviders(builder.Services, configSection);
 
-            // Temporary due to error with Smidge
-            var serviceDescriptor = builder.Services.FirstOrDefault(descriptor => descriptor.ServiceType == typeof(Smidge.ISmidgeFileProvider));
-            builder.Services.Remove(serviceDescriptor);
-
             return builder;
         }
 
@@ -51,7 +46,6 @@ namespace Our.Umbraco.PersonalisationGroups
             services.AddUnique<ICriteriaService, CriteriaService>();
             services.AddUnique<IGroupMatchingService, GroupMatchingService>();
             services.AddUnique<IStickyMatchService, StickyMatchService>();
-            services.AddUnique<IEmbeddedResourceService, EmbeddedResourceService>();
         }
 
         private static void AddProviders(IServiceCollection services, IConfigurationSection configSection)

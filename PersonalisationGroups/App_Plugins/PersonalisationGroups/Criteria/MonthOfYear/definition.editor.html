@@ -1,0 +1,39 @@
+﻿<div class="umb-panel" ng-controller="PersonalisationGroups.MonthOfYearPersonalisationGroupCriteriaController">
+
+    <div class="umb-panel-body no-header with-footer compact" style="padding-left: 16px; padding-right: 16px">
+
+        <p>Please select the days for which this group will be valid:</p>
+
+        <umb-pane>
+            <table>
+                <tr><td style="padding-right: 10px; padding-top: 5px;">January: </td><td><input type="checkbox" ng-model="renderModel.months[0]" /></td></tr>
+                <tr><td style="padding-right: 10px; padding-top: 5px;">February: </td><td><input type="checkbox" ng-model="renderModel.months[1]" /></td></tr>
+                <tr><td style="padding-right: 10px; padding-top: 5px;">March: </td><td><input type="checkbox" ng-model="renderModel.months[2]" /></td></tr>
+                <tr><td style="padding-right: 10px; padding-top: 5px;">April: </td><td><input type="checkbox" ng-model="renderModel.months[3]" /></td></tr>
+                <tr><td style="padding-right: 10px; padding-top: 5px;">May: </td><td><input type="checkbox" ng-model="renderModel.months[4]" /></td></tr>
+                <tr><td style="padding-right: 10px; padding-top: 5px;">June: </td><td><input type="checkbox" ng-model="renderModel.months[5]" /></td></tr>
+                <tr><td style="padding-right: 10px; padding-top: 5px;">July: </td><td><input type="checkbox" ng-model="renderModel.months[6]" /></td></tr>
+                <tr><td style="padding-right: 10px; padding-top: 5px;">August: </td><td><input type="checkbox" ng-model="renderModel.months[7]" /></td></tr>
+                <tr><td style="padding-right: 10px; padding-top: 5px;">September: </td><td><input type="checkbox" ng-model="renderModel.months[8]" /></td></tr>
+                <tr><td style="padding-right: 10px; padding-top: 5px;">October: </td><td><input type="checkbox" ng-model="renderModel.months[9]" /></td></tr>
+                <tr><td style="padding-right: 10px; padding-top: 5px;">November: </td><td><input type="checkbox" ng-model="renderModel.months[10]" /></td></tr>
+                <tr><td style="padding-right: 10px; padding-top: 5px;">December: </td><td><input type="checkbox" ng-model="renderModel.months[11]" /></td></tr>
+            </table>
+        </umb-pane>
+    </div>
+
+    <div class="umb-panel-footer">
+        <div class="umb-el-wrap umb-panel-buttons">
+            <div class="btn-toolbar umb-btn-toolbar pull-right">
+                <a href ng-click="close()" class="btn btn-link">
+                    <localize key="general_cancel">Cancel</localize>
+                </a>
+
+                <a href ng-click="saveAndClose()" class="btn btn-primary">
+                    <localize key="buttons_save">Save</localize>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
