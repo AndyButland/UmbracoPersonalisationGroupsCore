@@ -1,36 +1,40 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Our.Umbraco.PersonalisationGroups.Configuration;
 using Our.Umbraco.PersonalisationGroups.Criteria;
 using Our.Umbraco.PersonalisationGroups.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Umbraco.Cms.Core.Cache;
 
 namespace Our.Umbraco.PersonalisationGroups.Services
 {
     public class CriteriaService : ICriteriaService
     {
         private readonly PersonalisationGroupsConfig _config;
+        private readonly IServiceProvider _serviceProvider;
+        private readonly IAppPolicyCache _runtimeCache;
 
-        public CriteriaService(IOptions<PersonalisationGroupsConfig> config)
+        public CriteriaService(IOptions<PersonalisationGroupsConfig> config, IServiceProvider serviceProvider, IAppPolicyCache runtimeCache)
         {
             _config = config.Value;
+            _serviceProvider = serviceProvider;
+            _runtimeCache = runtimeCache;
         }
-
-        /// <summary>
-        /// Application lifetime variable storing the available personalisation group criteria.
-        /// </summary>
-        private readonly Lazy<Dictionary<string, IPersonalisationGroupCriteria>> AvailableCriteria =
-            new Lazy<Dictionary<string, IPersonalisationGroupCriteria>>(() => BuildAvailableCriteria());
 
         public IEnumerable<IPersonalisationGroupCriteria> GetAvailableCriteria()
         {
-            var criteria = AvailableCriteria.Value.Values.Select(x => x);
+            var cacheKey = $"PersonalisationGroups_Criteria";
+            var criteriaDictionary = _runtimeCache.Get(cacheKey,
+                () => BuildAvailableCriteria()) as Dictionary<string, IPersonalisationGroupCriteria>;
+
+            var criteria = criteriaDictionary.Values.Select(x => x);
 
             if (!string.IsNullOrEmpty(_config.IncludeCriteria))
             {
                 criteria = criteria
-                    .Where(x => _config.IncludeCriteria.Split(',').Contains(x.Alias, StringComparer.InvariantCultureIgnoreCase));
+                    .Where(x => _config.IncludeCriteria.Split(',').Contains(x. Alias, StringComparer.InvariantCultureIgnoreCase));
             }
 
             if (!string.IsNullOrEmpty(_config.ExcludeCriteria))
@@ -46,7 +50,7 @@ namespace Our.Umbraco.PersonalisationGroups.Services
         /// Helper to scan the loaded assemblies and retrieve the available personalisation group criteria (that implement the
         /// <see cref="IPersonalisationGroupCriteria"/> interface
         /// </summary>
-        private static Dictionary<string, IPersonalisationGroupCriteria> BuildAvailableCriteria()
+        private Dictionary<string, IPersonalisationGroupCriteria> BuildAvailableCriteria()
         {
             var lockObject = new object();
             lock (lockObject)
@@ -56,7 +60,7 @@ namespace Our.Umbraco.PersonalisationGroups.Services
                 var typesImplementingInterface = AppDomain.CurrentDomain.GetAssemblies()
                     .SelectMany(s => s.GetLoadableTypes())
                     .Where(p => type.IsAssignableFrom(p) && p.IsClass)
-                    .Select(x => Activator.CreateInstance(x) as IPersonalisationGroupCriteria)
+                    .Select(x => ActivatorUtilities.CreateInstance(_serviceProvider, x) as IPersonalisationGroupCriteria)
                     .Where(x => x != null);
 
                 foreach (var typeImplementingInterface in typesImplementingInterface)

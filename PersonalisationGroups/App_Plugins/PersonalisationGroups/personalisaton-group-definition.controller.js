@@ -1,7 +1,6 @@
-﻿alert('hello');
-angular.module("umbraco")
+﻿angular.module("umbraco")
     .controller("PersonalisationGroups.PersonalisationGroupDefinitionController",
-        function ($scope, $http, editorService) {
+        function ($scope, $http, $injector, editorService) {
 
             var translators = [];
             var editingNew = false;
@@ -52,6 +51,10 @@ angular.module("umbraco")
                 return -1;
             };
 
+            function convertAliasToFolderName(alias) {
+                return alias.charAt(0).toUpperCase() + alias.slice(1);
+            }
+
             if (!$scope.model.value) {
                 $scope.model.value = { match: "All", duration: "Page", score: 50, details: [] };
             }
@@ -77,7 +80,7 @@ angular.module("umbraco")
 
             $scope.editDefinitionDetail = function (definitionDetail) {
                 editingNew = false;
-                var templateUrl = "/App_Plugins/PersonalisationGroups/GetResourceForCriteria/" + definitionDetail.alias + "/definition.editor.html";
+                var templateUrl = "/App_Plugins/PersonalisationGroups/Criteria/" + convertAliasToFolderName(definitionDetail.alias) + "/definition.editor.html";
 
                 editorService.open(
                     {
