@@ -1,20 +1,8 @@
 ﻿angular.module("umbraco")
     .controller("PersonalisationGroups.PagesViewedPersonalisationGroupCriteriaController",
-        function ($scope, $injector, entityResource, iconHelper) {
+        function ($scope, $injector, editorService, entityResource, iconHelper) {
 
-            // In V7 we use dialogService, in V8 it's editorService.
-            // So we can't inject them directly as one or other will fail.
-            // Instead we'll pull them in manually using $injector, handling when they can't be located.
-            var dialogService = null;
-            var editorService = null;
-            try {
-                dialogService = $injector.get("dialogService");
-            } catch (e) {
-                editorService = $injector.get("editorService");
-            }
-
-            // Handle passed value for V7 (will have populated dialogOptions), falling back to V8 if not found.
-            var definition = $scope.dialogOptions ? $scope.dialogOptions.definition : $scope.model.definition;
+            var definition = $scope.model.definition;
 
             function loadNodeDetails() {
 
@@ -61,41 +49,21 @@
 
             $scope.openContentPicker = function () {
 
-                var dialogOptions;
-                if (dialogService) {
-                    // V7 - use dialogService
-                    dialogOptions = {
-                        multiPicker: true,
-                        entityType: "Document",
-                        filterCssClass: "not-allowed not-published",
-                        startNodeId: null,
-                        callback: function (data) {
-                            processSelections(data);
-                        },
-                        treeAlias: "content",
-                        section: "content"
-                    };
-
-                    dialogService.treePicker(dialogOptions);
-                } else {
-                    // V8 - use editorService
-                    dialogOptions = {
-                        view: "views/common/infiniteeditors/treepicker/treepicker.html",
-                        size: "small",
-                        section: "content",
-                        treeAlias: "content",
-                        multiPicker: true,
-                        submit: function (data) {
-                            processSelections(data.selection);
-                            editorService.close();
-                        },
-                        close: function () {
-                            editorService.close();
-                        }
-                    };
-                    editorService.contentPicker(dialogOptions);
-
-                }
+                var = dialogOptions = {
+                    view: "views/common/infiniteeditors/treepicker/treepicker.html",
+                    size: "small",
+                    section: "content",
+                    treeAlias: "content",
+                    multiPicker: true,
+                    submit: function (data) {
+                        processSelections(data.selection);
+                        editorService.close();
+                    },
+                    close: function () {
+                        editorService.close();
+                    }
+                };
+                editorService.contentPicker(dialogOptions);
             };
 
             $scope.remove = function (index) {
@@ -127,19 +95,11 @@
                 var serializedResult = "{ \"match\": \"" + $scope.renderModel.match + "\", " +
                     "\"nodeIds\": " + "[" + $scope.renderModel.nodeIds.join() + "]" + " }";
 
-                // For V7 we use $scope.submit(), for V8 $scope.model.submit()
-                if ($scope.submit) {
-                    $scope.submit(serializedResult);
-                } else {
-                    $scope.model.submit(serializedResult);
-                }
+                $scope.model.submit(serializedResult);
             };
 
-            // For V8 we need to make a call to fire any handler on the close of the dialog
-            if ($scope.model && $scope.model.close) {
-                $scope.close = function () {
-                    $scope.model.close();
-                }
+            $scope.close = function () {
+                $scope.model.close();
             }
 
         });
