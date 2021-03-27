@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 
 namespace Our.Umbraco.PersonalisationGroups.Providers.MemberGroup
 {
@@ -17,9 +18,9 @@ namespace Our.Umbraco.PersonalisationGroups.Providers.MemberGroup
         {
             if (_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
             {
-                // TODO: get list of roles for the current user.
-                return Enumerable.Empty<string>();
-
+                return ((ClaimsIdentity)_httpContextAccessor.HttpContext.User.Identity).Claims
+                    .Where(c => c.Type == ClaimTypes.Role)
+                    .Select(c => c.Value);
             }
 
             return Enumerable.Empty<string>();

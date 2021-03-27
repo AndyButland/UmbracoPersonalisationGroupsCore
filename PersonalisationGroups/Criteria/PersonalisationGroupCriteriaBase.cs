@@ -9,7 +9,7 @@ namespace Our.Umbraco.PersonalisationGroups.Criteria
     /// </summary>
     public abstract class PersonalisationGroupCriteriaBase
     {
-        protected bool MatchesValue(string valueFromContext, string valueFromDefinition)
+        protected static bool MatchesValue(string valueFromContext, string valueFromDefinition)
         {
             if (valueFromContext == null)
             {
@@ -20,7 +20,7 @@ namespace Our.Umbraco.PersonalisationGroups.Criteria
                 StringComparison.InvariantCultureIgnoreCase);
         }
 
-        protected bool ContainsValue(string valueFromContext, string valueFromDefinition)
+        protected static bool ContainsValue(string valueFromContext, string valueFromDefinition)
         {
             if (valueFromContext == null)
             {
@@ -31,7 +31,7 @@ namespace Our.Umbraco.PersonalisationGroups.Criteria
                 .IndexOf(valueFromContext, valueFromDefinition, CompareOptions.IgnoreCase) >= 0;
         }
 
-        protected bool MatchesRegex(string valueFromContext, string valueFromDefinition)
+        protected static bool MatchesRegex(string valueFromContext, string valueFromDefinition)
         {
             if (valueFromContext == null)
             {
@@ -43,8 +43,7 @@ namespace Our.Umbraco.PersonalisationGroups.Criteria
 
         protected bool CompareValues(string value, string definitionValue, Comparison comparison)
         {
-            bool comparisonMade;
-            var result = DateCompare(value, definitionValue, comparison, out comparisonMade);
+            var result = DateCompare(value, definitionValue, comparison, out bool comparisonMade);
             if (comparisonMade)
             {
                 return result;
@@ -61,8 +60,7 @@ namespace Our.Umbraco.PersonalisationGroups.Criteria
 
         private bool DateCompare(string value, string definitionValue, Comparison comparison, out bool comparisonMade)
         {
-            DateTime dateValue, dateDefinitionValue;
-            if (DateTime.TryParse(value, out dateValue) && DateTime.TryParse(definitionValue, out dateDefinitionValue))
+            if (DateTime.TryParse(value, out DateTime dateValue) && DateTime.TryParse(definitionValue, out DateTime dateDefinitionValue))
             {
                 comparisonMade = true;
                 switch (comparison)
@@ -82,10 +80,10 @@ namespace Our.Umbraco.PersonalisationGroups.Criteria
             return false;
         }
 
-        private bool NumericCompare(string value, string definitionValue, Comparison comparison, out bool comparisonMade)
+        private static bool NumericCompare(string value, string definitionValue, Comparison comparison, out bool comparisonMade)
         {
-            decimal decimalValue, decimalDefinitionValue;
-            if (decimal.TryParse(value, out decimalValue) && decimal.TryParse(definitionValue, out decimalDefinitionValue))
+            decimal decimalValue;
+            if (decimal.TryParse(value, out decimalValue) && decimal.TryParse(definitionValue, out decimal decimalDefinitionValue))
             {
                 comparisonMade = true;
                 switch (comparison)
@@ -105,7 +103,7 @@ namespace Our.Umbraco.PersonalisationGroups.Criteria
             return false;
         }
 
-        private bool StringCompare(string value, string definitionValue, Comparison comparison)
+        private static bool StringCompare(string value, string definitionValue, Comparison comparison)
         {
             var comparisonValue = string.Compare(value, definitionValue, StringComparison.InvariantCultureIgnoreCase);
             switch (comparison)

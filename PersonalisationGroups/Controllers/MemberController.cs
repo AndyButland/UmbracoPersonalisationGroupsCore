@@ -22,7 +22,6 @@ namespace Our.Umbraco.PersonalisationGroups.Controllers
         /// Gets a list of the available member types
         /// </summary>
         /// <returns>JSON response of available criteria</returns>
-        /// <remarks>Using ContentResult so can serialize with camel case for consistency in client-side code</remarks>
         [HttpGet]
         public IActionResult GetMemberTypes()
         {
@@ -36,11 +35,11 @@ namespace Our.Umbraco.PersonalisationGroups.Controllers
         /// Gets a list of the available member groups
         /// </summary>
         /// <returns>JSON response of available criteria</returns>
-        /// <remarks>Using ContentResult so can serialize with camel case for consistency in client-side code</remarks>
         [HttpGet]
         public IActionResult GetMemberGroups()
         {
             var memberGroups = _memberService.GetAllRoles()
+                .Select(x => x.Name)
                 .OrderBy(x => x);
             return new OkObjectResult(memberGroups);
        }
@@ -49,7 +48,6 @@ namespace Our.Umbraco.PersonalisationGroups.Controllers
         /// Gets a list of the available member profile fields
         /// </summary>
         /// <returns>JSON response of available criteria</returns>
-        /// <remarks>Using ContentResult so can serialize with camel case for consistency in client-side code</remarks>
         [HttpGet]
         public IActionResult GetMemberProfileFields()
         {
