@@ -49,7 +49,7 @@
 
             $scope.openContentPicker = function () {
 
-                var = dialogOptions = {
+                var dialogOptions = {
                     view: "views/common/infiniteeditors/treepicker/treepicker.html",
                     size: "small",
                     section: "content",
