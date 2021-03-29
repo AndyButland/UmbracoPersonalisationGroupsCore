@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31025.194
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalisationGroups", "PersonalisationGroups\PersonalisationGroups.csproj", "{675EC9D0-C26E-4EA4-9026-54F01F069D38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UmbracoPersonalisationGroups", "PersonalisationGroups\PersonalisationGroups.csproj", "{675EC9D0-C26E-4EA4-9026-54F01F069D38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalisationGroups.Tests", "PersonalisationGroups.Tests\PersonalisationGroups.Tests.csproj", "{AE1C5DD5-2D18-49F8-8D28-D69420A6B98F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoPersonalisationGroups.Tests", "PersonalisationGroups.Tests\PersonalisationGroups.Tests.csproj", "{AE1C5DD5-2D18-49F8-8D28-D69420A6B98F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

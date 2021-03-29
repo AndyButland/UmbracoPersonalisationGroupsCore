@@ -3,9 +3,10 @@
   <PropertyGroup>
     <AssemblyName>Our.Umbraco.PersonalisationGroups</AssemblyName>
     <RootNamespace>Our.Umbraco.PersonalisationGroups</RootNamespace>
+    <ContentTargetFolders>.</ContentTargetFolders>
     <TargetFramework>net5.0</TargetFramework>
     <PackageId>UmbracoPersonalisationGroups</PackageId>
-    <Version>3.0.0-alpha</Version>
+    <Version>3.0.0-alpha-2</Version>
     <Authors>Andy Butland</Authors>
     <Description>An Umbraco package supporting personalisation of content to different groups of site visitors.</Description>
     <Copyright>2021 Andy Butland</Copyright>
@@ -21,21 +22,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="App_Plugins/PersonalisationGroups/**/*.*" copyToOutput="true">
-      <Pack>true</Pack>
-      <PackagePath>contentFiles\App_Plugins\PersonalisationGroups</PackagePath>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Data\continents.txt" />
     <None Remove="Data\countries.txt" />
     <None Remove="Data\regions.txt" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="App_Plugins\PersonalisationGroups\**\*.*">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <None Include="build\**\*.*">
+      <Pack>True</Pack>
+      <PackagePath>build</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>PersonalisationGroups.Tests</_Parameter1>
+      <_Parameter1>UmbracoPersonalisationGroups.Tests</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
 
