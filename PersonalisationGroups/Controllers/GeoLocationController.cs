@@ -19,13 +19,13 @@ namespace Our.Umbraco.PersonalisationGroups.Controllers
     {
         private readonly PersonalisationGroupsConfig _config;
         private readonly IHostingEnvironment _hostingEnvironment;
-        private readonly IAppPolicyCache _runtimeCache;
+        private readonly AppCaches _appCaches;
 
-        public GeoLocationController(IOptions<PersonalisationGroupsConfig> config, IHostingEnvironment hostingEnvironment, IAppPolicyCache runtimeCache)
+        public GeoLocationController(IOptions<PersonalisationGroupsConfig> config, IHostingEnvironment hostingEnvironment, AppCaches appCaches)
         {
             _config = config.Value;
             _hostingEnvironment = hostingEnvironment;
-            _runtimeCache = runtimeCache;
+            _appCaches = appCaches;
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace Our.Umbraco.PersonalisationGroups.Controllers
         public IActionResult GetContinents()
         {
             var cacheKey = $"PersonalisationGroups_GeoLocation_Continents";
-            var countries = _runtimeCache.Get(cacheKey,
+            var countries = _appCaches.RuntimeCache.Get(cacheKey,
                 () =>
                     {
                         var assembly = GetResourceAssembly();
@@ -76,7 +76,7 @@ namespace Our.Umbraco.PersonalisationGroups.Controllers
         public IActionResult GetCountries(bool withRegionsOnly = false)
         {
             var cacheKey = $"PersonalisationGroups_GeoLocation_Countries_{withRegionsOnly}";
-            var countries = _runtimeCache.Get(cacheKey, 
+            var countries = _appCaches.RuntimeCache.Get(cacheKey, 
                 () =>
                     {
                         var assembly = GetResourceAssembly();
@@ -124,7 +124,7 @@ namespace Our.Umbraco.PersonalisationGroups.Controllers
         public IActionResult GetRegions(string countryCode)
         {
             var cacheKey = $"PersonalisationGroups_GeoLocation_Regions_{countryCode}";
-            var regions = _runtimeCache.Get(cacheKey,
+            var regions = _appCaches.RuntimeCache.Get(cacheKey,
                 () =>
                 {
                     using (var stream = GetStreamForRegions())

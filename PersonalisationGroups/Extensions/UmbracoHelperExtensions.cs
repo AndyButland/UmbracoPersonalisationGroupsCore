@@ -84,7 +84,7 @@ namespace Umbraco.Extensions
         /// </summary>
         /// <param name="helper">Instance of UmbracoHelper</param>
         /// <param name="groupMatchingService">The group matching cache</param>
-        /// <param name="runtimeCache">The runtime cache</param>
+        /// <param name="appCaches">Provides access to the runtime cache</param>
         /// <param name="personalisationGroupsRootNodeId">Id of root node for the personalisation groups</param>
         /// <param name="cacheUserIdentifier">Identifier for the user to use in the cache key (likely the session Id)</param>
         /// <param name="cacheForSeconds">Length of time in seconds to cache the generated personalisation group hash for the visitor</param>
@@ -92,7 +92,7 @@ namespace Umbraco.Extensions
         public static string GetPersonalisationGroupsHashForVisitor(
             this UmbracoHelper helper,
             IGroupMatchingService groupMatchingService,
-            IAppPolicyCache runtimeCache,
+            AppCaches appCaches,
             Guid personalisationGroupsRootNodeId, 
             string cacheUserIdentifier,
             int cacheForSeconds)
@@ -104,7 +104,7 @@ namespace Umbraco.Extensions
                     $"The personalisation groups hash for a visitor can only be calculated for a root node of type {AppConstants.DocumentTypeAliases.PersonalisationGroupsFolder}");
             }
 
-            return GetPersonalisationGroupsHashForVisitor(helper, groupMatchingService, runtimeCache, personalisationGroupsRootNode, cacheUserIdentifier, cacheForSeconds);
+            return GetPersonalisationGroupsHashForVisitor(helper, groupMatchingService, appCaches, personalisationGroupsRootNode, cacheUserIdentifier, cacheForSeconds);
         }
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace Umbraco.Extensions
         /// </summary>
         /// <param name="helper">Instance of UmbracoHelper</param>
         /// <param name="groupMatchingService">The group matching cache</param>
-        /// <param name="runtimeCache">The runtime cache</param>
+        /// <param name="appCaches">Provides access to the runtime cache</param>
         /// <param name="personalisationGroupsRootNodeId">Id of root node for the personalisation groups</param>
         /// <param name="cacheUserIdentifier">Identifier for the user to use in the cache key (likely the session Id)</param>
         /// <param name="cacheForSeconds">Length of time in seconds to cache the generated personalisation group hash for the visitor</param>
@@ -120,7 +120,7 @@ namespace Umbraco.Extensions
         public static string GetPersonalisationGroupsHashForVisitor(
             this UmbracoHelper helper,
             IGroupMatchingService groupMatchingService,
-            IAppPolicyCache runtimeCache,
+            AppCaches appCaches,
             int personalisationGroupsRootNodeId,
             string cacheUserIdentifier,
             int cacheForSeconds)
@@ -132,7 +132,7 @@ namespace Umbraco.Extensions
                     $"The personalisation groups hash for a visitor can only be calculated for a root node of type {AppConstants.DocumentTypeAliases.PersonalisationGroupsFolder}");
             }
 
-            return GetPersonalisationGroupsHashForVisitor(helper, groupMatchingService, runtimeCache, personalisationGroupsRootNode, cacheUserIdentifier, cacheForSeconds);
+            return GetPersonalisationGroupsHashForVisitor(helper, groupMatchingService, appCaches, personalisationGroupsRootNode, cacheUserIdentifier, cacheForSeconds);
         }
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace Umbraco.Extensions
         /// </summary>
         /// <param name="helper">Instance of UmbracoHelper</param>
         /// <param name="groupMatchingService">The group matching cache</param>
-        /// <param name="runtimeCache">The runtime cache</param>
+        /// <param name="appCaches">Provides access to the runtime cache</param>
         /// <param name="personalisationGroupsRootNode">Root node for the personalisation groups</param>
         /// <param name="cacheUserIdentifier">Identifier for the user to use in the cache key (likely the session Id)</param>
         /// <param name="cacheForSeconds">Length of time in seconds to cache the generated personalisation group hash for the visitor</param>
@@ -148,7 +148,7 @@ namespace Umbraco.Extensions
         public static string GetPersonalisationGroupsHashForVisitor(
             this UmbracoHelper helper,
             IGroupMatchingService groupMatchingService,
-            IAppPolicyCache runtimeCache,
+            AppCaches appCaches,
             IPublishedContent personalisationGroupsRootNode,
             string cacheUserIdentifier,
             int cacheForSeconds)
@@ -159,7 +159,7 @@ namespace Umbraco.Extensions
             }
 
             var cacheKey = $"{cacheUserIdentifier}-{AppConstants.CacheKeys.PersonalisationGroupsVisitorHash}";
-            return runtimeCache.GetCacheItem(cacheKey,
+            return appCaches.RuntimeCache.GetCacheItem(cacheKey,
                 () => groupMatchingService.CreatePersonalisationGroupsHashForVisitor(personalisationGroupsRootNode), 
                 timeout: TimeSpan.FromSeconds(cacheForSeconds));
         }

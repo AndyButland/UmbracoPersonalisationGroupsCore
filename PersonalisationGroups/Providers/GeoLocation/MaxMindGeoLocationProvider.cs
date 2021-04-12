@@ -13,19 +13,19 @@ namespace Our.Umbraco.PersonalisationGroups.Providers.GeoLocation
     {
         private readonly string _pathToCountryDb;
         private readonly string _pathToCityDb;
-        private readonly IAppPolicyCache _runtimeCache;
+        private readonly AppCaches _appCaches;
 
-        public MaxMindGeoLocationProvider(IOptions<PersonalisationGroupsConfig> config, IHostingEnvironment hostingEnvironment, IAppPolicyCache runtimeCache)
+        public MaxMindGeoLocationProvider(IOptions<PersonalisationGroupsConfig> config, IHostingEnvironment hostingEnvironment, AppCaches appCaches)
         {
             _pathToCountryDb = hostingEnvironment.MapPathWebRoot(config.Value.GeoLocationCountryDatabasePath);
             _pathToCityDb = hostingEnvironment.MapPathWebRoot(config.Value.GeoLocationCityDatabasePath);
-            _runtimeCache = runtimeCache;
+            _appCaches = appCaches;
         }
 
         public Continent GetContinentFromIp(string ip)
         {
             var cacheKey = $"PersonalisationGroups_GeoLocation_Continent_{ip}";
-            var cachedItem = _runtimeCache.Get(cacheKey,
+            var cachedItem = _appCaches.RuntimeCache.Get(cacheKey,
                 () =>
                     {
                         try
@@ -66,7 +66,7 @@ namespace Our.Umbraco.PersonalisationGroups.Providers.GeoLocation
         public Country GetCountryFromIp(string ip)
         {
             var cacheKey = $"PersonalisationGroups_GeoLocation_Country_{ip}";
-            var cachedItem = _runtimeCache.Get(cacheKey,
+            var cachedItem = _appCaches.RuntimeCache.Get(cacheKey,
                 () =>
                 {
                     try
@@ -107,7 +107,7 @@ namespace Our.Umbraco.PersonalisationGroups.Providers.GeoLocation
         public Region GetRegionFromIp(string ip)
         {
             var cacheKey = $"PersonalisationGroups_GeoLocation_Region_{ip}";
-            var cachedItem = _runtimeCache.Get(cacheKey,
+            var cachedItem = _appCaches.RuntimeCache.Get(cacheKey,
                 () =>
                 {
                     try

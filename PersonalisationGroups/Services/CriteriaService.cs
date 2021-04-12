@@ -14,19 +14,19 @@ namespace Our.Umbraco.PersonalisationGroups.Services
     {
         private readonly PersonalisationGroupsConfig _config;
         private readonly IServiceProvider _serviceProvider;
-        private readonly IAppPolicyCache _runtimeCache;
+        private readonly AppCaches _appCaches;
 
-        public CriteriaService(IOptions<PersonalisationGroupsConfig> config, IServiceProvider serviceProvider, IAppPolicyCache runtimeCache)
+        public CriteriaService(IOptions<PersonalisationGroupsConfig> config, IServiceProvider serviceProvider, AppCaches appCaches)
         {
             _config = config.Value;
             _serviceProvider = serviceProvider;
-            _runtimeCache = runtimeCache;
+            _appCaches = appCaches;
         }
 
         public IEnumerable<IPersonalisationGroupCriteria> GetAvailableCriteria()
         {
             var cacheKey = $"PersonalisationGroups_Criteria";
-            var criteriaDictionary = _runtimeCache.Get(cacheKey,
+            var criteriaDictionary = _appCaches.RuntimeCache.Get(cacheKey,
                 () => BuildAvailableCriteria()) as Dictionary<string, IPersonalisationGroupCriteria>;
 
             var criteria = criteriaDictionary.Values.Select(x => x);
