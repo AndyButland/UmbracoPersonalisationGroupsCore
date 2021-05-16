@@ -1,4 +1,4 @@
-﻿<div ng-controller="PersonalisationGroups.PersonalisationGroupDefinitionController">
+﻿<div class="personalisation-group-definition" ng-controller="PersonalisationGroups.PersonalisationGroupDefinitionController">
 
     <umb-control-group alias="match" label="Match:">
         <select ng-model="model.value.match">
@@ -13,19 +13,19 @@
             <option value="Session">Per session</option>
             <option value="Visitor">Per visitor</option>
         </select>
-        <div class="help-inline" style="margin: 3px 0 3px 0; font-size: 80%;">
+        <div class="help-inline">
             <span>Determines for how long a user that is matched to a personalisation group remains in it</span>
         </div>
     </umb-control-group>
 
     <umb-control-group alias="score" label="Score:">
         <input ng-model="model.value.score" type="number" min="0" max="100" step="1" />
-        <div class="help-inline" style="margin: 3px 0 3px 0; font-size: 80%;">
+        <div class="help-inline">
             <span>A number between 1 and 100, can be used to weight groups when scoring the visitor's match to a piece of content</span>
         </div>
     </umb-control-group>
 
-    <div class="control-group umb-control-group" style="margin-top: 16px">
+    <div class="control-group umb-control-group">
         <div class="umb-el-wrap">
             <label class="control-label ng-scope ng-binding">
                 Add Criteria:
@@ -41,7 +41,7 @@
         </div>
     </div>
 
-    <table class="table table-striped" style="margin-top: 8px">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Criteria</th>

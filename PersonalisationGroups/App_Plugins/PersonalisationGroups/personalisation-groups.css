@@ -1,0 +1,17 @@
+﻿.personalisation-group-definition {
+    padding-top: 6px;
+}
+.personalisation-group-definition .umb-property {
+    margin-bottom: 16px;
+}
+.personalisation-group-definition label {
+    margin-top: 6px;
+}
+.personalisation-group-definition .help-inline {
+    display: block;
+    font-size: 80%;
+}
+.personalisation-group-definition .umb-property .controls {
+    margin-left: 0;
+}
+
