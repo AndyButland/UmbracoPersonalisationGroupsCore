@@ -4,6 +4,7 @@ using NUnit.Framework;
 using Our.Umbraco.PersonalisationGroups.Migrations.V_3_0_0;
 using Umbraco.Cms.Core.IO;
 using Umbraco.Cms.Core.Models;
+using Umbraco.Cms.Core.PropertyEditors;
 using Umbraco.Cms.Core.Serialization;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Core.Strings;
@@ -25,7 +26,7 @@ namespace Our.Umbraco.PersonalisationGroups.Tests.Migrations.V_3_0_0
             var sut = CreateMigrationStep(mockDataTypeService.Object, mockContentTypeService.Object);
 
             // Act
-            sut.Migrate();
+            sut.Run();
 
             // Assert
             mockDataTypeService
@@ -48,16 +49,14 @@ namespace Our.Umbraco.PersonalisationGroups.Tests.Migrations.V_3_0_0
                 .Setup(x => x.Create(It.Is<string>(y => y == "Personalisation Groups"), It.Is<int>(y => y == -1), It.Is<string>(y => y == "personalisationGroupsFolder"), It.Is<int>(y => y == -1)))
                 .Returns(CreateRootFolderContent());
 
-            var mockLoggerFactory = new Mock<ILoggerFactory>();
-            var mockLocalizationService = new Mock<ILocalizationService>();
-            var mockLocalizedTextService = new Mock<ILocalizedTextService>();
             var mockIOHelper = new Mock<IIOHelper>();
             var mockShortStringHelper = new Mock<IShortStringHelper>();
             mockShortStringHelper
                 .Setup(x => x.CleanString(It.IsAny<string>(), It.IsAny<CleanStringType>()))
                 .Returns((string text, CleanStringType stringType) => text);
 
-            var mockJsonSerializer = new Mock<IJsonSerializer>();
+            var mockDataValueEditorFactory = new Mock<IDataValueEditorFactory>();
+
             var mockConfigurationEditorJsonSerializer = new Mock<IConfigurationEditorJsonSerializer>();
 
             return new AddSchema(
@@ -66,13 +65,10 @@ namespace Our.Umbraco.PersonalisationGroups.Tests.Migrations.V_3_0_0
                 dataTypeService,
                 contentTypeService,
                 mockContentService.Object,
-                mockLoggerFactory.Object,
-                mockLocalizationService.Object,
-                mockLocalizedTextService.Object,
                 mockIOHelper.Object,
                 mockShortStringHelper.Object,
-                mockJsonSerializer.Object,
-                mockConfigurationEditorJsonSerializer.Object);
+                mockConfigurationEditorJsonSerializer.Object,
+                mockDataValueEditorFactory.Object);
         }
 
         private static IContent CreateRootFolderContent() =>

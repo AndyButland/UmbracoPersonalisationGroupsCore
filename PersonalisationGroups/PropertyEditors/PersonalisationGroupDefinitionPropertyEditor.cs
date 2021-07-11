@@ -1,8 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using Umbraco.Cms.Core.PropertyEditors;
-using Umbraco.Cms.Core.Serialization;
-using Umbraco.Cms.Core.Services;
-using Umbraco.Cms.Core.Strings;
+﻿using Umbraco.Cms.Core.PropertyEditors;
 using Constants = Our.Umbraco.PersonalisationGroups.AppConstants;
 
 namespace Our.Umbraco.PersonalisationGroups.PropertyEditors
@@ -18,14 +14,8 @@ namespace Our.Umbraco.PersonalisationGroups.PropertyEditors
         ValueType = "JSON")]
     public class PersonalisationGroupDefinitionPropertyEditor : DataEditor
     {
-        public PersonalisationGroupDefinitionPropertyEditor(
-            ILoggerFactory loggerFactory,
-            IDataTypeService dataTypeService,
-            ILocalizationService localizationService,
-            ILocalizedTextService localizedTextService,
-            IShortStringHelper shortStringHelper,
-            IJsonSerializer jsonSerializer)
-            : base(loggerFactory, dataTypeService, localizationService, localizedTextService, shortStringHelper, jsonSerializer)
+        public PersonalisationGroupDefinitionPropertyEditor(IDataValueEditorFactory dataValueEditorFactory)
+            : base(dataValueEditorFactory)
         {
         }
     }

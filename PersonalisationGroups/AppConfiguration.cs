@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Our.Umbraco.PersonalisationGroups.Migrations;
+using Umbraco.Cms.Core.Migrations;
 using Umbraco.Cms.Core.Scoping;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Infrastructure.Migrations;
@@ -52,14 +53,12 @@ namespace Our.Umbraco.PersonalisationGroups
 
         private static void ExecuteMigrationPlan(IApplicationBuilder app)
         {
+            var migrationPlanExecutor = app.ApplicationServices.GetRequiredService<IMigrationPlanExecutor>();
             var scopeProvider = app.ApplicationServices.GetRequiredService<IScopeProvider>();
-            var migrationBuilder = app.ApplicationServices.GetRequiredService<IMigrationBuilder>();
             var keyValueService = app.ApplicationServices.GetRequiredService<IKeyValueService>();
-            var logger = app.ApplicationServices.GetRequiredService<ILogger<Upgrader>>();
-            var loggerFactory = app.ApplicationServices.GetRequiredService<ILoggerFactory>();
             
             var upgrader = new Upgrader(new PersonalisationGroupsMigrationPlan());
-            upgrader.Execute(scopeProvider, migrationBuilder, keyValueService, logger, loggerFactory);
+            upgrader.Execute(migrationPlanExecutor, scopeProvider, keyValueService);
         }
     }
 }

@@ -22,13 +22,10 @@ namespace Our.Umbraco.PersonalisationGroups.Migrations.V_3_0_0
         private readonly IDataTypeService _dataTypeService;
         private readonly IContentTypeService _contentTypeService;
         private readonly IContentService _contentService;
-        private readonly ILoggerFactory _loggerFactory;
-        private readonly ILocalizationService _localizationService;
-        private readonly ILocalizedTextService _localizedTextService;
         private readonly IIOHelper _ioHelper;
         private readonly IShortStringHelper _shortStringHelper;
-        private readonly IJsonSerializer _jsonSerializer;
         private readonly IConfigurationEditorJsonSerializer _configurationEditorJsonSerializer;
+        private readonly IDataValueEditorFactory _dataValueEditorFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AddSchema"/> class.
@@ -39,30 +36,24 @@ namespace Our.Umbraco.PersonalisationGroups.Migrations.V_3_0_0
             IDataTypeService dataTypeService,
             IContentTypeService contentTypeService,
             IContentService contentService,
-            ILoggerFactory loggerFactory,
-            ILocalizationService localizationService,
-            ILocalizedTextService localizedTextService,
             IIOHelper ioHelper,
             IShortStringHelper shortStringHelper,
-            IJsonSerializer jsonSerializer, 
-            IConfigurationEditorJsonSerializer configurationEditorJsonSerializer)
+            IConfigurationEditorJsonSerializer configurationEditorJsonSerializer,
+            IDataValueEditorFactory dataValueEditorFactory)
             : base(context)
         {
             _logger = logger;
             _dataTypeService = dataTypeService;
             _contentTypeService = contentTypeService;
             _contentService = contentService;
-            _loggerFactory = loggerFactory;
-            _localizationService = localizationService;
-            _localizedTextService = localizedTextService;
             _ioHelper = ioHelper;
             _shortStringHelper = shortStringHelper;
-            _jsonSerializer = jsonSerializer;
             _configurationEditorJsonSerializer = configurationEditorJsonSerializer;
+            _dataValueEditorFactory = dataValueEditorFactory;
         }
 
         /// <inheritdoc/>
-        public override void Migrate()
+        protected override void Migrate()
         {
             _logger.LogInformation("Creating schema for package Personalisation Groups");
 
@@ -75,13 +66,7 @@ namespace Our.Umbraco.PersonalisationGroups.Migrations.V_3_0_0
 
         private IDataType EnsureDefinitionDataType()
         {
-            var propertyEditor = new PersonalisationGroupDefinitionPropertyEditor(
-                _loggerFactory,
-                _dataTypeService,
-                _localizationService,
-                _localizedTextService,
-                _shortStringHelper,
-                _jsonSerializer);
+            var propertyEditor = new PersonalisationGroupDefinitionPropertyEditor(_dataValueEditorFactory);
 
             var dataType = _dataTypeService.GetByEditorAlias(propertyEditor.Alias).FirstOrDefault();
             if (dataType != null)
@@ -182,14 +167,7 @@ namespace Our.Umbraco.PersonalisationGroups.Migrations.V_3_0_0
         private void EnsurePickerDataType(IContent rootContentFolder)
         {
             const string name = "Personalisation Group Picker";
-            var propertyEditor = new MultiNodeTreePickerPropertyEditor(
-                _loggerFactory,
-                _dataTypeService,
-                _localizationService,
-                _localizedTextService,
-                _ioHelper,
-                _shortStringHelper,
-                _jsonSerializer);
+            var propertyEditor = new MultiNodeTreePickerPropertyEditor(_dataValueEditorFactory, _ioHelper);
             var dataType = _dataTypeService.GetByEditorAlias(propertyEditor.Alias).FirstOrDefault(x => x.Name == name);
             if (dataType != null)
             {

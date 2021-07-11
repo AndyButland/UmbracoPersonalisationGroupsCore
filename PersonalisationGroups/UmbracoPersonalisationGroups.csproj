@@ -6,7 +6,7 @@
     <ContentTargetFolders>.</ContentTargetFolders>
     <TargetFramework>net5.0</TargetFramework>
     <PackageId>UmbracoPersonalisationGroups</PackageId>
-    <Version>3.0.0-beta1</Version>
+    <Version>3.0.0-beta-1</Version>
     <Authors>Andy Butland</Authors>
     <Description>An Umbraco package supporting personalisation of content to different groups of site visitors.</Description>
     <Copyright>2021 Andy Butland</Copyright>
@@ -18,7 +18,7 @@
 
   <ItemGroup>
     <PackageReference Include="MaxMind.GeoIP2" Version="4.0.1" />
-    <PackageReference Include="Umbraco.Cms.Web.Common" Version="9.0.0-beta002" />
+    <PackageReference Include="Umbraco.Cms.Web.Common" Version="9.0.0-rc001" />
   </ItemGroup>
 
   <ItemGroup>
