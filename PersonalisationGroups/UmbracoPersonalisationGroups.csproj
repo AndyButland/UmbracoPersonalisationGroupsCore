@@ -6,7 +6,7 @@
     <ContentTargetFolders>.</ContentTargetFolders>
     <TargetFramework>net5.0</TargetFramework>
     <PackageId>UmbracoPersonalisationGroups</PackageId>
-    <Version>3.0.0-beta-1</Version>
+    <Version>3.0.0-beta-2</Version>
     <Authors>Andy Butland</Authors>
     <Description>An Umbraco package supporting personalisation of content to different groups of site visitors.</Description>
     <Copyright>2021 Andy Butland</Copyright>
@@ -19,14 +19,6 @@
   <ItemGroup>
     <PackageReference Include="MaxMind.GeoIP2" Version="4.0.1" />
     <PackageReference Include="Umbraco.Cms.Web.Common" Version="9.0.0-rc001" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="App_Plugins\PersonalisationGroups\personalisation-group-definition.html" />
-    <None Remove="App_Plugins\PersonalisationGroups\personalisation-groups.css" />
-    <None Remove="Data\continents.txt" />
-    <None Remove="Data\countries.txt" />
-    <None Remove="Data\regions.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -50,6 +42,7 @@
     <EmbeddedResource Include="Data\continents.txt" />
     <EmbeddedResource Include="Data\countries.txt" />
     <EmbeddedResource Include="Data\regions.txt" />
+    <EmbeddedResource Include="Migrations\package.xml" />
   </ItemGroup>
 
   <ItemGroup>

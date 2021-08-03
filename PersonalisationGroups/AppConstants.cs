@@ -10,6 +10,8 @@
 
     public static class AppConstants
     {
+        public const string PackageName = "Personalisation Groups";
+
         public const string DefaultGroupPickerAlias = "personalisationGroups";
 
         public const string PersonalisationGroupDefinitionPropertyEditorAlias = "personalisationGroupDefinition";
