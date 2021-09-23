@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UmbracoPersonalisationGroup
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UmbracoPersonalisationGroups.Tests", "PersonalisationGroups.Tests\UmbracoPersonalisationGroups.Tests.csproj", "{4CDFDC2F-332E-4FF0-868F-AFA214563288}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestWebApp", "TestWebApp\TestWebApp.csproj", "{B75A6370-1971-45C9-8C34-5CE4CC8D1C3D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4CDFDC2F-332E-4FF0-868F-AFA214563288}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CDFDC2F-332E-4FF0-868F-AFA214563288}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CDFDC2F-332E-4FF0-868F-AFA214563288}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B75A6370-1971-45C9-8C34-5CE4CC8D1C3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B75A6370-1971-45C9-8C34-5CE4CC8D1C3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B75A6370-1971-45C9-8C34-5CE4CC8D1C3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B75A6370-1971-45C9-8C34-5CE4CC8D1C3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
