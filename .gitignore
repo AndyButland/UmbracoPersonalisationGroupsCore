@@ -198,5 +198,6 @@ ExamineIndexes/
 
 # Solution
 TestWebApp/
+TestWebAppWithPackage/
 
 deploy.ps1
