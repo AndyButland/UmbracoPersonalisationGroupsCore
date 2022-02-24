@@ -9,7 +9,7 @@ namespace Our.Umbraco.PersonalisationGroups.Criteria.TimeOfDay
     /// <summary>
     /// Implements a personalisation group criteria based on the time of the day
     /// </summary>
-    public class TimeOfDayPersonalisationGroupCriteria : IPersonalisationGroupCriteria
+    public class TimeOfDayPersonalisationGroupCriteria : PersonalisationGroupCriteriaBase, IPersonalisationGroupCriteria
     {
         private readonly IDateTimeProvider _dateTimeProvider;
 

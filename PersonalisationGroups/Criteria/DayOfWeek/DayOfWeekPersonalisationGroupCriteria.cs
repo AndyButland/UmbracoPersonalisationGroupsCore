@@ -8,7 +8,7 @@
     /// <summary>
     /// Implements a personalisation group criteria based on the day of the week
     /// </summary>
-    public class DayOfWeekPersonalisationGroupCriteria : IPersonalisationGroupCriteria
+    public class DayOfWeekPersonalisationGroupCriteria : PersonalisationGroupCriteriaBase, IPersonalisationGroupCriteria
     {
         private readonly IDateTimeProvider _dateTimeProvider;
 

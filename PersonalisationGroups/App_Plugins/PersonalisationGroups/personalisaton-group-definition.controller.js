@@ -80,7 +80,13 @@
 
             $scope.editDefinitionDetail = function (definitionDetail) {
                 editingNew = false;
-                var templateUrl = "/App_Plugins/PersonalisationGroups/Criteria/" + convertAliasToFolderName(definitionDetail.alias) + "/definition.editor.html";
+
+                var clientAssetsFolder = getCriteriaByAlias(definitionDetail.alias).clientAssetsFolder;
+                if (!clientAssetsFolder) {
+                    clientAssetsFolder = "PersonalisationGroups/Criteria";
+                }
+
+                var templateUrl = "/App_Plugins/" + clientAssetsFolder + "/" + convertAliasToFolderName(definitionDetail.alias) + "/definition.editor.html";
 
                 editorService.open(
                     {

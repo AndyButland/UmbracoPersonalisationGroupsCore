@@ -7,7 +7,7 @@ namespace Our.Umbraco.PersonalisationGroups.Criteria.NumberOfVisits
     /// <summary>
     /// Implements a personalisation group criteria based on the whether certain pages (node Ids) have been viewed
     /// </summary>
-    public class NumberOfVisitsPersonalisationGroupCriteria : IPersonalisationGroupCriteria
+    public class NumberOfVisitsPersonalisationGroupCriteria : PersonalisationGroupCriteriaBase, IPersonalisationGroupCriteria
     {
         internal static string CriteriaAlias = "numberOfVisits";
 

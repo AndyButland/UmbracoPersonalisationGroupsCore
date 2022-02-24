@@ -9,7 +9,7 @@ namespace Our.Umbraco.PersonalisationGroups.Criteria.Region
     /// <summary>
     /// Implements a personalisation group criteria based on the country derived from the vistor's IP address
     /// </summary>
-    public class RegionPersonalisationGroupCriteria : IPersonalisationGroupCriteria
+    public class RegionPersonalisationGroupCriteria : PersonalisationGroupCriteriaBase, IPersonalisationGroupCriteria
     {
         private readonly IIpProvider _ipProvider;
         private readonly IGeoLocationProvider _geoLocationProvider;

@@ -8,7 +8,7 @@
     /// <summary>
     /// Implements a personalisation group criteria based on the country derived from the vistor's IP address
     /// </summary>
-    public class CountryPersonalisationGroupCriteria : IPersonalisationGroupCriteria
+    public class CountryPersonalisationGroupCriteria : PersonalisationGroupCriteriaBase, IPersonalisationGroupCriteria
     {
         private readonly ICountryCodeProvider _countryCodeProvider;
 

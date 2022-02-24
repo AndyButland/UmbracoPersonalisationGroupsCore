@@ -8,7 +8,7 @@ namespace Our.Umbraco.PersonalisationGroups.Criteria.MemberGroup
     /// <summary>
     /// Implements a personalisation group criteria based on the presence, absence or value of a session key
     /// </summary>
-    public class MemberGroupPersonalisationGroupCriteria : IPersonalisationGroupCriteria
+    public class MemberGroupPersonalisationGroupCriteria : PersonalisationGroupCriteriaBase, IPersonalisationGroupCriteria
     {
         private readonly IMemberGroupProvider _memberGroupProvider;
 

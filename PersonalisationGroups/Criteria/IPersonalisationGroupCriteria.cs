@@ -21,6 +21,11 @@
         string Description { get; }
 
         /// <summary>
+        /// Gets the client assets folder
+        /// </summary>
+        string ClientAssetsFolder { get; }
+
+        /// <summary>
         /// Checks whether the attributes of the current site visitor match the provided definition
         /// </summary>
         /// <param name="definition">Definition of the criteria to check</param>
