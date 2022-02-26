@@ -9,6 +9,8 @@ namespace Our.Umbraco.PersonalisationGroups.Criteria
     /// </summary>
     public abstract class PersonalisationGroupCriteriaBase
     {
+        public virtual string ClientAssetsFolder => "PersonalisationGroups/Criteria";
+
         protected static bool MatchesValue(string valueFromContext, string valueFromDefinition)
         {
             if (valueFromContext == null)
@@ -58,7 +60,7 @@ namespace Our.Umbraco.PersonalisationGroups.Criteria
             return StringCompare(value, definitionValue, comparison);
         }
 
-        private bool DateCompare(string value, string definitionValue, Comparison comparison, out bool comparisonMade)
+        private static bool DateCompare(string value, string definitionValue, Comparison comparison, out bool comparisonMade)
         {
             if (DateTime.TryParse(value, out DateTime dateValue) && DateTime.TryParse(definitionValue, out DateTime dateDefinitionValue))
             {

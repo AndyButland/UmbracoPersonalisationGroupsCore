@@ -8,7 +8,7 @@ namespace Our.Umbraco.PersonalisationGroups.Criteria.PagesViewed
     /// <summary>
     /// Implements a personalisation group criteria based on the whether certain pages (node Ids) have been viewed
     /// </summary>
-    public class PagesViewedPersonalisationGroupCriteria : IPersonalisationGroupCriteria
+    public class PagesViewedPersonalisationGroupCriteria : PersonalisationGroupCriteriaBase, IPersonalisationGroupCriteria
     {
         internal static string CriteriaAlias = "pagesViewed";
 

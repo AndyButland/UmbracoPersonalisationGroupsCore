@@ -2,7 +2,7 @@
 
 ## What it does
 
-Umbraco Personalisation Groups is an Umbraco package intended to allow personalisation of content to different groups of site visitors.  
+Umbraco Personalisation Groups is an Umbraco package intended to allow personalisation of content to different groups of site visitors.
 
 It supports Umbraco version 9.  For Umbraco 7 and 8 support, you can find [source code and license details here](https://github.com/AndyButland/UmbracoPersonalisationGroups).
 
@@ -25,7 +25,7 @@ It contains a few different pieces:
     - Session key presence/absence and value matching
     - Time of day
 	- Umbraco member group
-	- Umbraco member profile field	
+	- Umbraco member profile field
 	- Umbraco member type
 - An extensible mechanism to allow other criteria to be created and loaded from other assemblies
 - A property editor with associated angular controllers/views that provide the means of configuring personalisation groups based on the available criteria
@@ -37,7 +37,7 @@ It contains a few different pieces:
 
 Installation is via NuGet:
 
-``` 
+```
     PM> Install-Package UmbracoPersonalisationGroups
 ```
 
@@ -89,33 +89,33 @@ The package includes a migration that will create the necesssary document types,
 	 - Add a new criteria of type **Day of week** and tick the boxes for Monday to Friday.
 	 - Add a second criteria of type **Time of day** and add a range of 0000 to 1200
 	 - Save and publish
-	 
+
 ![Editing a group definition](/documentation/group-editing.png?raw=true "Editing a group definition")
 
-![Editing a specific criteria](/documentation/definition-editing.png?raw=true "Editing a specific criteria")	 
-	 
+![Editing a specific criteria](/documentation/definition-editing.png?raw=true "Editing a specific criteria")
+
  - Now go to "Settings" and find the document type for a piece of content you want to personalise.  For example with the Fanoe Starter Kit you could select the *Blog Post* document type
  - Add a new field of type **Personsalisation group picker** with an alias of **personalisationGroups**.
     - If you don't like this alias you can use a different one, see details on configuration below:
  - Back to "Content" again, find or create a page of this document type and pick the **Weekday morning visitors** personalisation group
- 
- ![Picking groups](/documentation/picking-groups.png?raw=true "Picking groups")	
- 
+
+ ![Picking groups](/documentation/picking-groups.png?raw=true "Picking groups")
+
  - Finally you need to amend your template to make use of the personalisation group via extension methods that will be available on instances of **IPublishedContent**, named **ShowToVisitor()** and/or **ScoreForVisitor()**, as described below.
- 
+
 ## Templating
- 
+
 ### Personalising repeated content - showing and hiding items in a list
- 
+
 A typical example would be to personalise a list of repeated content to only show items that are appropriate for the current site visitor.  Here's how you might do that:
 
 ```
     @using Umbraco.Cms.Core.Models.PublishedContent;
     @using Umbraco.Extensions;
-    @using Our.Umbraco.PersonalisationGroups.Services; 
+    @using Our.Umbraco.PersonalisationGroups.Services;
 
     @inject IGroupMatchingService GroupMatchingService;
-    
+
     @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
     @{
         Layout = null;
@@ -134,27 +134,27 @@ A typical example would be to personalise a list of repeated content to only sho
 In this example, nested content items have been used, but the personalised items can be anything that implements `IPublishedContent` or `IPublishedElement` (e.g. from a content picker, or child nodes of the current one).
 
 Note that for the version of the package running on Umbraco V9, we need to provide an instance of `IGroupMatchingService` to the `ShowToVisitor()` extension method.  This is different to previous versions where a static service was resolved within the method.  In order to get an instance of that, it can be resolved in the view, as you can see in the line beginning with `@inject...` above.
-		
+
 ### Personalising page content
-		
+
 With a little more work you can also personalise an individual page.  One way to do this would be to create sub-nodes of a page of a new type called e.g. "Page Variation".  This document type should contain all the fields common to the parent page that you might want to personalise - e.g. title, body text, image - and an instance of the "Personalisation group picker".  You could then implement some logic on the parent page template to pull back the first of the sub-nodes that match the current site visitor.  If one is found, you can display the content from that sub-node rather than what's defined for the page.  And if not, display the default content for the page.  Something like:
 
 ```
 	@{
 		var personalisedContent = Model.Content.Children.Where(x => x.ShowToVisitor(GroupMatchingService)).FirstOrDefault();
 		string title, bodyText;
-		if (personalisedContent != null) 
+		if (personalisedContent != null)
 		{
 			title = personalisedContent.Name;
 			bodyText = personalisedContent.GetPropertyValue<string>("bodyText");
 		}
-		else 
+		else
 		{
 			title = Model.Content.Name;
-			bodyText = Model.Content.GetPropertyValue<string>("bodyText");	
+			bodyText = Model.Content.GetPropertyValue<string>("bodyText");
 		}
 	}
-	
+
 	<h1>@title</h1>
 	<p>@bodyText</p>
 ```
@@ -187,13 +187,13 @@ Personalisation Groups requires the setting of cookies in the user's browser for
 
 On many websites a user will be asked if they want to accept cookies and be provided the option to opt-out of unncessary ones.
 
-In order to ensure that the package will cease writing tracking cookies, you can either set a cookie with a key of *personalisationGroupsCookiesDeclined* or a session variable with a key of *PersonalisationGroups_CookiesDeclined*.  If either of those are set, no further cookies will be written.  Any cookies already set won't be deleted (that's left to the developer to action if required when the visitor declines cookies), but they will no longer be updated or new ones created.  
+In order to ensure that the package will cease writing tracking cookies, you can either set a cookie with a key of *personalisationGroupsCookiesDeclined* or a session variable with a key of *PersonalisationGroups_CookiesDeclined*.  If either of those are set, no further cookies will be written.  Any cookies already set won't be deleted (that's left to the developer to action if required when the visitor declines cookies), but they will no longer be updated or new ones created.
 
 The keys for this cookie and session can be amended in configuration if required via configuration (see below).
 
 ## Configuration
 
-No configuration is required if you are happy to accept the default behaviour of the package.  The following optional keys can be added to your `appSettings.json` if required to amend this.  
+No configuration is required if you are happy to accept the default behaviour of the package.  The following optional keys can be added to your `appSettings.json` if required to amend this.
 
 - `<add key="personalisationGroups.disabled" value="false"/>` - disables the filtering of content by personalisation groups, if this is set to true your content won't differ no matter what is configured in Umbraco
 - `<add key="personalisationGroups.groupPickerAlias" value="myCustomAlias"/>` - amends the alias that must be used when creating a property field of type personalisation group picker
@@ -239,7 +239,7 @@ It then makes these criteria available to application logic that needs to create
 
 #### IStickyMatchService
 
-`IStickyMatchService`, implemented by `StickyMatchService` checks for and creates "sticky" matches that use cookies to identify a user in a personalisation group in a way that persists beyond the single page request. 
+`IStickyMatchService`, implemented by `StickyMatchService` checks for and creates "sticky" matches that use cookies to identify a user in a personalisation group in a way that persists beyond the single page request.
 
 ### PersonalisationGroupDefinitionPropertyEditor
 
@@ -264,7 +264,7 @@ Each criteria also has an angular service named `definition.translator.js` respo
 - For each group picked, see if the definition provided matches the current site visitor.
     - If any one of them does, we return true (indicating to show the content)
 	- If none of them do, we return false (indicating to hide the content)
-	
+
 There's also a related extension method on `UmbracoHelper` defined in `UmbracoHelperExtensions` and named `ShowToVisitor(IGroupMatchingService groupMatchingService, IEnumerable<int> groupIds, bool showIfNoGroupsDefined = true)`.  Using this you can pass through a list of group Ids that may be drawn from another location than the current node.
 
 ## Notes on particular criteria
@@ -276,35 +276,39 @@ The country criteria uses the [free GeoLite2 IP to country database](http://dev.
 Similarly the region criteria uses the city database available from the same link above.  Similarly it will be read from the default location of `/App_Data/GeoLite2-City.mmdb` or at the path specified in configuration.
 
 When it comes to selecting regions to match against, the list of regions available is provided by the package from a [list provided by Maxmind](https://www.maxmind.com/download/geoip/misc/region_codes.csv). If you want to override this list, you can do so by taking a copy of this file, saving it to a relative path (likely in `App_Data`) and referencing it in configuration.  Doing this for example would allow you to override the region names from local language to English (we've found that in some cases, matches are more likely having done this).
-	
+
 If you are using a CDN, it's possible to use a feature that provides the user's geographical country location in a header [such as that provided by Cloudflare](https://support.cloudflare.com/hc/en-us/articles/200168236-What-does-Cloudflare-IP-Geolocation-do-).  To use that method instead, apply the configuration described above.
 
 By default the header `CF-IPCountry` is used.  If another is required it can be configured.
 
 ### Pages viewed
 
-In order to support personalising content to site visitors that have seen or not seen particular pages we need to track which pages they have viewed.  This is implemented using a cookie named `personalisationGroupsPagesViewed` that will be written and amended on each page request.  It has a default expiry of 90 days but you can amend this in configuration.  The cookie expiry slides, so if the site is used again before it expires, the values stored remain.	
+In order to support personalising content to site visitors that have seen or not seen particular pages we need to track which pages they have viewed.  This is implemented using a cookie named `personalisationGroupsPagesViewed` that will be written and amended on each page request.  It has a default expiry of 90 days but you can amend this in configuration.  The cookie expiry slides, so if the site is used again before it expires, the values stored remain.
 
 If you don't want this cookie to be written, you can remove this criteria from the list available to select via configuration (see above).  If you do that, the criteria can't be used and the page tracking behaviour will be switched off.
 
 ## How to extend it
 
-The idea moving forward is that not every criteria will necessarily be provided by the core package - it should be extensible by developers looking to implement something that might be quite specific to their application.  This should be mostly straightforward.  Due to the fact that the criteria that are made available come from a scan of all loaded assemblies, it should only be necessary to provide a dll with an implementation of **IPersonalisationGroupCriteria** and a unique `Alias` property, along with the definition editor angular view, controller and translation service - **definition.editor.html**, **definition.editor.controller.js** and **definition.definition.translator.js** respectively.
+The idea moving forward is that not every criteria will necessarily be provided by the core package - it should be extensible by developers looking to implement something that might be quite specific to their application.  This should be mostly straightforward.  Due to the fact that the criteria that are made available come from a scan of all loaded assemblies, it should only be necessary to provide a dll with an implementation of `IPersonalisationGroupCriteria` and a unique `Alias` property, along with the definition editor angular view, controller and translation service - `definition.editor.html`, `definition.editor.controller.js` and `definition.definition.translator.js` respectively.
 
-As well as the interface, there's a helper base class `PersonalisationGroupCriteriaBase` that you can inherit from that provides some useful methods for matching values and regular expressions.  This isn't required though for the criteria to be recognised and used.
-
-The C# files can sit anywhere of course.  The client-side files should live in `App_Plugins/UmbracoPersonalisationGroups/GetResourceForCriteria/<criteriaAlias`.
-
-As with other Umbraco packages, you'll also need to create a `package.manifest` file listing out the additional JavaScript files you need.  It should live in `App_Plugins/UmbracoPersonalisationGroups/` and look like this:
+As with other Umbraco packages, you'll also need to create a `package.manifest` file listing out the additional JavaScript files you need, e.g.:
 
 ```
 {
     javascript: [
         '~/App_Plugins/UmbracoPersonalisationGroups/GetResourceForCriteria/myAlias/definition.editor.controller.js',
         '~/App_Plugins/UmbracoPersonalisationGroups/GetResourceForCriteria/myAlias/definition.translator.js'
-    ]    
+    ]
 }
 ```
+
+As well as the interface, there's a helper base class `PersonalisationGroupCriteriaBase` that you can inherit from that provides some useful methods for matching values and regular expressions.  This isn't required though for the criteria to be recognised and used.
+
+The C# files can sit anywhere of course.
+
+Prior to 3.1, the client-side files had to live in `App_Plugins/PersonalisationGroups/Criteria/<criteriaAlias>`, and the manifest file in `App_Plugins/PersonalisationGroups/`.  This [caused issues](https://github.com/AndyButland/UmbracoPersonalisationGroupsCore/issues/2) with custom criteria though, as they would be removed on each build.
+
+To resolve that, `IPersonalisationGroupCriteria` has a property called `ClientAssetsFolder` that can be set to provide a custom location for the files.  For example, rather than `PersonalisationGroups/Criteria`, you can set it to `MyCustomFolder/Criteria`, and store your client-side asset files in `App_Plugins/MyCustomFolder/Criteria`.
 
 ## Working with caching
 
@@ -352,3 +356,8 @@ See [here](https://github.com/AndyButland/UmbracoPersonalisationGroups#version-h
     - Alpha release for Umbraco V9 alpha.
 - 3.0.0-alpha2
     - Beta release for Umbraco V9 beta.
+- 3.0.0
+    - Full release compatabiliy with Umbraco V9.
+- 3.1.0
+    - Added the `ClientAssetsFolder` property to `IPersonalisationGroupCriteria`, allowing the provision of a folder for client assets used in custom criteria, avoiding issue with build removing them from the package's App_Plugins folder.
+        - _Note that this is a breaking change for custom criteria due to the additional property.  It can be set to `PersonalisationGroups/Criteria` to retain the existing behaviour (and will have this value by default if inheriting from `PersonalisationGroupCriteriaBase`)._

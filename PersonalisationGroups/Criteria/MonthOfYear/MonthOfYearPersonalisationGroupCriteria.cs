@@ -8,7 +8,7 @@ namespace Our.Umbraco.PersonalisationGroups.Criteria.MonthOfYear
     /// <summary>
     /// Implements a personalisation group criteria based on the month of the year
     /// </summary>
-    public class MonthOfYearPersonalisationGroupCriteria : IPersonalisationGroupCriteria
+    public class MonthOfYearPersonalisationGroupCriteria : PersonalisationGroupCriteriaBase, IPersonalisationGroupCriteria
     {
         private readonly IDateTimeProvider _dateTimeProvider;
 

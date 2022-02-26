@@ -7,7 +7,7 @@ namespace Our.Umbraco.PersonalisationGroups.Criteria.AuthenticationStatus
     /// <summary>
     /// Implements a personalisation group criteria based on whether the user is logged on or not
     /// </summary>
-    public class AuthenticationStatusPersonalisationGroupCriteria : IPersonalisationGroupCriteria
+    public class AuthenticationStatusPersonalisationGroupCriteria : PersonalisationGroupCriteriaBase, IPersonalisationGroupCriteria
     {
         private readonly IAuthenticationStatusProvider _authenticationStatusProvider;
 

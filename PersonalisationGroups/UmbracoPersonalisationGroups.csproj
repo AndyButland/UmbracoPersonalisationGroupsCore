@@ -6,7 +6,7 @@
     <ContentTargetFolders>.</ContentTargetFolders>
     <TargetFramework>net5.0</TargetFramework>
     <PackageId>UmbracoPersonalisationGroups</PackageId>
-    <Version>3.0.0</Version>
+    <Version>3.1.0-alpha001</Version>
     <Authors>Andy Butland</Authors>
     <Description>An Umbraco package supporting personalisation of content to different groups of site visitors.</Description>
     <Copyright>2021 Andy Butland</Copyright>
