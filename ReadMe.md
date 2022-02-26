@@ -352,9 +352,9 @@ If you needed to personalise by these criteria - number of pages viewed and/or n
 
 See [here](https://github.com/AndyButland/UmbracoPersonalisationGroups#version-history) for history of the package supporting Umbraco V7 and V8.
 
-- 3.0.0-alpha2
-    - Alpha release for Umbraco V9 alpha.
-- 3.0.0-alpha2
+- 3.0.0-alpha1, 3.0.0-alpha2
+    - Alpha releases for Umbraco V9 alpha.
+- 3.0.0-beta1, 3.0.0-beta2, 3.0.0-beta3
     - Beta release for Umbraco V9 beta.
 - 3.0.0
     - Full release compatabiliy with Umbraco V9.
