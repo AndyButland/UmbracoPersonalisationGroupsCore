@@ -1,8 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
 using Moq;
-using Our.Umbraco.PersonalisationGroups.Criteria.Cookie;
-using Our.Umbraco.PersonalisationGroups.Providers.Cookie;
+using Our.Umbraco.PersonalisationGroups.Core.Criteria.Cookie;
+using Our.Umbraco.PersonalisationGroups.Core.Providers.Cookie;
 
 namespace Our.Umbraco.PersonalisationGroups.Tests.Criteria.Cookie
 {

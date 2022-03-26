@@ -1,6 +1,6 @@
 ﻿using System;
 using Moq;
-using Our.Umbraco.PersonalisationGroups.Providers.DateTime;
+using Our.Umbraco.PersonalisationGroups.Core.Providers.DateTime;
 
 namespace Our.Umbraco.PersonalisationGroups.Tests.Criteria
 {

@@ -2,8 +2,8 @@
 using Microsoft.Extensions.Primitives;
 using Moq;
 using NUnit.Framework;
-using Our.Umbraco.PersonalisationGroups.Criteria.Querystring;
-using Our.Umbraco.PersonalisationGroups.Providers.Querystring;
+using Our.Umbraco.PersonalisationGroups.Core.Criteria.Querystring;
+using Our.Umbraco.PersonalisationGroups.Core.Providers.Querystring;
 using System;
 using System.Collections.Generic;
 

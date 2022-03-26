@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using Our.Umbraco.PersonalisationGroups.Criteria.DayOfWeek;
+using Our.Umbraco.PersonalisationGroups.Core.Criteria.DayOfWeek;
 
 namespace Our.Umbraco.PersonalisationGroups.Tests.Criteria.DayOfWeek
 {

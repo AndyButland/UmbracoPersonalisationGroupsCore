@@ -1,8 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
 using Moq;
-using Our.Umbraco.PersonalisationGroups.Criteria.NumberOfVisits;
-using Our.Umbraco.PersonalisationGroups.Providers.NumberOfVisits;
+using Our.Umbraco.PersonalisationGroups.Core.Criteria.NumberOfVisits;
+using Our.Umbraco.PersonalisationGroups.Core.Providers.NumberOfVisits;
 
 namespace Our.Umbraco.PersonalisationGroups.Tests.Criteria.NumberOfVisits
 {

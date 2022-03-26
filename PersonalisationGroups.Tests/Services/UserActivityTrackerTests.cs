@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Our.Umbraco.PersonalisationGroups.Services;
+using Our.Umbraco.PersonalisationGroups.Core.Services;
 
 namespace Our.Umbraco.PersonalisationGroups.Tests.Criteria.PagesViewed
 {

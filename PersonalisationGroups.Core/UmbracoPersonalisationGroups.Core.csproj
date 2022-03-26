@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<AssemblyName>Our.Umbraco.PersonalisationGroups.Core</AssemblyName>
+		<PackageId>UmbracoPersonalisationGroups.Core</PackageId>
+		<RootNamespace>Our.Umbraco.PersonalisationGroups.Core</RootNamespace>
+		<Description>Core library for UmbracoPersonalisationGroups, an Umbraco 9 package supporting personalisation of content to different groups of site visitors.</Description>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="Migrations\package.xml" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="MaxMind.GeoIP2" Version="4.0.1" />
+		<PackageReference Include="Umbraco.Cms.Web.Common" Version="9.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+			<_Parameter1>Our.Umbraco.PersonalisationGroups.Tests</_Parameter1>
+		</AssemblyAttribute>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Migrations\package.xml" />
+	</ItemGroup>
+
+</Project>

@@ -1,8 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
 using Moq;
-using Our.Umbraco.PersonalisationGroups.Criteria.MemberProfileField;
-using Our.Umbraco.PersonalisationGroups.Providers.MemberProfileField;
+using Our.Umbraco.PersonalisationGroups.Core.Criteria.MemberProfileField;
+using Our.Umbraco.PersonalisationGroups.Core.Providers.MemberProfileField;
 
 namespace Zone.UmbracoPersonalisationGroups.V8.Tests.Criteria.MemberProfileField
 {

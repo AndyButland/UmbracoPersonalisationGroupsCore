@@ -1,8 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
 using Moq;
-using Our.Umbraco.PersonalisationGroups.Criteria.PagesViewed;
-using Our.Umbraco.PersonalisationGroups.Providers.PagesViewed;
+using Our.Umbraco.PersonalisationGroups.Core.Criteria.PagesViewed;
+using Our.Umbraco.PersonalisationGroups.Core.Providers.PagesViewed;
 
 namespace Our.Umbraco.PersonalisationGroups.Tests.Criteria.PagesViewed
 {

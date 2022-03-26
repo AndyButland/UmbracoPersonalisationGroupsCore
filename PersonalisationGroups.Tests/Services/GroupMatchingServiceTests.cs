@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.Options;
 using Moq;
 using NUnit.Framework;
-using Our.Umbraco.PersonalisationGroups.Configuration;
-using Our.Umbraco.PersonalisationGroups.Criteria;
-using Our.Umbraco.PersonalisationGroups.Criteria.DayOfWeek;
-using Our.Umbraco.PersonalisationGroups.Criteria.TimeOfDay;
-using Our.Umbraco.PersonalisationGroups.Providers.DateTime;
-using Our.Umbraco.PersonalisationGroups.Services;
+using Our.Umbraco.PersonalisationGroups.Core.Configuration;
+using Our.Umbraco.PersonalisationGroups.Core.Criteria;
+using Our.Umbraco.PersonalisationGroups.Core.Criteria.DayOfWeek;
+using Our.Umbraco.PersonalisationGroups.Core.Criteria.TimeOfDay;
+using Our.Umbraco.PersonalisationGroups.Core.Providers.DateTime;
+using Our.Umbraco.PersonalisationGroups.Core.Services;
 using Our.Umbraco.PersonalisationGroups.Tests.TestHelpers;
 using System.Collections.Generic;
 using Umbraco.Cms.Core.Models.PublishedContent;
@@ -349,10 +349,10 @@ namespace Our.Umbraco.PersonalisationGroups.Tests.Services
             if (definition != null)
             {
                 var property = new Mock<IPublishedProperty>();
-                property.Setup(x => x.Alias).Returns(AppConstants.PersonalisationGroupDefinitionPropertyAlias);
+                property.Setup(x => x.Alias).Returns(Core.AppConstants.PersonalisationGroupDefinitionPropertyAlias);
                 property.Setup(x => x.GetValue(It.IsAny<string>(), It.IsAny<string>())).Returns(definition);
                 property.Setup(x => x.HasValue(It.IsAny<string>(), It.IsAny<string>())).Returns(true);
-                mockContent.Setup(x => x.GetProperty(AppConstants.PersonalisationGroupDefinitionPropertyAlias)).Returns(property.Object);
+                mockContent.Setup(x => x.GetProperty(Core.AppConstants.PersonalisationGroupDefinitionPropertyAlias)).Returns(property.Object);
             }
 
             return mockContent.Object;

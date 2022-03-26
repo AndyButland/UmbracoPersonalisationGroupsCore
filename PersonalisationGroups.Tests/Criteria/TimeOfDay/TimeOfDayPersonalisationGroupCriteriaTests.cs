@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using Our.Umbraco.PersonalisationGroups.Criteria.TimeOfDay;
+using Our.Umbraco.PersonalisationGroups.Core.Criteria.TimeOfDay;
 
 namespace Our.Umbraco.PersonalisationGroups.Tests.Criteria.TimeOfDay
 {

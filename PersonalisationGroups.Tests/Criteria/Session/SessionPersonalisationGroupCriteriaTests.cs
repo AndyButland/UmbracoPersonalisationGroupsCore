@@ -1,8 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
 using Moq;
-using Our.Umbraco.PersonalisationGroups.Criteria.Session;
-using Our.Umbraco.PersonalisationGroups.Providers.Session;
+using Our.Umbraco.PersonalisationGroups.Core.Criteria.Session;
+using Our.Umbraco.PersonalisationGroups.Core.Providers.Session;
 
 namespace Our.Umbraco.PersonalisationGroups.Tests.Criteria.Session
 {

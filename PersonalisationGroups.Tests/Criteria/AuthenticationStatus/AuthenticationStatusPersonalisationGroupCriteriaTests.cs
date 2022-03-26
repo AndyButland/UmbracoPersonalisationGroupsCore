@@ -1,8 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
 using Moq;
-using Our.Umbraco.PersonalisationGroups.Criteria.AuthenticationStatus;
-using Our.Umbraco.PersonalisationGroups.Providers.AuthenticationStatus;
+using Our.Umbraco.PersonalisationGroups.Core.Criteria.AuthenticationStatus;
+using Our.Umbraco.PersonalisationGroups.Core.Providers.AuthenticationStatus;
 
 namespace Our.Umbraco.PersonalisationGroups.Tests.Criteria.AuthenticationStatus
 {

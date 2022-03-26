@@ -1,63 +1,47 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <AssemblyName>Our.Umbraco.PersonalisationGroups</AssemblyName>
-    <RootNamespace>Our.Umbraco.PersonalisationGroups</RootNamespace>
-    <ContentTargetFolders>.</ContentTargetFolders>
-    <TargetFramework>net5.0</TargetFramework>
-    <PackageId>UmbracoPersonalisationGroups</PackageId>
-    <Version>3.1.0</Version>
-    <Authors>Andy Butland</Authors>
-    <Description>An Umbraco package supporting personalisation of content to different groups of site visitors.</Description>
-    <Copyright>2021 Andy Butland</Copyright>
-    <PackageProjectUrl>https://github.com/AndyButland/UmbracoPersonalisationGroupsCore/</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/AndyButland/UmbracoPersonalisationGroupsCore/</RepositoryUrl>
-    <RepositoryType>Github</RepositoryType>
-    <PackageTags>Umbraco</PackageTags>
-	<PackageLicenseExpression>MIT</PackageLicenseExpression>
-  </PropertyGroup>
+	<PropertyGroup>
+		<AssemblyName>Our.Umbraco.PersonalisationGroups</AssemblyName>
+		<RootNamespace>Our.Umbraco.PersonalisationGroups</RootNamespace>
+		<ContentTargetFolders>.</ContentTargetFolders>
+		<PackageId>UmbracoPersonalisationGroups</PackageId>
+		<Description>Installable component of UmbracoPersonalisationGroups, an Umbraco 9 package supporting personalisation of content to different groups of site visitors.</Description>
+		<PackageTags>Umbraco Umbraco-Marketplace</PackageTags>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="MaxMind.GeoIP2" Version="4.0.1" />
-    <PackageReference Include="Umbraco.Cms.Web.Common" Version="9.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<Content Include="App_Plugins\PersonalisationGroups\**\*.*">
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
+		</Content>
+		<None Include="build\**\*.*">
+			<Pack>True</Pack>
+			<PackagePath>build</PackagePath>
+		</None>
+	</ItemGroup>
 
-  <ItemGroup>
-    <Content Include="App_Plugins\PersonalisationGroups\**\*.*">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-    </Content>
-    <None Include="build\**\*.*">
-      <Pack>True</Pack>
-      <PackagePath>build</PackagePath>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Data\continents.txt" />
+		<EmbeddedResource Include="Data\countries.txt" />
+		<EmbeddedResource Include="Data\regions.txt" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>UmbracoPersonalisationGroups.Tests</_Parameter1>
-    </AssemblyAttribute>
-  </ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\PersonalisationGroups.Core\UmbracoPersonalisationGroups.Core.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="Data\continents.txt" />
-    <EmbeddedResource Include="Data\countries.txt" />
-    <EmbeddedResource Include="Data\regions.txt" />
-    <EmbeddedResource Include="Migrations\package.xml" />
-  </ItemGroup>
+	<ItemGroup>
+		<Content Update="App_Plugins\PersonalisationGroups\personalisation-groups.css">
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
+		</Content>
+	</ItemGroup>
 
-  <ItemGroup>
-    <Content Update="App_Plugins\PersonalisationGroups\personalisation-groups.css">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Update="App_Plugins\PersonalisationGroups\personalisation-group-definition.html">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
+	<ItemGroup>
+		<Content Update="App_Plugins\PersonalisationGroups\personalisation-group-definition.html">
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
+		</Content>
+	</ItemGroup>
 
 </Project>

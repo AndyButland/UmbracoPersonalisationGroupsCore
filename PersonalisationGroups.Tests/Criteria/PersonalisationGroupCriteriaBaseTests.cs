@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
-using Our.Umbraco.PersonalisationGroups.Criteria;
+using Our.Umbraco.PersonalisationGroups.Core;
+using Our.Umbraco.PersonalisationGroups.Core.Criteria;
 
 namespace Our.Umbraco.PersonalisationGroups.Tests.Criteria
 {

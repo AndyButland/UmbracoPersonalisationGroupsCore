@@ -1,0 +1,19 @@
+﻿<Project>
+	<PropertyGroup>
+		<Version>3.2.0-rc001</Version>
+		<AssemblyVersion>3.2.0</AssemblyVersion>
+		<InformationalVersion>3.2.0-rc001</InformationalVersion>
+		<FileVersion>3.2.0-rc001</FileVersion>
+		<LangVersion Condition="'$(LangVersion)' == ''">9.0</LangVersion>
+		<NeutralLanguage>en-US</NeutralLanguage>
+		<TargetFramework>net5.0</TargetFramework>
+		<Authors>Andy Butland</Authors>
+		<Copyright>2021-22 Andy Butland</Copyright>
+		<PackageProjectUrl>https://github.com/AndyButland/UmbracoPersonalisationGroupsCore/</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/AndyButland/UmbracoPersonalisationGroupsCore/</RepositoryUrl>
+		<RepositoryType>Github</RepositoryType>
+		<PackageTags>Umbraco</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	</PropertyGroup>
+</Project>
+

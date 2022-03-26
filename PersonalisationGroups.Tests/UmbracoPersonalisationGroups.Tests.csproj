@@ -1,23 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <RootNamespace>Our.Umbraco.PersonalisationGroups.Tests</RootNamespace>
-    <TargetFramework>net5.0</TargetFramework>
-    <IsPackable>false</IsPackable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<AssemblyName>Our.Umbraco.PersonalisationGroups.Tests</AssemblyName>
+		<RootNamespace>Our.Umbraco.PersonalisationGroups.Tests</RootNamespace>
+		<TargetFramework>net5.0</TargetFramework>
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\PersonalisationGroups\UmbracoPersonalisationGroups.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\PersonalisationGroups.Core\UmbracoPersonalisationGroups.Core.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Criteria\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Criteria\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.16.1" />
-    <PackageReference Include="Umbraco.Cms.Tests" Version="9.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+		<PackageReference Include="NUnit3TestAdapter" Version="3.16.1" />
+		<PackageReference Include="Umbraco.Cms.Tests" Version="9.0.0" />
+	</ItemGroup>
 
 </Project>

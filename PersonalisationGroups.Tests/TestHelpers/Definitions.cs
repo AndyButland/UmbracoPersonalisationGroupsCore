@@ -1,4 +1,4 @@
-﻿using Our.Umbraco.PersonalisationGroups.Criteria;
+﻿using Our.Umbraco.PersonalisationGroups.Core.Criteria;
 using System;
 
 namespace Our.Umbraco.PersonalisationGroups.Tests.TestHelpers
