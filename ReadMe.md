@@ -362,5 +362,6 @@ See [here](https://github.com/AndyButland/UmbracoPersonalisationGroups#version-h
     - Added the `ClientAssetsFolder` property to `IPersonalisationGroupCriteria`, allowing the provision of a folder for client assets used in custom criteria, avoiding issue with build removing them from the package's App_Plugins folder.
         - _Note that this is a breaking change for custom criteria due to the additional property.  It can be set to `PersonalisationGroups/Criteria` to retain the existing behaviour (and will have this value by default if inheriting from `PersonalisationGroupCriteriaBase`)._
 - 3.2.0-rc001
+- 3.2.0
     - Separated the package into two, for core and front-end (issue #4)
         - _Note that this contains breaking changes due to the changes of namespaces._
