@@ -8,7 +8,7 @@ namespace Our.Umbraco.PersonalisationGroups.Core.Configuration
 
         public string GroupPickerAlias { get; set; } = AppConstants.DefaultGroupPickerAlias;
 
-        public string GeoLocationCountryDatabasePath { get; set; } = AppConstants.DefaultGeoLocationCityDatabasePath;
+        public string GeoLocationCountryDatabasePath { get; set; } = AppConstants.DefaultGeoLocationCountryDatabasePath;
 
         public string GeoLocationCityDatabasePath { get; set; } = AppConstants.DefaultGeoLocationCityDatabasePath;
 
