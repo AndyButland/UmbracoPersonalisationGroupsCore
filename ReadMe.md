@@ -365,3 +365,5 @@ See [here](https://github.com/AndyButland/UmbracoPersonalisationGroups#version-h
 - 3.2.0
     - Separated the package into two, for core and front-end (issue #4)
         - _Note that this contains breaking changes due to the changes of namespaces._
+- 3.2.1
+    - Fixed issue with wrong geolocation database reference. From [PR #5](https://github.com/AndyButland/UmbracoPersonalisationGroupsCore/pull/5).
