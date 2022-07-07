@@ -4,7 +4,7 @@
 		<AssemblyVersion>3.2.1</AssemblyVersion>
 		<InformationalVersion>3.2.1</InformationalVersion>
 		<FileVersion>3.2.1</FileVersion>
-		<LangVersion Condition="'$(LangVersion)' == ''">9.0</LangVersion>
+		<LangVersion Condition="'$(LangVersion)' == ''">10.0</LangVersion>
 		<NeutralLanguage>en-US</NeutralLanguage>
 		<TargetFramework>net5.0</TargetFramework>
 		<Authors>Andy Butland</Authors>

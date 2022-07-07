@@ -4,9 +4,9 @@
 
 Umbraco Personalisation Groups is an Umbraco package intended to allow personalisation of content to different groups of site visitors.
 
-It supports Umbraco version 9.  For Umbraco 7 and 8 support, you can find [source code and license details here](https://github.com/AndyButland/UmbracoPersonalisationGroups).
+It supports Umbraco version 9+.  For Umbraco 7 and 8 support, you can find [source code and license details here](https://github.com/AndyButland/UmbracoPersonalisationGroups).
 
-It can be installed from NuGet only, but has a page for all version of the package onour.umbraco.org [here](https://our.umbraco.org/projects/website-utilities/personalisation-groups).
+It can be installed from NuGet only, but has a page for all version of the package on our.umbraco.org [here](https://our.umbraco.org/projects/website-utilities/personalisation-groups).
 
 It contains a few different pieces:
 

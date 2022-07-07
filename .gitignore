@@ -197,7 +197,7 @@ ExamineIndexes/
 */media/created-packages/
 
 # Solution
-TestWebApp/
-TestWebAppWithPackage/
+TestWebApp.V9/
+TestWebApp.V10/
 
 deploy.ps1
