@@ -112,7 +112,7 @@ A typical example would be to personalise a list of repeated content to only sho
 ```
     @using Umbraco.Cms.Core.Models.PublishedContent;
     @using Umbraco.Extensions;
-    @using Our.Umbraco.PersonalisationGroups.Services;
+    @using Our.Umbraco.PersonalisationGroups.Core.Services;
 
     @inject IGroupMatchingService GroupMatchingService;
 
