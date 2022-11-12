@@ -367,3 +367,5 @@ See [here](https://github.com/AndyButland/UmbracoPersonalisationGroups#version-h
         - _Note that this contains breaking changes due to the changes of namespaces._
 - 3.2.1
     - Fixed issue with wrong geolocation database reference. From [PR #5](https://github.com/AndyButland/UmbracoPersonalisationGroupsCore/pull/5).
+- 3.2.2
+    - Completed implementation of criteria based on Umbraco member information.

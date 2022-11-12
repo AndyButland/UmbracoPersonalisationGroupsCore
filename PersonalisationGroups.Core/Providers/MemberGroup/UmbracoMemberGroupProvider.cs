@@ -1,29 +1,32 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
+using Umbraco.Cms.Core.Services;
 
 namespace Our.Umbraco.PersonalisationGroups.Core.Providers.MemberGroup
 {
     public class UmbracoMemberGroupProvider : IMemberGroupProvider
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IMemberService _memberService;
 
-        public UmbracoMemberGroupProvider(IHttpContextAccessor httpContextAccessor)
+        public UmbracoMemberGroupProvider(IHttpContextAccessor httpContextAccessor, IMemberService memberService)
         {
             _httpContextAccessor = httpContextAccessor;
+            _memberService = memberService;
         }
 
         public IEnumerable<string> GetMemberGroups()
         {
-            if (_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
-            {
-                return ((ClaimsIdentity)_httpContextAccessor.HttpContext.User.Identity).Claims
-                    .Where(c => c.Type == ClaimTypes.Role)
-                    .Select(c => c.Value);
-            }
+            return _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated
+                ? GetAuthenticatedMemberGroups()
+                : Enumerable.Empty<string>();
+        }
 
-            return Enumerable.Empty<string>();
+        private IEnumerable<string> GetAuthenticatedMemberGroups()
+        {
+            var memberGroups = _memberService.GetAllRoles(_httpContextAccessor.HttpContext.User.Identity.Name);
+            return memberGroups ?? Enumerable.Empty<string>();
         }
     }
 }

@@ -70,7 +70,6 @@ namespace Our.Umbraco.PersonalisationGroups.Core
             services.AddUnique<IMemberGroupProvider, UmbracoMemberGroupProvider>();
             services.AddUnique<IMemberProfileFieldProvider, UmbracoMemberProfileFieldProvider>();
             services.AddUnique<IMemberTypeProvider, UmbracoMemberTypeProvider>();
-            services.AddUnique<IMemberProfileFieldProvider, UmbracoMemberProfileFieldProvider>();
             services.AddUnique<INumberOfVisitsProvider, CookieNumberOfVisitsProvider>();
             services.AddUnique<IPagesViewedProvider, CookiePagesViewedProvider>();
             services.AddUnique<IQuerystringProvider, HttpContextQuerystringProvider>();
