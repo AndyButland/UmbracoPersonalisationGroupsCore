@@ -369,3 +369,5 @@ See [here](https://github.com/AndyButland/UmbracoPersonalisationGroups#version-h
     - Fixed issue with wrong geolocation database reference. From [PR #5](https://github.com/AndyButland/UmbracoPersonalisationGroupsCore/pull/5).
 - 3.2.2
     - Completed implementation of criteria based on Umbraco member information.
+- 3.2.3
+    - Removed use of depreciated methods that were removed in Umbraco 11, allowing support for the package on that version.

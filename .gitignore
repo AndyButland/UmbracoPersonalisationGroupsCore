@@ -199,5 +199,6 @@ ExamineIndexes/
 # Solution
 TestWebApp.V9/
 TestWebApp.V10/
+TestWebApp.V11/
 
 deploy.ps1
