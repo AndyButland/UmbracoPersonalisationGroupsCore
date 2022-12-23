@@ -370,4 +370,5 @@ See [here](https://github.com/AndyButland/UmbracoPersonalisationGroups#version-h
 - 3.2.2
     - Completed implementation of criteria based on Umbraco member information.
 - 3.2.3
-    - Removed use of depreciated methods that were removed in Umbraco 11, allowing support for the package on that version.
+    - Removed use of depreciated methods that were removed in Umbraco 11, allowing support for the package on that version. From [PR #8](https://github.com/AndyButland/UmbracoPersonalisationGroupsCore/pull/8)
+    - Hooked up the tracking of pages viewed and number of visits to cookies.
