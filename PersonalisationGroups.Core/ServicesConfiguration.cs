@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Our.Umbraco.PersonalisationGroups.Core.Configuration;
+using Our.Umbraco.PersonalisationGroups.Core.Middleware;
 using Our.Umbraco.PersonalisationGroups.Core.Providers.AuthenticationStatus;
 using Our.Umbraco.PersonalisationGroups.Core.Providers.Cookie;
 using Our.Umbraco.PersonalisationGroups.Core.Providers.DateTime;
@@ -17,7 +19,9 @@ using Our.Umbraco.PersonalisationGroups.Core.Providers.Referrer;
 using Our.Umbraco.PersonalisationGroups.Core.Providers.RequestHeaders;
 using Our.Umbraco.PersonalisationGroups.Core.Providers.Session;
 using Our.Umbraco.PersonalisationGroups.Core.Services;
+using System;
 using Umbraco.Cms.Core.DependencyInjection;
+using Umbraco.Cms.Web.Common.ApplicationBuilder;
 using Umbraco.Extensions;
 
 namespace Our.Umbraco.PersonalisationGroups.Core
@@ -33,6 +37,8 @@ namespace Our.Umbraco.PersonalisationGroups.Core
 
             AddProviders(builder.Services, configSection);
 
+            AddMiddleware(builder.Services);
+
             return builder;
         }
 
@@ -46,6 +52,7 @@ namespace Our.Umbraco.PersonalisationGroups.Core
             services.AddUnique<ICriteriaService, CriteriaService>();
             services.AddUnique<IGroupMatchingService, GroupMatchingService>();
             services.AddUnique<IStickyMatchService, StickyMatchService>();
+            services.AddUnique<IUserActivityTracker, UserActivityTracker>();
         }
 
         private static void AddProviders(IServiceCollection services, IConfigurationSection configSection)
@@ -76,6 +83,16 @@ namespace Our.Umbraco.PersonalisationGroups.Core
             services.AddUnique<IReferrerProvider, HttpContextReferrerProvider>();
             services.AddUnique<IRequestHeadersProvider, HttpContextRequestHeadersProvider>();
             services.AddUnique<ISessionProvider, HttpContextSessionProvider>();
+        }
+
+        private static void AddMiddleware(IServiceCollection services)
+        {
+            services.AddSingleton<TrackUserActivityMiddleware>();
+            services.Configure<UmbracoPipelineOptions>(options =>
+                options.AddFilter(new UmbracoPipelineFilter(nameof(TrackUserActivityMiddleware))
+                {
+                    PostPipeline = app => app.UseMiddleware<TrackUserActivityMiddleware>()
+                }));
         }
     }
 }

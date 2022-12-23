@@ -1,6 +1,5 @@
 using Microsoft.Extensions.Options;
 using Our.Umbraco.PersonalisationGroups.Core.Configuration;
-using Our.Umbraco.PersonalisationGroups.Core.Criteria.PagesViewed;
 using Our.Umbraco.PersonalisationGroups.Core.Providers.Cookie;
 using Our.Umbraco.PersonalisationGroups.Core.Providers.DateTime;
 using Our.Umbraco.PersonalisationGroups.Core.Providers.PagesViewed;
@@ -51,14 +50,15 @@ namespace Our.Umbraco.PersonalisationGroups.Core.Services
 
         public void TrackSession()
         {
-            var key = _config.CookieKeyForTrackingIfSessionAlreadyTracked;
+            var sessionCookieKey = _config.CookieKeyForTrackingIfSessionAlreadyTracked;
 
             // Check if session cookie present.
-            var sessionCookieExists = _cookieProvider.CookieExists(key);
+            var sessionCookieExists = _cookieProvider.CookieExists(sessionCookieKey);
             if (!sessionCookieExists)
             {
                 // If not, create or update the number of visits cookie.
-                var value = _cookieProvider.GetCookieValue(_config.CookieKeyForTrackingNumberOfVisits);
+                var numberOfVisitsCookeKey = _config.CookieKeyForTrackingNumberOfVisits;
+                var value = _cookieProvider.GetCookieValue(numberOfVisitsCookeKey);
                 if (!string.IsNullOrEmpty(value))
                 {
                     value = int.TryParse(value, out int cookieValue) ? (cookieValue + 1).ToString() : "1";
@@ -69,7 +69,7 @@ namespace Our.Umbraco.PersonalisationGroups.Core.Services
                 }
 
                 var expires = _dateTimeProvider.GetCurrentDateTime().AddDays(_config.NumberOfVisitsTrackingCookieExpiryInDays);
-                _cookieProvider.SetCookie(key, value, expires);
+                _cookieProvider.SetCookie(numberOfVisitsCookeKey, value, expires);
 
                 // Set the session cookie so we don't keep updating on each request
                 _cookieProvider.SetCookie(_config.CookieKeyForTrackingIfSessionAlreadyTracked, "1");
