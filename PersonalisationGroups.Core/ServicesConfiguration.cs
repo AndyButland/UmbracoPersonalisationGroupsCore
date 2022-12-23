@@ -66,7 +66,7 @@ namespace Our.Umbraco.PersonalisationGroups.Core
 
             services.AddUnique<IHostProvider, HttpContextHostProvider>();
             services.AddUnique<IIpProvider, HttpContextIpProvider>();
-            services.AddUnique<ClientIpParser>();
+            services.AddSingleton<ClientIpParser>();
             services.AddUnique<IMemberGroupProvider, UmbracoMemberGroupProvider>();
             services.AddUnique<IMemberProfileFieldProvider, UmbracoMemberProfileFieldProvider>();
             services.AddUnique<IMemberTypeProvider, UmbracoMemberTypeProvider>();
