@@ -4,7 +4,7 @@
     "Description": "Andy works at Umbraco HQ. This package is provided in a personal capacity.",
     "Url": "https://andybutland.dev",
     "ImageUrl": "https://umbraco.com/media/uttnxec4/andy_butland_02-square.jpg",
-    "SyncContributorsFromGitHub": true
+    "SyncContributorsFromRepository": true
   },
   "Category": "Editor Tools",
   "LicenseType": "Free",
