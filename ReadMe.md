@@ -283,11 +283,11 @@ There's also a related extension method on `UmbracoHelper` defined in `UmbracoHe
 
 ### Country and region
 
-The country criteria uses the [free GeoLite2 IP to country database](http://dev.maxmind.com/geoip/geoip2/geolite2/) made available by Maxmind.com.  It will look for it in `/App_Data/GeoLite2-Country.mmdb` or at the path specified in configuration.
+The country criteria uses the [free GeoLite2 IP to country database](http://dev.maxmind.com/geoip/geoip2/geolite2/) made available by Maxmind.com.  It will look for it in `/umbraco/Data/PersonalisationGroups/GeoLite2-Country.mmdb` or at the path specified in configuration.
 
-Similarly the region criteria uses the city database available from the same link above.  Similarly it will be read from the default location of `/App_Data/GeoLite2-City.mmdb` or at the path specified in configuration.
+Similarly the region criteria uses the city database available from the same link above.  It will be read from the default location of `/umbraco/Data/PersonalisationGroups/GeoLite2-City.mmdb` or at the path specified in configuration.
 
-When it comes to selecting regions to match against, the list of regions available is provided by the package from a [list provided by Maxmind](https://www.maxmind.com/download/geoip/misc/region_codes.csv). If you want to override this list, you can do so by taking a copy of this file, saving it to a relative path (likely in `App_Data`) and referencing it in configuration.  Doing this for example would allow you to override the region names from local language to English (we've found that in some cases, matches are more likely having done this).
+When it comes to selecting regions to match against, the list of regions available is provided by the package from a [list provided by Maxmind](https://www.maxmind.com/download/geoip/misc/region_codes.csv). If you want to override this list, you can do so by taking a copy of this file, saving it to a relative path (likely in `/umbraco/Data/PersonalisationGroups/`) and referencing it in configuration.  Doing this for example would allow you to override the region names from local language to English (we've found that in some cases, matches are more likely having done this).
 
 If you are using a CDN, it's possible to use a feature that provides the user's geographical country location in a header [such as that provided by Cloudflare](https://support.cloudflare.com/hc/en-us/articles/200168236-What-does-Cloudflare-IP-Geolocation-do-).  To use that method instead, apply the configuration described above.
 
@@ -384,3 +384,5 @@ See [here](https://github.com/AndyButland/UmbracoPersonalisationGroups#version-h
 - 3.2.3
     - Removed use of depreciated methods that were removed in Umbraco 11, allowing support for the package on that version. From [PR #8](https://github.com/AndyButland/UmbracoPersonalisationGroupsCore/pull/8)
     - Hooked up the tracking of pages viewed and number of visits to cookies.
+ - 3.2.3
+    - Fixed default configuration of geolocation databases.

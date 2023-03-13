@@ -20,9 +20,9 @@
 
         public const string CommonAssemblyName = "Our.Umbraco.PersonalisationGroups";
 
-        public const string DefaultGeoLocationCountryDatabasePath = "/App_Data/GeoLite2-Country.mmdb";
+        public const string DefaultGeoLocationCountryDatabasePath = "/umbraco/Data/PersonalisationGroups/GeoLite2-Country.mmdb";
 
-        public const string DefaultGeoLocationCityDatabasePath = "/App_Data/GeoLite2-City.mmdb";
+        public const string DefaultGeoLocationCityDatabasePath = "/umbraco/Data/PersonalisationGroups/GeoLite2-City.mmdb";
 
         public const int DefaultNumberOfVisitsTrackingCookieExpiryInDays = 90;
 
@@ -45,54 +45,6 @@
         public const string DefaultSessionKeyForTrackingCookiesDeclined = "PersonalisationGroups_CookiesDeclined";
 
         public const string DefaultCdnCountryCodeHttpHeaderName = "CF-IPCountry";
-
-
-        public static class ConfigKeys
-        {
-            private const string Prefix = "personalisationGroups.";
-
-            public const string DisablePackage = Prefix + "disabled";
-
-            public const string CustomGroupPickerAlias = Prefix + "groupPickerAlias";
-
-            public const string CustomGeoLocationCountryDatabasePath = Prefix + "geoLocationCountryDatabasePath";
-
-            public const string CustomGeoLocationCityDatabasePath = Prefix + "geoLocationCityDatabasePath";
-
-            public const string CustomGeoLocationRegionListPath = Prefix + "geoLocationRegionListPath";
-
-            public const string IncludeCriteria = Prefix + "includeCriteria";
-
-            public const string ExcludeCriteria = Prefix + "excludeCriteria";
-
-            public const string NumberOfVisitsTrackingCookieExpiryInDays = Prefix + "numberOfVisitsTrackingCookieExpiryInDays";
-
-            public const string ViewedPagesTrackingCookieExpiryInDays = Prefix + "viewedPagesTrackingCookieExpiryInDays";
-
-            public const string CookieKeyForTrackingNumberOfVisits = Prefix + "CookieKeyForTrackingNumberOfVisits";
-
-            public const string CookieKeyForTrackingIfSessionAlreadyTracked = Prefix + "cookieKeyForTrackingIfSessionAlreadyTracked";
-
-            public const string CookieKeyForTrackingPagesViewed = Prefix + "CookieKeyForTrackingPagesViewed";
-
-            public const string CookieKeyForSessionMatchedGroups = Prefix + "cookieKeyForSessionMatchedGroups";
-
-            public const string CookieKeyForPersistentMatchedGroups = Prefix + "cookieKeyForPersistentMatchedGroups";
-
-            public const string CookieKeyForTrackingCookiesDeclined = Prefix + "cookieKeyForTrackingCookiesDeclined";
-
-            public const string SessionKeyForTrackingCookiesDeclined = Prefix + "sessionKeyForTrackingCookiesDeclined";
-
-            public const string PersistentMatchedGroupsCookieExpiryInDays = Prefix + "persistentMatchedGroupsCookieExpiryInDays";
-
-            public const string TestFixedIp = Prefix + "testFixedIp";
-
-            public const string CountryCodeProvider = Prefix + "countryCodeProvider";
-
-            public const string CdnCountryCodeHttpHeaderName = Prefix + "cdnCountryCodeHttpHeaderName";
-
-            public const string DisableHttpContextItemsUseInCookieOperations = Prefix + "disableHttpContextItemsUseInCookieOperations";
-        }
 
         public static class DocumentTypeAliases
         {

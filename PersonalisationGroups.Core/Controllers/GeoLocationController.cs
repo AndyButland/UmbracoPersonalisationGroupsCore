@@ -196,7 +196,7 @@ namespace Our.Umbraco.PersonalisationGroups.Core.Controllers
             var customFilePath = _config.GeoLocationRegionListPath;
             if (!string.IsNullOrEmpty(customFilePath))
             {
-                var mappedPath = _hostingEnvironment.MapPathWebRoot(customFilePath);
+                var mappedPath = _hostingEnvironment.MapPathContentRoot(customFilePath);
                 if (!string.IsNullOrEmpty(mappedPath) && System.IO.File.Exists(mappedPath))
                 {
                     return System.IO.File.OpenRead(mappedPath);
