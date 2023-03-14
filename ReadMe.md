@@ -384,5 +384,5 @@ See [here](https://github.com/AndyButland/UmbracoPersonalisationGroups#version-h
 - 3.2.3
     - Removed use of depreciated methods that were removed in Umbraco 11, allowing support for the package on that version. From [PR #8](https://github.com/AndyButland/UmbracoPersonalisationGroupsCore/pull/8)
     - Hooked up the tracking of pages viewed and number of visits to cookies.
- - 3.2.3
+ - 3.2.4
     - Fixed default configuration of geolocation databases.
