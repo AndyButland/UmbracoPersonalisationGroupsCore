@@ -2,12 +2,11 @@
 using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Net;
 
 namespace Our.Umbraco.PersonalisationGroups.Core.Providers.Ip
-{    
+{
     public class ClientIpParser
     {
         private static readonly IEnumerable<string> HeaderKeys = new[]
@@ -17,20 +16,25 @@ namespace Our.Umbraco.PersonalisationGroups.Core.Providers.Ip
                 "HTTP_FORWARDED_FOR", "HTTP_FORWARDED"
             };
 
-        public string ParseClientIp(IHeaderDictionary requestHeaders)
+        public string ParseClientIp(HttpContext httpContext)
         {
+            if (httpContext == null)
+            {
+                return string.Empty;
+            }
+
             foreach (var key in HeaderKeys)
             {
-                if (TryParseIpFromServerVariable(requestHeaders, key, out string ip))
+                if (TryParseIpFromHeaders(httpContext.Request.Headers, key, out string ip))
                 {
                     return ip;
                 }
             }
 
-            return string.Empty;
+            return httpContext.Connection.RemoteIpAddress.ToString();
         }
 
-        private bool TryParseIpFromServerVariable(IHeaderDictionary requestHeaders, string key, out string ip)
+        private bool TryParseIpFromHeaders(IHeaderDictionary requestHeaders, string key, out string ip)
         {
             var value = requestHeaders[key];
             if (value == StringValues.Empty)

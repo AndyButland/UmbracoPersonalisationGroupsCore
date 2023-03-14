@@ -30,16 +30,15 @@ namespace Our.Umbraco.PersonalisationGroups.Core.Providers.Ip
 
         private string GetIpFromHttpContext()
         {
-            // Return a test Ip if we've configured one
+            // Return a test Ip if we've configured one.
             var testIp = _config.TestFixedIp;
             if (!string.IsNullOrEmpty(testIp))
             {
                 return testIp;
             }
 
-            // Otherwise retrieve from the HTTP context
-            var requestServerVariables = _httpContextAccessor.HttpContext.Request.Headers;
-            return _clientIpParser.ParseClientIp(requestServerVariables);
+            // Otherwise retrieve from the HTTP context.
+            return _clientIpParser.ParseClientIp(_httpContextAccessor.HttpContext);
         }
     }
 }
