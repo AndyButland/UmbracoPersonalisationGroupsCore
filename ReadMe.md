@@ -29,7 +29,7 @@ It contains a few different pieces:
 	- Umbraco member type
 - An extensible mechanism to allow other criteria to be created and loaded from other assemblies
 - A property editor with associated angular controllers/views that provide the means of configuring personalisation groups based on the available criteria
-- A extension methods on `IPublishedContent/IPublishedElement` and `UmbracoHelper` named `ShowToVisitor()` and `ScoreForVisitor()` that allows for showing, hiding or ordering ranking content for the current site visitor
+- Extension methods on `IPublishedContent/IPublishedElement` and `UmbracoHelper` named `ShowToVisitor()` and `ScoreForVisitor()` that allows for showing, hiding or ordering content for the current site visitor
 
 ## Using the package
 
@@ -386,3 +386,7 @@ See [here](https://github.com/AndyButland/UmbracoPersonalisationGroups#version-h
     - Hooked up the tracking of pages viewed and number of visits to cookies.
  - 3.2.4
     - Fixed default configuration of geolocation databases.
+ - 3.2.5
+    - Added fallback for client IP detection to use remote address on the connection if not found in a header.
+- 3.2.6
+    - Added icon and readme.

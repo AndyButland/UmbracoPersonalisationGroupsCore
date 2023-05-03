@@ -5,7 +5,7 @@
 		<RootNamespace>Our.Umbraco.PersonalisationGroups</RootNamespace>
 		<ContentTargetFolders>.</ContentTargetFolders>
 		<PackageId>UmbracoPersonalisationGroups</PackageId>
-		<Description>Installable component of UmbracoPersonalisationGroups, an Umbraco 9 package supporting personalisation of content to different groups of site visitors.</Description>
+		<Description>Installable component of UmbracoPersonalisationGroups, an Umbraco 9+ package supporting personalisation of content to different groups of site visitors.</Description>
 		<PackageTags>Umbraco Umbraco-Marketplace</PackageTags>
 	</PropertyGroup>
 
@@ -27,7 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\PersonalisationGroups.Core\UmbracoPersonalisationGroups.Core.csproj" />
+		<ProjectReference Include="..\PersonalisationGroups.Core\UmbracoPersonalisationGroups.Core.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -42,6 +42,15 @@
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
 		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="images\icon.png" Pack="true" PackagePath=""/>
+		<None Include="docs\NuGetReadMe.md" Pack="true" PackagePath="\"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="images\" />
 	</ItemGroup>
 
 </Project>
