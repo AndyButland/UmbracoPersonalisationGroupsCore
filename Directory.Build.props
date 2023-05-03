@@ -13,7 +13,6 @@
 		<RepositoryUrl>https://github.com/AndyButland/UmbracoPersonalisationGroupsCore/</RepositoryUrl>
 		<RepositoryType>Github</RepositoryType>
 		<PackageTags>Umbraco</PackageTags>
-		<PackageIcon>icon.png</PackageIcon>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	</PropertyGroup>
 </Project>

@@ -7,6 +7,7 @@
 		<PackageId>UmbracoPersonalisationGroups</PackageId>
 		<Description>Installable component of UmbracoPersonalisationGroups, an Umbraco 9+ package supporting personalisation of content to different groups of site visitors.</Description>
 		<PackageTags>Umbraco Umbraco-Marketplace</PackageTags>
+		<PackageIcon>icon.png</PackageIcon>
 		<PackageReadmeFile>NuGetReadMe.md</PackageReadmeFile>
 	</PropertyGroup>
 
