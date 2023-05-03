@@ -1,4 +1,5 @@
 {
+  "AlternatePackageNames": [ "PersonalisationGroups" ],
   "AuthorDetails": {
     "Name": "Andy Butland",
     "Description": "Andy works at Umbraco HQ. This package is provided in a personal capacity.",
