@@ -4,7 +4,7 @@
 		<AssemblyName>Our.Umbraco.PersonalisationGroups.Core</AssemblyName>
 		<PackageId>UmbracoPersonalisationGroups.Core</PackageId>
 		<RootNamespace>Our.Umbraco.PersonalisationGroups.Core</RootNamespace>
-		<Description>Core library for UmbracoPersonalisationGroups, an Umbraco 9 package supporting personalisation of content to different groups of site visitors.</Description>
+		<Description>Core library for UmbracoPersonalisationGroups, an Umbraco 9+ package supporting personalisation of content to different groups of site visitors.</Description>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -13,7 +13,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="MaxMind.GeoIP2" Version="4.0.1" />
-		<PackageReference Include="Umbraco.Cms.Web.Common" Version="[9.0.0, 12)" />
+		<PackageReference Include="Umbraco.Cms.Web.Common" Version="[9.0.0, 13)" />
 	</ItemGroup>
 
 	<ItemGroup>

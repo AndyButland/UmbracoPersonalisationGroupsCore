@@ -6,7 +6,9 @@ Umbraco Personalisation Groups is an Umbraco package intended to allow personali
 
 It supports Umbraco version 9+.  For Umbraco 7 and 8 support, you can find [source code and license details here](https://github.com/AndyButland/UmbracoPersonalisationGroups).
 
-It can be installed from NuGet only, but has a page for all version of the package on our.umbraco.org [here](https://our.umbraco.org/projects/website-utilities/personalisation-groups).
+It can be installed from [NuGet](https://www.nuget.org/packages/UmbracoPersonalisationGroups).
+
+It's listed on the [Umbraco Marketplace](https://marketplace.umbraco.com/package/umbracopersonalisationgroups).  And for older versions of the package on [our.umbraco.org](https://our.umbraco.org/projects/website-utilities/personalisation-groups).
 
 It contains a few different pieces:
 
@@ -390,3 +392,5 @@ See [here](https://github.com/AndyButland/UmbracoPersonalisationGroups#version-h
     - Added fallback for client IP detection to use remote address on the connection if not found in a header.
 - 3.2.6
     - Added icon and readme.
+- 3.2.7
+    - Extended maxmium Umbraco dependency to include Umbraco 12.
