@@ -37,7 +37,7 @@ namespace Our.Umbraco.PersonalisationGroups.Core
 
             AddProviders(builder.Services, configSection);
 
-            AddMiddleware(builder.Services);
+            AddMiddleware(builder.Services, configSection);
 
             return builder;
         }
@@ -85,14 +85,19 @@ namespace Our.Umbraco.PersonalisationGroups.Core
             services.AddUnique<ISessionProvider, HttpContextSessionProvider>();
         }
 
-        private static void AddMiddleware(IServiceCollection services)
+        private static void AddMiddleware(IServiceCollection services, IConfigurationSection configSection)
         {
             services.AddSingleton<TrackUserActivityMiddleware>();
-            services.Configure<UmbracoPipelineOptions>(options =>
-                options.AddFilter(new UmbracoPipelineFilter(nameof(TrackUserActivityMiddleware))
-                {
-                    PostPipeline = app => app.UseMiddleware<TrackUserActivityMiddleware>()
-                }));
+
+            var disableUserActivityTracking = configSection.GetValue<bool>("DisableUserActivityTracking");
+            if (!disableUserActivityTracking)
+            {
+                services.Configure<UmbracoPipelineOptions>(options =>
+                    options.AddFilter(new UmbracoPipelineFilter(nameof(TrackUserActivityMiddleware))
+                    {
+                        PostPipeline = app => app.UseMiddleware<TrackUserActivityMiddleware>()
+                    }));
+            }
         }
     }
 }

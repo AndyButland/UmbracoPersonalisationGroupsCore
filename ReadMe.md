@@ -230,6 +230,7 @@ The following configuration is available:
 - `CountryCodeProvider` - indicates which provider to use for country matching (the default is the MaxMind geo-location database, but a CDN header, e.g. that from [Cloudflare](https://support.cloudflare.com/hc/en-us/articles/200168236-What-does-Cloudflare-IP-Geolocation-do-) is available to be configured to use too.
 - `CdnCountryCodeHttpHeaderName` - if a CDN header is used for country matching due to the above configuration setting, this key can be used to define which header is looked for.  If not provided, the default value of CF-IPCountry (as used by Cloudflare CDN) is used.
 - `DisableHttpContextItemsUseInCookieOperations` - should anyone require it, setting this value to true will restore the previous behaviour for cookie handling amended in 1.0.5/2.1.6.
+- `DisableUserActivityTracking` - if you aren't using criteria that require tracking of user activity into a cookie (e.g. "pages viewed", "number of visits"), you can set this to `true` to disable the tracking middleware. Cookies tracking visitor behaviour will not longer be created or updated.
 
 ## How it works
 
@@ -394,3 +395,5 @@ See [here](https://github.com/AndyButland/UmbracoPersonalisationGroups#version-h
     - Added icon and readme.
 - 3.2.7
     - Extended maxmium Umbraco dependency to include Umbraco 12.
+- 3.2.8
+    - Added configuration option `DisableUserActivityTracking` to resolve issue [#10](https://github.com/AndyButland/UmbracoPersonalisationGroupsCore/issues/10)

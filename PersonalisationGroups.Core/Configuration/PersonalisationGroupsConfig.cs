@@ -45,5 +45,7 @@ namespace Our.Umbraco.PersonalisationGroups.Core.Configuration
         public string CdnCountryCodeHttpHeaderName { get; set; } = AppConstants.DefaultCdnCountryCodeHttpHeaderName;
 
         public bool DisableHttpContextItemsUseInCookieOperations { get; set; } = false;
+
+        public bool DisableUserActivityTracking { get; set; } = false;
     }
 }
