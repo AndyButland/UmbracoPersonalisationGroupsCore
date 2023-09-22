@@ -1,0 +1,32 @@
+﻿{
+  "$schema": "../../umbraco-package-schema.json",
+  "name": "Personalisation Groups",
+  "version": "4.0.0-alpha1",
+  "extensions": [
+    {
+      "type": "headerApp",
+      "alias": "My.headerApp.Name",
+      "name": "My HeaderApp Demo",
+      "kind": "button",
+      "meta": {
+        "icon": "umb:hearts",
+        "label": "Hello!",
+        "href": "https://umbraco.com"
+      }
+    },
+    {
+      "type": "propertyEditorUi",
+      "alias": "PersonalisationGroups.PropertyEditorUi.GroupDefinition",
+      "name": "Personalisation Group Definition",
+      "js": "/App_Plugins/PersonalisationGroups/personalisation-groups.js",
+      "elementName": "property-editor-ui-group-definition",
+      "meta": {
+        "label": "Personalisation Group Definition",
+        "pathname": "property-editor-group-definition",
+        "icon": "umb:operator",
+        "group": "common",
+        "propertyEditorSchemaAlias": "personalisationGroupDefinition"
+      }
+    }
+  ]
+}
