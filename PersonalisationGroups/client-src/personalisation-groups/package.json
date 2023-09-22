@@ -1,0 +1,19 @@
+{
+  "name": "personalisation-groups",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "lit": "^2.7.6"
+  },
+  "devDependencies": {
+    "@umbraco-cms/backoffice": "^14.0.0-709b3cbf",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5"
+  }
+}
