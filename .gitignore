@@ -129,7 +129,7 @@ publish/
 # Publish Web Output
 *.[Pp]ublish.xml
 *.azurePubxml
-# TODO: Comment the next line if you want to checkin your web deploy settings 
+# TODO: Comment the next line if you want to checkin your web deploy settings
 # but database connection strings (with potential passwords) will be unencrypted
 *.pubxml
 *.publishproj
@@ -201,5 +201,6 @@ TestWebApp.V9/
 TestWebApp.V10/
 TestWebApp.V11/
 TestWebApp.V12/
+TestWebApp.V14/
 
 deploy.ps1

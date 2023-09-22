@@ -3,7 +3,6 @@
 	<PropertyGroup>
 		<AssemblyName>Our.Umbraco.PersonalisationGroups.Tests</AssemblyName>
 		<RootNamespace>Our.Umbraco.PersonalisationGroups.Tests</RootNamespace>
-		<TargetFramework>net5.0</TargetFramework>
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
 
