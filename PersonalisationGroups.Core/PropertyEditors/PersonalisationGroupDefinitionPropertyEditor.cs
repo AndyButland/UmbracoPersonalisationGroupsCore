@@ -9,9 +9,8 @@ namespace Our.Umbraco.PersonalisationGroups.Core.PropertyEditors
     [DataEditor(
         alias: Constants.PersonalisationGroupDefinitionPropertyEditorAlias,
         name: "Personalisation group definition",
-        view: "/App_Plugins/PersonalisationGroups/personalisation-group-definition.html",
-        Icon = "icon-operator",
-        ValueType = "JSON")]
+        view: "no-longer-needed-but-cannot-be-empty",
+        ValueType = ValueTypes.Json)]
     public class PersonalisationGroupDefinitionPropertyEditor : DataEditor
     {
         public PersonalisationGroupDefinitionPropertyEditor(IDataValueEditorFactory dataValueEditorFactory)
