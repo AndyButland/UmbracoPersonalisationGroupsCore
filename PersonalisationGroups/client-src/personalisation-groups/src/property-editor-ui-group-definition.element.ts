@@ -7,86 +7,106 @@ export class PropertyEditorGroupDefinitionElement
     extends LitElement
     implements UmbPropertyEditorExtensionElement {
 
-        @property({ type: Object })
-        value:
-            | GroupType
-            | undefined = undefined;
+    @property({ type: Object })
+    value:
+        | GroupType
+        | undefined = undefined;
 
-        @state()
-        _availableCriteria: Array<CriteriaType> = []
+    @state()
+    _availableCriteria: Array<CriteriaType> = []
 
-        @state()
-        _translators: { [alias: string] : TranslatorType; } = {};
+    @state()
+    _translators: { [alias: string]: TranslatorType; } = {};
 
-        private async _getAvailableCriteria() {
-            const response = await fetch("/App_Plugins/PersonalisationGroups/Criteria");
-            const json = await response.json();
-            this._availableCriteria = json;
+    private async _getAvailableCriteria() {
+        const response = await fetch("/App_Plugins/PersonalisationGroups/Criteria");
+        const json = await response.json();
+        this._availableCriteria = json;
 
-            this._loadTranslators();
+        this._loadTranslators();
+    }
+
+    private _loadTranslators() {
+        for (var i = 0; i < this._availableCriteria.length; i++) {
+            const criteria = this._availableCriteria[i];
+            const translatorPath = "/App_Plugins/" + criteria.clientAssetsFolder + "/" + this._convertToPascalCase(criteria.alias) + "/definition.translator.js";
+
+            import(translatorPath)
+                .then(translatorScript => {
+                    this._translators[criteria.alias] = translatorScript;
+                    this.requestUpdate();
+                }).catch(() => {
+                    console.log("Could not load translator for " + criteria.alias + " at " + translatorPath);
+                });
+        }
+    }
+
+    private _convertToPascalCase(s: string) {
+        return s.charAt(0).toUpperCase() + s.substr(1);
+    }
+
+    private _getCriteriaName(alias: string) {
+        var criteria = this._getCriteriaByAlias(alias);
+        if (criteria) {
+            return criteria.name;
         }
 
-        private _loadTranslators() {
-            for (var i = 0; i < this._availableCriteria.length; i++) {
-                const criteria = this._availableCriteria[i];
-                const translatorPath = "/App_Plugins/" + criteria.clientAssetsFolder + "/" + this._convertToPascalCase(criteria.alias) + "/definition.translator.js";
+        return "";
+    }
 
-                import(translatorPath)
-                    .then(translatorScript => {
-                        this._translators[criteria.alias] = translatorScript;
-                        this.requestUpdate();
-                    }).catch(() => {
-                        console.log("Could not load translator for " + criteria.alias + " at " + translatorPath);
-                    });
-            }
-        }
-
-        private _convertToPascalCase(s: string) {
-            return s.charAt(0).toUpperCase() + s.substr(1);
-        }
-
-        private _getCriteriaName(alias: string) {
-            var criteria = this._getCriteriaByAlias(alias);
-            if (criteria) {
-                return criteria.name;
-            }
-
-            return "";
-        }
-
-        private _getCriteriaByAlias(alias: string) {
-            if (this._availableCriteria === undefined) {
-                return null;
-            }
-
-            for (var i = 0; i < this._availableCriteria.length; i++) {
-                if (this._availableCriteria[i].alias === alias) {
-                    return this._availableCriteria[i];
-                }
-            }
-
+    private _getCriteriaByAlias(alias: string) {
+        if (this._availableCriteria === undefined) {
             return null;
         }
 
-        private _getDefinitionTranslation (detail: GroupDetailType) {
-            console.log(detail);
-            console.log(this._translators);
-            var translator = this._translators[detail.alias];
-            console.log(translator);
-            if (translator) {
-                return translator.translate(detail.definition);
+        for (var i = 0; i < this._availableCriteria.length; i++) {
+            if (this._availableCriteria[i].alias === alias) {
+                return this._availableCriteria[i];
             }
-
-            return "";
-        };
-
-        constructor() {
-            super();
-            this._getAvailableCriteria();
         }
 
-        render() {
-            return html`<div>
+        return null;
+    }
+
+    private _getDefinitionTranslation(detail: GroupDetailType) {
+        var translator = this._translators[detail.alias];
+        if (translator) {
+            return translator.translate(detail.definition);
+        }
+
+        return "";
+    };
+
+    private _addCriteria() {
+        const selectedCriteriaAlias = (<HTMLSelectElement>this.shadowRoot?.getElementById("availableCriteriaSelect")).value;
+        const newCriteria = <GroupDetailType>({ alias: selectedCriteriaAlias, definition: {} });
+
+        // this.value!.details.push(newCriteria) leads to: "Cannot add property 1, object is not extensible"
+        // so have created a new object with the changes and set that to the value
+        const criteria = Object.assign([], this.value!.details);
+        criteria.push(newCriteria);
+        this.value = <GroupType>{ match: this.value!.match, duration: this.value!.duration, score: this.value!.score, details: criteria };
+
+        this._editCriteria(newCriteria);
+    }
+
+    private _editCriteria(criteria: GroupDetailType) {
+        console.log(criteria);
+    }
+
+    private _removeCriteria(index: number) {
+        const criteria = Object.assign([], this.value!.details);
+        criteria.splice(index, 1);
+        this.value = <GroupType>{ match: this.value!.match, duration: this.value!.duration, score: this.value!.score, details: criteria };
+    }
+
+    constructor() {
+        super();
+        this._getAvailableCriteria();
+    }
+
+    render() {
+        return html`<div>
 
                 <div>
                     <label>Match:</label>
@@ -119,12 +139,12 @@ export class PropertyEditorGroupDefinitionElement
                 <div>
                     <label>Add Criteria:</label>
                     <div class="controls controls-row">
-                        <select>
-                        ${this._availableCriteria?.map((criteria) =>
-                            html`<option value="${criteria.alias}">${criteria.name}</li>`
-                          )}
+                        <select id="availableCriteriaSelect">
+                            ${this._availableCriteria?.map((criteria) =>
+                                html`<option value="${criteria.alias}">${criteria.name}</li>`
+                            )}
                         </select>
-                        <button type="button">Add</button>
+                        <button type="button" @click=${() => this._addCriteria()}>Add</button>
                         <div class="help-inline">
                             <span></span>
                         </div>
@@ -140,22 +160,21 @@ export class PropertyEditorGroupDefinitionElement
                         </tr>
                     </thead>
                     <tbody>
-                        ${this.value?.details.map((detail) =>
+                        ${this.value?.details.map((detail, index) =>
                             html`<tr>
                                 <td>${this._getCriteriaName(detail.alias)}</td>
                                 <td>${this._getDefinitionTranslation(detail)}</td>
                                 <td>
-                                    <button type="button" ng-click="editDefinitionDetail(detail)">Edit</button>
-                                    <button type="button" ng-click="delete($index)">Delete</button>
+                                    <button type="button" @click=${() => this._editCriteria(detail)}>Edit</button>
+                                    <button type="button" @click=${() => this._removeCriteria(index)}>Delete</button>
                                 </td>
                             </tr>`
                         )}
-
                     </tbody>
                 </table>
 
             </div>`;
-        }
+    }
 }
 
 export default PropertyEditorGroupDefinitionElement;
