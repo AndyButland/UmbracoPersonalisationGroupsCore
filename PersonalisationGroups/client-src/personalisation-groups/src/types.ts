@@ -1,3 +1,5 @@
+import { UmbModalToken } from '@umbraco-cms/backoffice/modal';
+
 export type GroupType = {
     match: string;
     duration: string;
@@ -28,3 +30,14 @@ export type TranslateFunction = (definition: GroupDetailDefinitionType) => strin
 export type TranslatorType = {
     translate: TranslateFunction
 };
+
+export type UmbLinkPickerModalData = {
+}
+
+export type PersonalisationGroupsDefinitionEditorModalResult = {
+}
+
+export type PersonalisationGroupsDefinitionEditorModalData = {
+}
+
+export declare const PERSONALISATION_GROUPS_DEFINITION_EDITOR_MODAL: UmbModalToken<PersonalisationGroupsDefinitionEditorModalData, PersonalisationGroupsDefinitionEditorModalResult>;

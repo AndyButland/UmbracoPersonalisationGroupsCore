@@ -1,16 +1,30 @@
-import { customElement, LitElement, html, property, state } from "@umbraco-cms/backoffice/external/lit";
-import { UmbPropertyEditorExtensionElement } from "@umbraco-cms/backoffice/extension-registry";
+import { customElement, html, LitElement, property, state } from "@umbraco-cms/backoffice/external/lit";
+import { FormControlMixin } from '@umbraco-cms/backoffice/external/uui';
+import type { UUIModalSidebarSize } from '@umbraco-cms/backoffice/external/uui';
 import { GroupType, GroupDetailType, CriteriaType, TranslatorType } from "./types";
 
-@customElement("property-editor-ui-group-definition")
-export class PropertyEditorGroupDefinitionElement
-    extends LitElement
-    implements UmbPropertyEditorExtensionElement {
+@customElement("umb-input-personalisation-group-definition")
+export class UmbInputPersonalisationGroupDefinitionElement
+    extends FormControlMixin(LitElement) {
 
-    @property({ type: Object })
-    value:
-        | GroupType
-        | undefined = undefined;
+    protected getFormElement() {
+        return undefined;
+    }
+
+    @property()
+    overlaySize?: UUIModalSidebarSize;
+
+    @property({ attribute: false })
+    set definition(data: GroupType) {
+        data ??= { match: "All", duration: "Page", score: 50, details: []};;
+        this._definition = data;
+    }
+
+    get definition() {
+        return this._definition;
+    }
+
+    private _definition: GroupType = { match: "All", duration: "Page", score: 50, details: [] } ;
 
     @state()
     _availableCriteria: Array<CriteriaType> = []
@@ -81,11 +95,13 @@ export class PropertyEditorGroupDefinitionElement
         const selectedCriteriaAlias = (<HTMLSelectElement>this.shadowRoot?.getElementById("availableCriteriaSelect")).value;
         const newCriteria = <GroupDetailType>({ alias: selectedCriteriaAlias, definition: {} });
 
+        this._definition.details.push(newCriteria)
+
         // this.value!.details.push(newCriteria) leads to: "Cannot add property 1, object is not extensible"
         // so have created a new object with the changes and set that to the value
-        const criteria = Object.assign([], this.value!.details);
-        criteria.push(newCriteria);
-        this.value = <GroupType>{ match: this.value!.match, duration: this.value!.duration, score: this.value!.score, details: criteria };
+        //const criteria = Object.assign([], this._definition.details);
+        //criteria.push(newCriteria);
+        //this._definition = <GroupType>{ match: this.value!.match, duration: this.value!.duration, score: this.value!.score, details: criteria };
 
         this._editCriteria(newCriteria);
     }
@@ -95,11 +111,12 @@ export class PropertyEditorGroupDefinitionElement
     }
 
     private _removeCriteria(index: number) {
-        const criteria = Object.assign([], this.value!.details);
-        criteria.splice(index, 1);
-        this.value = <GroupType>{ match: this.value!.match, duration: this.value!.duration, score: this.value!.score, details: criteria };
+        this._definition.details.splice(index, 1);
+        //const criteria = Object.assign([], this._definition.details);
+        //criteria.splice(index, 1);
+        //this._definition = <GroupType>{ match: this.value!.match, duration: this.value!.duration, score: this.value!.score, details: criteria };
     }
-
+    
     constructor() {
         super();
         this._getAvailableCriteria();
@@ -111,17 +128,17 @@ export class PropertyEditorGroupDefinitionElement
                 <div>
                     <label>Match:</label>
                     <select>
-                        <option value="All" ?selected=${this.value?.match === "All"}>All</option>
-                        <option value="Any" ?selected=${this.value?.match === "Any"}>Any</option>
+                        <option value="All" ?selected=${this._definition.match === "All"}>All</option>
+                        <option value="Any" ?selected=${this._definition.match === "Any"}>Any</option>
                     </select>
                 </div>
 
                 <div>
                     <label>Duration:</label>
                     <select>
-                        <option value="Page" ?selected=${this.value?.duration === "Page"}>Per page request</option>
-                        <option value="Session" ?selected=${this.value?.duration === "Session"}>Per session</option>
-                        <option value="Visitor" ?selected=${this.value?.duration === "Visitor"}>Per visitor</option>
+                        <option value="Page" ?selected=${this._definition.duration === "Page"}>Per page request</option>
+                        <option value="Session" ?selected=${this._definition.duration === "Session"}>Per session</option>
+                        <option value="Visitor" ?selected=${this._definition.duration === "Visitor"}>Per visitor</option>
                     </select>
                     <div class="help-inline">
                         <span>Determines for how long a user that is matched to a personalisation group remains in it</span>
@@ -130,7 +147,7 @@ export class PropertyEditorGroupDefinitionElement
 
                 <div>
                     <label>Score:</label>
-                    <input type="number" min="0" max="100" step="1" value="${this.value?.score ?? 50}" />
+                    <input type="number" min="0" max="100" step="1" value="${this._definition.score ?? 50}" />
                     <div class="help-inline">
                         <span>A number between 1 and 100, can be used to weight groups when scoring the visitor's match to a piece of content</span>
                     </div>
@@ -160,7 +177,7 @@ export class PropertyEditorGroupDefinitionElement
                         </tr>
                     </thead>
                     <tbody>
-                        ${this.value?.details.map((detail, index) =>
+                        ${this._definition.details.map((detail: GroupDetailType, index: number) =>
                             html`<tr>
                                 <td>${this._getCriteriaName(detail.alias)}</td>
                                 <td>${this._getDefinitionTranslation(detail)}</td>
@@ -177,10 +194,10 @@ export class PropertyEditorGroupDefinitionElement
     }
 }
 
-export default PropertyEditorGroupDefinitionElement;
+export default UmbInputPersonalisationGroupDefinitionElement;
 
 declare global {
     interface HTMLElementTagNameMap {
-        "property-editor-ui-group-definition": PropertyEditorGroupDefinitionElement;
+        "umb-input-personalisation-group-definition": UmbInputPersonalisationGroupDefinitionElement;
     }
 }

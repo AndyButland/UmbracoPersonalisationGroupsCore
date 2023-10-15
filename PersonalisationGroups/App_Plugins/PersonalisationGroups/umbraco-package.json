@@ -19,7 +19,7 @@
       "alias": "PersonalisationGroups.PropertyEditorUi.GroupDefinition",
       "name": "Personalisation Group Definition",
       "js": "/App_Plugins/PersonalisationGroups/personalisation-groups.js",
-      "elementName": "property-editor-ui-group-definition",
+      "elementName": "umb-property-editor-ui-personalisation-group-definition",
       "meta": {
         "label": "Personalisation Group Definition",
         "pathname": "property-editor-group-definition",
