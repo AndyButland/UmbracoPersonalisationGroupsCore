@@ -16,15 +16,20 @@ export class UmbInputPersonalisationGroupDefinitionElement
 
     @property({ attribute: false })
     set definition(data: GroupType) {
-        data ??= { match: "All", duration: "Page", score: 50, details: []};;
-        this._definition = data;
+        // Unfreeze data coming from State, so we can manipulate it.
+        this._definition = {
+            match: data.match,
+            duration: data.duration,
+            score: data.score,
+            details: [...data.details]
+        };
     }
 
     get definition() {
         return this._definition;
     }
 
-    private _definition: GroupType = { match: "All", duration: "Page", score: 50, details: [] } ;
+    private _definition: GroupType = { match: "All", duration: "Page", score: 50, details: [] };
 
     @state()
     _availableCriteria: Array<CriteriaType> = []
@@ -95,14 +100,8 @@ export class UmbInputPersonalisationGroupDefinitionElement
         const selectedCriteriaAlias = (<HTMLSelectElement>this.shadowRoot?.getElementById("availableCriteriaSelect")).value;
         const newCriteria = <GroupDetailType>({ alias: selectedCriteriaAlias, definition: {} });
 
-        this.definition.score = 100;
         this.definition.details.push(newCriteria);
-        
-        // this._definition.details.push(newCriteria) leads to: "Cannot add property 1, object is not extensible"
-        // so have created a new object with the changes and set that to the value
-        //const criteria = Object.assign([], this._definition.details);
-        //criteria.push(newCriteria);
-        //this._definition = <GroupType>{ match: this._definition.match, duration: this._definition.duration, score: this._definition.score, details: criteria };
+        this.requestUpdate();
 
         this._editCriteria(newCriteria);
     }
@@ -113,9 +112,7 @@ export class UmbInputPersonalisationGroupDefinitionElement
 
     private _removeCriteria(index: number) {
         this.definition.details.splice(index, 1);
-        //const criteria = Object.assign([], this._definition.details);
-        //criteria.splice(index, 1);
-        //this._definition = <GroupType>{ match: this.value!.match, duration: this.value!.duration, score: this.value!.score, details: criteria };
+        this.requestUpdate();
     }
     
     constructor() {
