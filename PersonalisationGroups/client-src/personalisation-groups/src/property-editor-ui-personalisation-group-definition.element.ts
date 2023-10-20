@@ -40,7 +40,12 @@ export class UmbPropertyEditorPersonalisationGroupDefinitionElement
     }
 }
 
-export default UmbPropertyEditorPersonalisationGroupDefinitionElement;
+const exports = {
+    UmbPropertyEditorPersonalisationGroupDefinitionElement,
+    UmbInputPersonalisationGroupDefinitionElement,
+}
+
+export default exports;
 
 declare global {
     interface HTMLElementTagNameMap {
