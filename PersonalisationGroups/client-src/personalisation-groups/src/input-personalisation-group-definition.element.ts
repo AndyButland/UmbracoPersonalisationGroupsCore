@@ -1,22 +1,25 @@
 import { customElement, html, LitElement, property, state } from "@umbraco-cms/backoffice/external/lit";
 import { FormControlMixin } from '@umbraco-cms/backoffice/external/uui';
 import type { UUIModalSidebarSize } from '@umbraco-cms/backoffice/external/uui';
-import { GroupType, GroupDetailType, CriteriaType, TranslatorType } from "./types";
+import { UmbModalRouteRegistrationController } from '@umbraco-cms/backoffice/modal';
+//import type { UmbModalRouteBuilder } from '@umbraco-cms/backoffice/modal';
+import { GroupType, GroupDetailType, CriteriaType, TranslatorType, PERSONALISATION_GROUP_DEFINITION_EDITOR_MODAL } from "./types";
+import { UmbElementMixin } from "@umbraco-cms/backoffice/element-api";
+
 
 @customElement("umb-input-personalisation-group-definition")
 export class UmbInputPersonalisationGroupDefinitionElement
-    extends FormControlMixin(LitElement) {
+    extends FormControlMixin(UmbElementMixin(LitElement)) {
 
-    protected getFormElement() {
-        return undefined;
-    }
+    // Necessary to add these as the first parameter of the UmbModalRouteRegistrationController constructor expects them.
+    protected getFormElement() { return undefined; }
 
     @property()
     overlaySize?: UUIModalSidebarSize;
 
     @property({ attribute: false })
     set definition(data: GroupType) {
-        // Unfreeze data coming from State, so we can manipulate it.
+        // Need to create a new object here, as the incoming one is immutable.
         this._definition = {
             match: data.match,
             duration: data.duration,
@@ -31,11 +34,17 @@ export class UmbInputPersonalisationGroupDefinitionElement
 
     private _definition: GroupType = { match: "All", duration: "Page", score: 50, details: [] };
 
-    @state()
-    _availableCriteria: Array<CriteriaType> = []
+    //@state()
+    //private _modalRoute?: UmbModalRouteBuilder;
 
     @state()
-    _translators: { [alias: string]: TranslatorType; } = {};
+    private _availableCriteria: Array<CriteriaType> = [];
+
+    @state()
+    private _translators: { [alias: string]: TranslatorType; } = {};
+
+    private _myModalRegistration;
+
 
     private async _getAvailableCriteria() {
         const response = await fetch("/App_Plugins/PersonalisationGroups/Criteria");
@@ -98,16 +107,17 @@ export class UmbInputPersonalisationGroupDefinitionElement
 
     private _addCriteria() {
         const selectedCriteriaAlias = (<HTMLSelectElement>this.shadowRoot?.getElementById("availableCriteriaSelect")).value;
-        const newCriteria = <GroupDetailType>({ alias: selectedCriteriaAlias, definition: {} });
+        const newGroupDetail = <GroupDetailType>({ alias: selectedCriteriaAlias, definition: {} });
 
-        this.definition.details.push(newCriteria);
+        this.definition.details.push(newGroupDetail);
         this.requestUpdate();
 
-        this._editCriteria(newCriteria);
+        this._editCriteria(this.definition.details.length - 1);
     }
 
-    private _editCriteria(criteria: GroupDetailType) {
-        console.log(criteria);
+    private _editCriteria(index: number) {
+        console.log(index);
+        this._myModalRegistration.open({ index });
     }
 
     private _removeCriteria(index: number) {
@@ -118,6 +128,38 @@ export class UmbInputPersonalisationGroupDefinitionElement
     constructor() {
         super();
         this._getAvailableCriteria();
+        this._myModalRegistration = new UmbModalRouteRegistrationController(this, PERSONALISATION_GROUP_DEFINITION_EDITOR_MODAL)
+            .addAdditionalPath(`:index`)
+            .onSetup((params) => {
+                // Get index:
+                const indexParam = params.index;
+                if (!indexParam) return false;
+                let index: number | null = parseInt(params.index);
+                if (Number.isNaN(index)) return false;
+
+                // Use the index to find data:
+                const data = this.definition.details[index];
+                console.log(data);
+
+                return {
+                    index: index,
+                    definition: {
+                        alias: data.definition.alias,
+                        match: data.definition.match,
+                        value: data.definition.value
+                    },
+                    config: {
+                        overlaySize: this.overlaySize || 'small',
+                    },
+                };
+            })
+            .onSubmit((submitData) => {
+                if (!submitData) return;
+                console.log(submitData);
+            });
+            //.observeRouteBuilder((routeBuilder) => {
+            //    this._modalRoute = routeBuilder;
+            //});
     }
 
     render() {
@@ -180,7 +222,7 @@ export class UmbInputPersonalisationGroupDefinitionElement
                                 <td>${this._getCriteriaName(detail.alias)}</td>
                                 <td>${this._getDefinitionTranslation(detail)}</td>
                                 <td>
-                                    <button type="button" @click=${() => this._editCriteria(detail)}>Edit</button>
+                                    <button type="button" @click=${() => this._editCriteria(index)}>Edit</button>
                                     <button type="button" @click=${() => this._removeCriteria(index)}>Delete</button>
                                 </td>
                             </tr>`

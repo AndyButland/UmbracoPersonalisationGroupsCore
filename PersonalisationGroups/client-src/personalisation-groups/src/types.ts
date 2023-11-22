@@ -31,13 +31,20 @@ export type TranslatorType = {
     translate: TranslateFunction
 };
 
-export type UmbLinkPickerModalData = {
+export type PersonalisationGroupDefinitionEditorModalResult = {
 }
 
-export type PersonalisationGroupsDefinitionEditorModalResult = {
+export type PersonalisationGroupDefinitionEditorModalValue = { index: number | null; definition: GroupDetailDefinitionType };
+
+export type PersonalisationGroupDefinitionEditorModalData = {
+    index: number | null;
+    definition: GroupDetailDefinitionType;
 }
 
-export type PersonalisationGroupsDefinitionEditorModalData = {
-}
-
-export declare const PERSONALISATION_GROUPS_DEFINITION_EDITOR_MODAL: UmbModalToken<PersonalisationGroupsDefinitionEditorModalData, PersonalisationGroupsDefinitionEditorModalResult>;
+export const PERSONALISATION_GROUP_DEFINITION_EDITOR_MODAL = new UmbModalToken<PersonalisationGroupDefinitionEditorModalData, PersonalisationGroupDefinitionEditorModalResult>(
+    'Umb.Modal.PersonalisationGroupDetailDefinition',
+    {
+        type: 'sidebar',
+        size: 'small',
+    },
+);
