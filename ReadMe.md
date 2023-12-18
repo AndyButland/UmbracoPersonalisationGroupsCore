@@ -397,3 +397,5 @@ See [here](https://github.com/AndyButland/UmbracoPersonalisationGroups#version-h
     - Extended maxmium Umbraco dependency to include Umbraco 12.
 - 3.2.8
     - Added configuration option `DisableUserActivityTracking` to resolve issue [#10](https://github.com/AndyButland/UmbracoPersonalisationGroupsCore/issues/10)
+- 3.2.9
+    - Extended version range to support Umbraco 13.
