@@ -2,8 +2,9 @@ import { customElement, html, LitElement, property, state } from "@umbraco-cms/b
 import { FormControlMixin } from '@umbraco-cms/backoffice/external/uui';
 import type { UUIModalSidebarSize } from '@umbraco-cms/backoffice/external/uui';
 import { UmbModalRouteRegistrationController } from '@umbraco-cms/backoffice/modal';
-import { GroupType, GroupDetailType, CriteriaType, TranslatorType, PERSONALISATION_GROUP_DEFINITION_EDITOR_MODAL } from "../../types";
+import { GroupType, GroupDetailType, CriteriaType, PERSONALISATION_GROUP_DEFINITION_EDITOR_MODAL } from "../../types";
 import { UmbElementMixin } from "@umbraco-cms/backoffice/element-api";
+import { TranslatorRegistry } from "../../definition-translator/registry";
 
 
 @customElement("umb-input-personalisation-group-definition")
@@ -36,8 +37,7 @@ export class UmbInputPersonalisationGroupDefinitionElement
     @state()
     private _availableCriteria: Array<CriteriaType> = [];
 
-    @state()
-    private _translators: { [alias: string]: TranslatorType; } = {};
+    private _translatorRegistry: TranslatorRegistry;
 
     private _myModalRegistration;
 
@@ -45,27 +45,6 @@ export class UmbInputPersonalisationGroupDefinitionElement
         const response = await fetch("/App_Plugins/PersonalisationGroups/Criteria");
         const json = await response.json();
         this._availableCriteria = json;
-
-        this._loadTranslators();
-    }
-
-    private _loadTranslators() {
-        for (var i = 0; i < this._availableCriteria.length; i++) {
-            const criteria = this._availableCriteria[i];
-            const translatorPath = "/App_Plugins/" + criteria.clientAssetsFolder + "/" + this._convertToPascalCase(criteria.alias) + "/definition.translator.js";
-
-            import(translatorPath)
-                .then(translatorScript => {
-                    this._translators[criteria.alias] = translatorScript;
-                    this.requestUpdate();
-                }).catch(() => {
-                    console.log("Could not load translator for " + criteria.alias + " at " + translatorPath);
-                });
-        }
-    }
-
-    private _convertToPascalCase(s: string) {
-        return s.charAt(0).toUpperCase() + s.substr(1);
     }
 
     private _getCriteriaName(alias: string) {
@@ -92,12 +71,9 @@ export class UmbInputPersonalisationGroupDefinitionElement
     }
 
     private _getDefinitionTranslation(detail: GroupDetailType) {
-        var translator = this._translators[detail.alias];
-        if (translator) {
-            return translator.translate(detail.definition);
-        }
-
-        return "";
+        console.log(detail);
+        var translator = this._translatorRegistry.getByAlias(detail.alias);
+        return translator?.translate(detail.definition);
     };
 
     private _addCriteria() {
@@ -122,6 +98,7 @@ export class UmbInputPersonalisationGroupDefinitionElement
     constructor() {
         super();
         this._getAvailableCriteria();
+        this._translatorRegistry = new TranslatorRegistry();
         this._myModalRegistration = new UmbModalRouteRegistrationController(this, PERSONALISATION_GROUP_DEFINITION_EDITOR_MODAL)
             .addAdditionalPath(`:index`)
             .onSetup((params) => {
@@ -143,11 +120,7 @@ export class UmbInputPersonalisationGroupDefinitionElement
                         }
                     },
                     value:{
-                        definition: {
-                            alias: data.definition.alias,
-                            match: data.definition.match,
-                            value: data.definition.value
-                        }
+                        definition: data.definition
                     }
                 };
             })

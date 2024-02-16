@@ -15,3 +15,4 @@ const manifests: Array<ManifestTypes> = [
 export const onInit: UmbEntryPointOnInit = (_host, extensionRegistry) => {
   extensionRegistry.registerMany(manifests);
 };
+

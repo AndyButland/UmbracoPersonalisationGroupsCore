@@ -1,6 +1,6 @@
 import { html, customElement, state } from '@umbraco-cms/backoffice/external/lit';
 import { UmbModalBaseElement } from '@umbraco-cms/backoffice/modal';
-import { GroupDetailDefinitionType, PersonalisationGroupDefinitionEditorModalData, PersonalisationGroupDefinitionEditorModalValue } from "../../types";
+import { PersonalisationGroupDefinitionEditorModalData, PersonalisationGroupDefinitionEditorModalValue } from "../../types";
 
 @customElement('umb-personalisation-group-definition-editor-modal')
 export class UmbPersonalisationGroupDefinitionEditorModalElement extends UmbModalBaseElement<PersonalisationGroupDefinitionEditorModalData, PersonalisationGroupDefinitionEditorModalValue> {
@@ -10,11 +10,7 @@ export class UmbPersonalisationGroupDefinitionEditorModalElement extends UmbModa
 	_index: number | null = null;
 
 	@state()
-	_definition: GroupDetailDefinitionType = {
-		alias: "",
-		match: "",
-		value: ""
-	};
+	_definition: string = "";
 
 	private _submit() {
 		//this.modalContext?.submit({ index: this._index, definition: this._definition });

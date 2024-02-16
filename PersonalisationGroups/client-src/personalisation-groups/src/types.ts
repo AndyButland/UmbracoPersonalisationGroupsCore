@@ -9,13 +9,7 @@ export type GroupType = {
 
 export type GroupDetailType = {
     alias: string,
-    definition: GroupDetailDefinitionType
-};
-
-export type GroupDetailDefinitionType = {
-    alias: string,
-    match: string,
-    value: string
+    definition: string
 };
 
 export type CriteriaType = {
@@ -25,13 +19,14 @@ export type CriteriaType = {
     clientAssetsFolder: string
 };
 
-export type TranslateFunction = (definition: GroupDetailDefinitionType) => string;
+export type TranslateFunction = (definition: string) => string;
 
-export type TranslatorType = {
+export interface ITranslator {
+    alias: string,
     translate: TranslateFunction
 };
 
-export type PersonalisationGroupDefinitionEditorModalValue = { definition: GroupDetailDefinitionType };
+export type PersonalisationGroupDefinitionEditorModalValue = { definition: string };
 
 export interface PersonalisationGroupDefinitionEditorModalData {
 	config: PersonalisationGroupDefinitionEditorConfig;
@@ -41,8 +36,10 @@ export interface PersonalisationGroupDefinitionEditorModalData {
 export interface PersonalisationGroupDefinitionEditorConfig {
 }
 
+export const PERSONALISATION_GROUP_DEFINITION_EDITOR_MODAL_ALIAS = "Umb.Modal.Forms.EditField";
+
 export const PERSONALISATION_GROUP_DEFINITION_EDITOR_MODAL = new UmbModalToken<PersonalisationGroupDefinitionEditorModalData, PersonalisationGroupDefinitionEditorModalValue>(
-    'PersonalisationGroups.Modal.DetailDefinition',
+    PERSONALISATION_GROUP_DEFINITION_EDITOR_MODAL_ALIAS,
 	{
 		modal: {
 			type: 'sidebar',

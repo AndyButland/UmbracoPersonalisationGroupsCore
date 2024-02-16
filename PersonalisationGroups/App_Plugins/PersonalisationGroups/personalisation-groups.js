@@ -1,13 +1,13 @@
-import { property as m, state as p, customElement as f, LitElement as b, html as u } from "@umbraco-cms/backoffice/external/lit";
-import { FormControlMixin as _ } from "@umbraco-cms/backoffice/external/uui";
-import { UmbModalToken as y, UmbModalRouteRegistrationController as g, UmbModalBaseElement as P } from "@umbraco-cms/backoffice/modal";
-import { UmbElementMixin as C } from "@umbraco-cms/backoffice/element-api";
-const D = [
+import { UmbModalToken, UmbModalRouteRegistrationController, UmbModalBaseElement } from "@umbraco-cms/backoffice/modal";
+import { property, state, customElement, LitElement, html } from "@umbraco-cms/backoffice/external/lit";
+import { FormControlMixin } from "@umbraco-cms/backoffice/external/uui";
+import { UmbElementMixin } from "@umbraco-cms/backoffice/element-api";
+const modals$1 = [
   {
     type: "propertyEditorUi",
     alias: "PersonalisationGroups.PropertyEditorUi.GroupDefinition",
     name: "Personalisation Groups Property Editor",
-    js: () => Promise.resolve().then(() => M),
+    js: () => Promise.resolve().then(() => propertyEditorUiPersonalisationGroupDefinition_element),
     elementName: "umb-property-editor-ui-personalisation-group-definition",
     meta: {
       label: "Personalisation Group Definition",
@@ -16,74 +16,100 @@ const D = [
       propertyEditorSchemaAlias: "personalisationGroupDefinition"
     }
   }
-], E = [...D], $ = [
-  {
-    type: "modal",
-    alias: "PersonalisationGroups.Modal.DetailDefinition",
-    name: "Personalisation Groups Edit Definition Modal",
-    js: () => Promise.resolve().then(() => I)
-  }
-], A = [...$];
-var O = Object.defineProperty, S = Object.getOwnPropertyDescriptor, h = (t, e, i, n) => {
-  for (var o = n > 1 ? void 0 : n ? S(e, i) : e, r = t.length - 1, a; r >= 0; r--)
-    (a = t[r]) && (o = (n ? a(e, i, o) : a(o)) || o);
-  return n && o && O(e, i, o), o;
-};
-let s = class extends b {
-  constructor() {
-    super(...arguments), this.value = void 0;
-  }
-  set config(t) {
-    this._overlaySize = t == null ? void 0 : t.getValueByAlias("overlaySize");
-  }
-  _onChange(t) {
-    this.value = t.target.definition, this.dispatchEvent(new CustomEvent("property-value-change"));
-  }
-  render() {
-    return u`<umb-input-personalisation-group-definition
-			@change="${this._onChange}"
-			.overlaySize="${this._overlaySize}"
-			.definition="${this.value ?? {}}"></umb-input-personalisation-group-definition>`;
-  }
-};
-h([
-  m({ type: Object })
-], s.prototype, "value", 2);
-h([
-  m({ attribute: !1 })
-], s.prototype, "config", 1);
-h([
-  p()
-], s.prototype, "_overlaySize", 2);
-s = h([
-  f("umb-property-editor-ui-personalisation-group-definition")
-], s);
-const G = s, M = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  get UmbPropertyEditorPersonalisationGroupDefinitionElement() {
-    return s;
-  },
-  default: G
-}, Symbol.toStringTag, { value: "Module" })), U = new y(
-  "PersonalisationGroups.Modal.DetailDefinition",
+], manifests$2 = [...modals$1], PERSONALISATION_GROUP_DEFINITION_EDITOR_MODAL_ALIAS = "Umb.Modal.Forms.EditField", PERSONALISATION_GROUP_DEFINITION_EDITOR_MODAL = new UmbModalToken(
+  PERSONALISATION_GROUP_DEFINITION_EDITOR_MODAL_ALIAS,
   {
     modal: {
       type: "sidebar",
       size: "small"
     }
   }
-);
-var w = Object.defineProperty, j = Object.getOwnPropertyDescriptor, c = (t, e, i, n) => {
-  for (var o = n > 1 ? void 0 : n ? j(e, i) : e, r = t.length - 1, a; r >= 0; r--)
-    (a = t[r]) && (o = (n ? a(e, i, o) : a(o)) || o);
-  return n && o && w(e, i, o), o;
+), modals = [
+  {
+    type: "modal",
+    alias: PERSONALISATION_GROUP_DEFINITION_EDITOR_MODAL_ALIAS,
+    name: "Personalisation Groups Edit Definition Modal",
+    js: () => Promise.resolve().then(() => personalisationGroupDefinitionEditorModal_element)
+  }
+], manifests$1 = [...modals];
+var __defProp$2 = Object.defineProperty, __getOwnPropDesc$2 = Object.getOwnPropertyDescriptor, __decorateClass$2 = (e, t, i, n) => {
+  for (var o = n > 1 ? void 0 : n ? __getOwnPropDesc$2(t, i) : t, r = e.length - 1, a; r >= 0; r--)
+    (a = e[r]) && (o = (n ? a(t, i, o) : a(o)) || o);
+  return n && o && __defProp$2(t, i, o), o;
 };
-let l = class extends _(C(b)) {
+let UmbPropertyEditorPersonalisationGroupDefinitionElement = class extends LitElement {
   constructor() {
-    super(), this._definition = { match: "All", duration: "Page", score: 50, details: [] }, this._availableCriteria = [], this._translators = {}, this._getAvailableCriteria(), this._myModalRegistration = new g(this, U).addAdditionalPath(":index").onSetup((t) => {
-      if (!t.index)
+    super(...arguments), this.value = void 0;
+  }
+  set config(e) {
+    this._overlaySize = e == null ? void 0 : e.getValueByAlias("overlaySize");
+  }
+  _onChange(e) {
+    this.value = e.target.definition, this.dispatchEvent(new CustomEvent("property-value-change"));
+  }
+  render() {
+    return html`<umb-input-personalisation-group-definition
+			@change="${this._onChange}"
+			.overlaySize="${this._overlaySize}"
+			.definition="${this.value ?? {}}"></umb-input-personalisation-group-definition>`;
+  }
+};
+__decorateClass$2([
+  property({ type: Object })
+], UmbPropertyEditorPersonalisationGroupDefinitionElement.prototype, "value", 2);
+__decorateClass$2([
+  property({ attribute: !1 })
+], UmbPropertyEditorPersonalisationGroupDefinitionElement.prototype, "config", 1);
+__decorateClass$2([
+  state()
+], UmbPropertyEditorPersonalisationGroupDefinitionElement.prototype, "_overlaySize", 2);
+UmbPropertyEditorPersonalisationGroupDefinitionElement = __decorateClass$2([
+  customElement("umb-property-editor-ui-personalisation-group-definition")
+], UmbPropertyEditorPersonalisationGroupDefinitionElement);
+const UmbPropertyEditorPersonalisationGroupDefinitionElement$1 = UmbPropertyEditorPersonalisationGroupDefinitionElement, propertyEditorUiPersonalisationGroupDefinition_element = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  get UmbPropertyEditorPersonalisationGroupDefinitionElement() {
+    return UmbPropertyEditorPersonalisationGroupDefinitionElement;
+  },
+  default: UmbPropertyEditorPersonalisationGroupDefinitionElement$1
+}, Symbol.toStringTag, { value: "Module" }));
+class DayOfWeekTranslator {
+  constructor() {
+    this.alias = "dayOfWeek";
+  }
+  translate(definition) {
+    var translation = "";
+    if (console.log(definition), definition) {
+      const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], selectedDays = eval(definition);
+      for (let e = 0; e < selectedDays.length; e++)
+        translation.length > 0 && (translation += ", "), translation += days[selectedDays[e] - 1];
+    }
+    return translation;
+  }
+}
+class TranslatorRegistry {
+  constructor() {
+    this._translators = [], this._register(new DayOfWeekTranslator());
+  }
+  _register(t) {
+    this._translators.push(t);
+  }
+  getByAlias(t) {
+    const i = this._translators.filter((n) => n.alias == t);
+    return i.length > 0 ? i[0] : null;
+  }
+}
+var __defProp$1 = Object.defineProperty, __getOwnPropDesc$1 = Object.getOwnPropertyDescriptor, __decorateClass$1 = (e, t, i, n) => {
+  for (var o = n > 1 ? void 0 : n ? __getOwnPropDesc$1(t, i) : t, r = e.length - 1, a; r >= 0; r--)
+    (a = e[r]) && (o = (n ? a(t, i, o) : a(o)) || o);
+  return n && o && __defProp$1(t, i, o), o;
+};
+let UmbInputPersonalisationGroupDefinitionElement = class extends FormControlMixin(UmbElementMixin(LitElement)) {
+  constructor() {
+    super(), this._definition = { match: "All", duration: "Page", score: 50, details: [] }, this._availableCriteria = [], this._getAvailableCriteria(), this._translatorRegistry = new TranslatorRegistry(), this._myModalRegistration = new UmbModalRouteRegistrationController(this, PERSONALISATION_GROUP_DEFINITION_EDITOR_MODAL).addAdditionalPath(":index").onSetup((e) => {
+      if (!e.index)
         return !1;
-      let i = parseInt(t.index);
+      let i = parseInt(e.index);
       if (Number.isNaN(i))
         return !1;
       const n = this.definition.details[i];
@@ -95,78 +121,62 @@ let l = class extends _(C(b)) {
           }
         },
         value: {
-          definition: {
-            alias: n.definition.alias,
-            match: n.definition.match,
-            value: n.definition.value
-          }
+          definition: n.definition
         }
       };
-    }).onSubmit((t) => {
-      t && console.log(t);
+    }).onSubmit((e) => {
+      e && console.log(e);
     });
   }
   // Necessary to add these as the first parameter of the UmbModalRouteRegistrationController constructor expects them.
   getFormElement() {
   }
-  set definition(t) {
+  set definition(e) {
     this._definition = {
-      match: t.match,
-      duration: t.duration,
-      score: t.score,
-      details: [...t.details]
+      match: e.match,
+      duration: e.duration,
+      score: e.score,
+      details: [...e.details]
     };
   }
   get definition() {
     return this._definition;
   }
   async _getAvailableCriteria() {
-    const e = await (await fetch("/App_Plugins/PersonalisationGroups/Criteria")).json();
-    this._availableCriteria = e, this._loadTranslators();
+    const t = await (await fetch("/App_Plugins/PersonalisationGroups/Criteria")).json();
+    this._availableCriteria = t;
   }
-  _loadTranslators() {
-    for (var t = 0; t < this._availableCriteria.length; t++) {
-      const e = this._availableCriteria[t], i = "/App_Plugins/" + e.clientAssetsFolder + "/" + this._convertToPascalCase(e.alias) + "/definition.translator.js";
-      import(i).then((n) => {
-        this._translators[e.alias] = n, this.requestUpdate();
-      }).catch(() => {
-        console.log("Could not load translator for " + e.alias + " at " + i);
-      });
-    }
+  _getCriteriaName(e) {
+    var t = this._getCriteriaByAlias(e);
+    return t ? t.name : "";
   }
-  _convertToPascalCase(t) {
-    return t.charAt(0).toUpperCase() + t.substr(1);
-  }
-  _getCriteriaName(t) {
-    var e = this._getCriteriaByAlias(t);
-    return e ? e.name : "";
-  }
-  _getCriteriaByAlias(t) {
+  _getCriteriaByAlias(e) {
     if (this._availableCriteria === void 0)
       return null;
-    for (var e = 0; e < this._availableCriteria.length; e++)
-      if (this._availableCriteria[e].alias === t)
-        return this._availableCriteria[e];
+    for (var t = 0; t < this._availableCriteria.length; t++)
+      if (this._availableCriteria[t].alias === e)
+        return this._availableCriteria[t];
     return null;
   }
-  _getDefinitionTranslation(t) {
-    var e = this._translators[t.alias];
-    return e ? e.translate(t.definition) : "";
+  _getDefinitionTranslation(e) {
+    console.log(e);
+    var t = this._translatorRegistry.getByAlias(e.alias);
+    return t == null ? void 0 : t.translate(e.definition);
   }
   _addCriteria() {
     var i;
-    const e = { alias: ((i = this.shadowRoot) == null ? void 0 : i.getElementById("availableCriteriaSelect")).value, definition: {} };
-    this.definition.details.push(e), this.requestUpdate(), this._editCriteria(this.definition.details.length - 1);
+    const t = { alias: ((i = this.shadowRoot) == null ? void 0 : i.getElementById("availableCriteriaSelect")).value, definition: {} };
+    this.definition.details.push(t), this.requestUpdate(), this._editCriteria(this.definition.details.length - 1);
   }
-  _editCriteria(t) {
-    this._myModalRegistration.open({ index: t });
+  _editCriteria(e) {
+    this._myModalRegistration.open({ index: e });
   }
-  _removeCriteria(t) {
-    this.definition.details.splice(t, 1), this.requestUpdate();
+  _removeCriteria(e) {
+    this.definition.details.splice(e, 1), this.requestUpdate();
   }
   render() {
-    var t;
-    return u`<div>
+    var e;
+    return html`<div>
 
                 <div>
                     <label>Match:</label>
@@ -200,8 +210,8 @@ let l = class extends _(C(b)) {
                     <label>Add Criteria:</label>
                     <div class="controls controls-row">
                         <select id="availableCriteriaSelect">
-                            ${(t = this._availableCriteria) == null ? void 0 : t.map(
-      (e) => u`<option value="${e.alias}">${e.name}</li>`
+                            ${(e = this._availableCriteria) == null ? void 0 : e.map(
+      (t) => html`<option value="${t.alias}">${t.name}</li>`
     )}
                         </select>
                         <button type="button" @click=${() => this._addCriteria()}>Add</button>
@@ -221,9 +231,9 @@ let l = class extends _(C(b)) {
                     </thead>
                     <tbody>
                         ${this.definition.details.map(
-      (e, i) => u`<tr>
-                                <td>${this._getCriteriaName(e.alias)}</td>
-                                <td>${this._getDefinitionTranslation(e)}</td>
+      (t, i) => html`<tr>
+                                <td>${this._getCriteriaName(t.alias)}</td>
+                                <td>${this._getDefinitionTranslation(t)}</td>
                                 <td>
                                     <button type="button" @click=${() => this._editCriteria(i)}>Edit</button>
                                     <button type="button" @click=${() => this._removeCriteria(i)}>Delete</button>
@@ -236,45 +246,38 @@ let l = class extends _(C(b)) {
             </div>`;
   }
 };
-c([
-  m()
-], l.prototype, "overlaySize", 2);
-c([
-  m({ attribute: !1 })
-], l.prototype, "definition", 1);
-c([
-  p()
-], l.prototype, "_availableCriteria", 2);
-c([
-  p()
-], l.prototype, "_translators", 2);
-l = c([
-  f("umb-input-personalisation-group-definition")
-], l);
-var x = Object.defineProperty, T = Object.getOwnPropertyDescriptor, v = (t, e, i, n) => {
-  for (var o = n > 1 ? void 0 : n ? T(e, i) : e, r = t.length - 1, a; r >= 0; r--)
-    (a = t[r]) && (o = (n ? a(e, i, o) : a(o)) || o);
-  return n && o && x(e, i, o), o;
+__decorateClass$1([
+  property()
+], UmbInputPersonalisationGroupDefinitionElement.prototype, "overlaySize", 2);
+__decorateClass$1([
+  property({ attribute: !1 })
+], UmbInputPersonalisationGroupDefinitionElement.prototype, "definition", 1);
+__decorateClass$1([
+  state()
+], UmbInputPersonalisationGroupDefinitionElement.prototype, "_availableCriteria", 2);
+UmbInputPersonalisationGroupDefinitionElement = __decorateClass$1([
+  customElement("umb-input-personalisation-group-definition")
+], UmbInputPersonalisationGroupDefinitionElement);
+var __defProp = Object.defineProperty, __getOwnPropDesc = Object.getOwnPropertyDescriptor, __decorateClass = (e, t, i, n) => {
+  for (var o = n > 1 ? void 0 : n ? __getOwnPropDesc(t, i) : t, r = e.length - 1, a; r >= 0; r--)
+    (a = e[r]) && (o = (n ? a(t, i, o) : a(o)) || o);
+  return n && o && __defProp(t, i, o), o;
 };
-let d = class extends P {
+let UmbPersonalisationGroupDefinitionEditorModalElement = class extends UmbModalBaseElement {
   constructor() {
-    super(), this._index = null, this._definition = {
-      alias: "",
-      match: "",
-      value: ""
-    }, console.log("from modal constructor");
+    super(), this._index = null, this._definition = "", console.log("from modal constructor");
   }
   _submit() {
   }
   _close() {
-    var t;
-    (t = this.modalContext) == null || t.reject();
+    var e;
+    (e = this.modalContext) == null || e.reject();
   }
   connectedCallback() {
     super.connectedCallback(), console.log("from modal connectedCallback");
   }
   render() {
-    return u`
+    return html`
 			<umb-body-layout headline="Edit Definition">
 				<uui-box>
 					<p>[EDIT]</p>
@@ -287,31 +290,31 @@ let d = class extends P {
 		`;
   }
 };
-v([
-  p()
-], d.prototype, "_index", 2);
-v([
-  p()
-], d.prototype, "_definition", 2);
-d = v([
-  f("umb-personalisation-group-definition-editor-modal")
-], d);
-const z = d, I = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+__decorateClass([
+  state()
+], UmbPersonalisationGroupDefinitionEditorModalElement.prototype, "_index", 2);
+__decorateClass([
+  state()
+], UmbPersonalisationGroupDefinitionEditorModalElement.prototype, "_definition", 2);
+UmbPersonalisationGroupDefinitionEditorModalElement = __decorateClass([
+  customElement("umb-personalisation-group-definition-editor-modal")
+], UmbPersonalisationGroupDefinitionEditorModalElement);
+const UmbPersonalisationGroupDefinitionEditorModalElement$1 = UmbPersonalisationGroupDefinitionEditorModalElement, personalisationGroupDefinitionEditorModal_element = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   get UmbPersonalisationGroupDefinitionEditorModalElement() {
-    return d;
+    return UmbPersonalisationGroupDefinitionEditorModalElement;
   },
-  default: z
-}, Symbol.toStringTag, { value: "Module" })), N = [
-  ...E,
-  ...A
-], L = (t, e) => {
-  e.registerMany(N);
+  default: UmbPersonalisationGroupDefinitionEditorModalElement$1
+}, Symbol.toStringTag, { value: "Module" })), manifests = [
+  ...manifests$2,
+  ...manifests$1
+], onInit = (e, t) => {
+  t.registerMany(manifests);
 };
 export {
-  l as UmbInputPersonalisationGroupDefinitionElement,
-  d as UmbPersonalisationGroupDefinitionEditorModalElement,
-  s as UmbPropertyEditorPersonalisationGroupDefinitionElement,
-  L as onInit
+  UmbInputPersonalisationGroupDefinitionElement,
+  UmbPersonalisationGroupDefinitionEditorModalElement,
+  UmbPropertyEditorPersonalisationGroupDefinitionElement,
+  onInit
 };
 //# sourceMappingURL=personalisation-groups.js.map
