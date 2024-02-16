@@ -31,20 +31,22 @@ export type TranslatorType = {
     translate: TranslateFunction
 };
 
-export type PersonalisationGroupDefinitionEditorModalResult = {
+export type PersonalisationGroupDefinitionEditorModalValue = { definition: GroupDetailDefinitionType };
+
+export interface PersonalisationGroupDefinitionEditorModalData {
+	config: PersonalisationGroupDefinitionEditorConfig;
+	index: number | null;
 }
 
-export type PersonalisationGroupDefinitionEditorModalValue = { index: number | null; definition: GroupDetailDefinitionType };
-
-export type PersonalisationGroupDefinitionEditorModalData = {
-    index: number | null;
-    definition: GroupDetailDefinitionType;
+export interface PersonalisationGroupDefinitionEditorConfig {
 }
 
-export const PERSONALISATION_GROUP_DEFINITION_EDITOR_MODAL = new UmbModalToken<PersonalisationGroupDefinitionEditorModalData, PersonalisationGroupDefinitionEditorModalResult>(
-    'Umb.Modal.PersonalisationGroupDetailDefinition',
-    {
-        type: 'sidebar',
-        size: 'small',
-    },
+export const PERSONALISATION_GROUP_DEFINITION_EDITOR_MODAL = new UmbModalToken<PersonalisationGroupDefinitionEditorModalData, PersonalisationGroupDefinitionEditorModalValue>(
+    'PersonalisationGroups.Modal.DetailDefinition',
+	{
+		modal: {
+			type: 'sidebar',
+			size: 'small',
+		},
+	},
 );

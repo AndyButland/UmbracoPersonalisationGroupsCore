@@ -1,37 +1,105 @@
-import { LitElement as v, html as p, property as u, state as c, customElement as f } from "@umbraco-cms/backoffice/external/lit";
+import { property as m, state as p, customElement as f, LitElement as b, html as u } from "@umbraco-cms/backoffice/external/lit";
 import { FormControlMixin as _ } from "@umbraco-cms/backoffice/external/uui";
-import { UmbModalToken as m, UmbModalRouteRegistrationController as b } from "@umbraco-cms/backoffice/modal";
-import { UmbElementMixin as g } from "@umbraco-cms/backoffice/element-api";
-const C = new m(
-  "Umb.Modal.PersonalisationGroupDetailDefinition",
+import { UmbModalToken as y, UmbModalRouteRegistrationController as g, UmbModalBaseElement as P } from "@umbraco-cms/backoffice/modal";
+import { UmbElementMixin as C } from "@umbraco-cms/backoffice/element-api";
+const D = [
   {
-    type: "sidebar",
-    size: "small"
+    type: "propertyEditorUi",
+    alias: "PersonalisationGroups.PropertyEditorUi.GroupDefinition",
+    name: "Personalisation Groups Property Editor",
+    js: () => Promise.resolve().then(() => M),
+    elementName: "umb-property-editor-ui-personalisation-group-definition",
+    meta: {
+      label: "Personalisation Group Definition",
+      icon: "umb:operator",
+      group: "common",
+      propertyEditorSchemaAlias: "personalisationGroupDefinition"
+    }
+  }
+], E = [...D], $ = [
+  {
+    type: "modal",
+    alias: "PersonalisationGroups.Modal.DetailDefinition",
+    name: "Personalisation Groups Edit Definition Modal",
+    js: () => Promise.resolve().then(() => I)
+  }
+], A = [...$];
+var O = Object.defineProperty, S = Object.getOwnPropertyDescriptor, h = (t, e, i, n) => {
+  for (var o = n > 1 ? void 0 : n ? S(e, i) : e, r = t.length - 1, a; r >= 0; r--)
+    (a = t[r]) && (o = (n ? a(e, i, o) : a(o)) || o);
+  return n && o && O(e, i, o), o;
+};
+let s = class extends b {
+  constructor() {
+    super(...arguments), this.value = void 0;
+  }
+  set config(t) {
+    this._overlaySize = t == null ? void 0 : t.getValueByAlias("overlaySize");
+  }
+  _onChange(t) {
+    this.value = t.target.definition, this.dispatchEvent(new CustomEvent("property-value-change"));
+  }
+  render() {
+    return u`<umb-input-personalisation-group-definition
+			@change="${this._onChange}"
+			.overlaySize="${this._overlaySize}"
+			.definition="${this.value ?? {}}"></umb-input-personalisation-group-definition>`;
+  }
+};
+h([
+  m({ type: Object })
+], s.prototype, "value", 2);
+h([
+  m({ attribute: !1 })
+], s.prototype, "config", 1);
+h([
+  p()
+], s.prototype, "_overlaySize", 2);
+s = h([
+  f("umb-property-editor-ui-personalisation-group-definition")
+], s);
+const G = s, M = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  get UmbPropertyEditorPersonalisationGroupDefinitionElement() {
+    return s;
+  },
+  default: G
+}, Symbol.toStringTag, { value: "Module" })), U = new y(
+  "PersonalisationGroups.Modal.DetailDefinition",
+  {
+    modal: {
+      type: "sidebar",
+      size: "small"
+    }
   }
 );
-var y = Object.defineProperty, P = Object.getOwnPropertyDescriptor, d = (t, i, e, a) => {
-  for (var r = a > 1 ? void 0 : a ? P(i, e) : i, n = t.length - 1, o; n >= 0; n--)
-    (o = t[n]) && (r = (a ? o(i, e, r) : o(r)) || r);
-  return a && r && y(i, e, r), r;
+var w = Object.defineProperty, j = Object.getOwnPropertyDescriptor, c = (t, e, i, n) => {
+  for (var o = n > 1 ? void 0 : n ? j(e, i) : e, r = t.length - 1, a; r >= 0; r--)
+    (a = t[r]) && (o = (n ? a(e, i, o) : a(o)) || o);
+  return n && o && w(e, i, o), o;
 };
-let s = class extends _(g(v)) {
+let l = class extends _(C(b)) {
   constructor() {
-    super(), this._definition = { match: "All", duration: "Page", score: 50, details: [] }, this._availableCriteria = [], this._translators = {}, this._getAvailableCriteria(), this._myModalRegistration = new b(this, C).addAdditionalPath(":index").onSetup((t) => {
+    super(), this._definition = { match: "All", duration: "Page", score: 50, details: [] }, this._availableCriteria = [], this._translators = {}, this._getAvailableCriteria(), this._myModalRegistration = new g(this, U).addAdditionalPath(":index").onSetup((t) => {
       if (!t.index)
         return !1;
-      let e = parseInt(t.index);
-      if (Number.isNaN(e))
+      let i = parseInt(t.index);
+      if (Number.isNaN(i))
         return !1;
-      const a = this.definition.details[e];
-      return console.log(a), {
-        index: e,
-        definition: {
-          alias: a.definition.alias,
-          match: a.definition.match,
-          value: a.definition.value
+      const n = this.definition.details[i];
+      return console.log(n), {
+        data: {
+          index: i,
+          config: {
+            overlaySize: this.overlaySize || "small"
+          }
         },
-        config: {
-          overlaySize: this.overlaySize || "small"
+        value: {
+          definition: {
+            alias: n.definition.alias,
+            match: n.definition.match,
+            value: n.definition.value
+          }
         }
       };
     }).onSubmit((t) => {
@@ -53,16 +121,16 @@ let s = class extends _(g(v)) {
     return this._definition;
   }
   async _getAvailableCriteria() {
-    const i = await (await fetch("/App_Plugins/PersonalisationGroups/Criteria")).json();
-    this._availableCriteria = i, this._loadTranslators();
+    const e = await (await fetch("/App_Plugins/PersonalisationGroups/Criteria")).json();
+    this._availableCriteria = e, this._loadTranslators();
   }
   _loadTranslators() {
     for (var t = 0; t < this._availableCriteria.length; t++) {
-      const i = this._availableCriteria[t], e = "/App_Plugins/" + i.clientAssetsFolder + "/" + this._convertToPascalCase(i.alias) + "/definition.translator.js";
-      import(e).then((a) => {
-        this._translators[i.alias] = a, this.requestUpdate();
+      const e = this._availableCriteria[t], i = "/App_Plugins/" + e.clientAssetsFolder + "/" + this._convertToPascalCase(e.alias) + "/definition.translator.js";
+      import(i).then((n) => {
+        this._translators[e.alias] = n, this.requestUpdate();
       }).catch(() => {
-        console.log("Could not load translator for " + i.alias + " at " + e);
+        console.log("Could not load translator for " + e.alias + " at " + i);
       });
     }
   }
@@ -70,35 +138,35 @@ let s = class extends _(g(v)) {
     return t.charAt(0).toUpperCase() + t.substr(1);
   }
   _getCriteriaName(t) {
-    var i = this._getCriteriaByAlias(t);
-    return i ? i.name : "";
+    var e = this._getCriteriaByAlias(t);
+    return e ? e.name : "";
   }
   _getCriteriaByAlias(t) {
     if (this._availableCriteria === void 0)
       return null;
-    for (var i = 0; i < this._availableCriteria.length; i++)
-      if (this._availableCriteria[i].alias === t)
-        return this._availableCriteria[i];
+    for (var e = 0; e < this._availableCriteria.length; e++)
+      if (this._availableCriteria[e].alias === t)
+        return this._availableCriteria[e];
     return null;
   }
   _getDefinitionTranslation(t) {
-    var i = this._translators[t.alias];
-    return i ? i.translate(t.definition) : "";
+    var e = this._translators[t.alias];
+    return e ? e.translate(t.definition) : "";
   }
   _addCriteria() {
-    var e;
-    const i = { alias: ((e = this.shadowRoot) == null ? void 0 : e.getElementById("availableCriteriaSelect")).value, definition: {} };
-    this.definition.details.push(i), this.requestUpdate(), this._editCriteria(this.definition.details.length - 1);
+    var i;
+    const e = { alias: ((i = this.shadowRoot) == null ? void 0 : i.getElementById("availableCriteriaSelect")).value, definition: {} };
+    this.definition.details.push(e), this.requestUpdate(), this._editCriteria(this.definition.details.length - 1);
   }
   _editCriteria(t) {
-    console.log(t), this._myModalRegistration.open({ index: t });
+    this._myModalRegistration.open({ index: t });
   }
   _removeCriteria(t) {
     this.definition.details.splice(t, 1), this.requestUpdate();
   }
   render() {
     var t;
-    return p`<div>
+    return u`<div>
 
                 <div>
                     <label>Match:</label>
@@ -133,7 +201,7 @@ let s = class extends _(g(v)) {
                     <div class="controls controls-row">
                         <select id="availableCriteriaSelect">
                             ${(t = this._availableCriteria) == null ? void 0 : t.map(
-      (i) => p`<option value="${i.alias}">${i.name}</li>`
+      (e) => u`<option value="${e.alias}">${e.name}</li>`
     )}
                         </select>
                         <button type="button" @click=${() => this._addCriteria()}>Add</button>
@@ -153,12 +221,12 @@ let s = class extends _(g(v)) {
                     </thead>
                     <tbody>
                         ${this.definition.details.map(
-      (i, e) => p`<tr>
-                                <td>${this._getCriteriaName(i.alias)}</td>
-                                <td>${this._getDefinitionTranslation(i)}</td>
+      (e, i) => u`<tr>
+                                <td>${this._getCriteriaName(e.alias)}</td>
+                                <td>${this._getDefinitionTranslation(e)}</td>
                                 <td>
-                                    <button type="button" @click=${() => this._editCriteria(e)}>Edit</button>
-                                    <button type="button" @click=${() => this._removeCriteria(e)}>Delete</button>
+                                    <button type="button" @click=${() => this._editCriteria(i)}>Edit</button>
+                                    <button type="button" @click=${() => this._removeCriteria(i)}>Delete</button>
                                 </td>
                             </tr>`
     )}
@@ -168,61 +236,82 @@ let s = class extends _(g(v)) {
             </div>`;
   }
 };
-d([
-  u()
-], s.prototype, "overlaySize", 2);
-d([
-  u({ attribute: !1 })
-], s.prototype, "definition", 1);
-d([
-  c()
-], s.prototype, "_availableCriteria", 2);
-d([
-  c()
-], s.prototype, "_translators", 2);
-s = d([
+c([
+  m()
+], l.prototype, "overlaySize", 2);
+c([
+  m({ attribute: !1 })
+], l.prototype, "definition", 1);
+c([
+  p()
+], l.prototype, "_availableCriteria", 2);
+c([
+  p()
+], l.prototype, "_translators", 2);
+l = c([
   f("umb-input-personalisation-group-definition")
-], s);
-var A = Object.defineProperty, $ = Object.getOwnPropertyDescriptor, h = (t, i, e, a) => {
-  for (var r = a > 1 ? void 0 : a ? $(i, e) : i, n = t.length - 1, o; n >= 0; n--)
-    (o = t[n]) && (r = (a ? o(i, e, r) : o(r)) || r);
-  return a && r && A(i, e, r), r;
+], l);
+var x = Object.defineProperty, T = Object.getOwnPropertyDescriptor, v = (t, e, i, n) => {
+  for (var o = n > 1 ? void 0 : n ? T(e, i) : e, r = t.length - 1, a; r >= 0; r--)
+    (a = t[r]) && (o = (n ? a(e, i, o) : a(o)) || o);
+  return n && o && x(e, i, o), o;
 };
-let l = class extends v {
+let d = class extends P {
   constructor() {
-    super(), this.value = void 0;
+    super(), this._index = null, this._definition = {
+      alias: "",
+      match: "",
+      value: ""
+    }, console.log("from modal constructor");
   }
-  set config(t) {
-    this._overlaySize = t == null ? void 0 : t.getValueByAlias("overlaySize");
+  _submit() {
   }
-  _onChange(t) {
-    this.value = t.target.definition, this.dispatchEvent(new CustomEvent("property-value-change"));
+  _close() {
+    var t;
+    (t = this.modalContext) == null || t.reject();
+  }
+  connectedCallback() {
+    super.connectedCallback(), console.log("from modal connectedCallback");
   }
   render() {
-    return p`<umb-input-personalisation-group-definition
-			@change="${this._onChange}"
-			.overlaySize="${this._overlaySize}"
-			.definition="${this.value ?? {}}"></umb-input-personalisation-group-definition>`;
+    return u`
+			<umb-body-layout headline="Edit Definition">
+				<uui-box>
+					<p>[EDIT]</p>
+				</uui-box>
+				<div slot="actions">
+					<uui-button label="Close" @click=${this._close}></uui-button>
+					<uui-button label="Submit" look="primary" color="positive" @click=${this._submit}></uui-button>
+				</div>
+			</umb-body-layout>
+		`;
   }
 };
-h([
-  u({ type: Object })
-], l.prototype, "value", 2);
-h([
-  u({ attribute: !1 })
-], l.prototype, "config", 1);
-h([
-  c()
-], l.prototype, "_overlaySize", 2);
-l = h([
-  f("umb-property-editor-ui-personalisation-group-definition")
-], l);
-const E = {
-  UmbPropertyEditorPersonalisationGroupDefinitionElement: l,
-  UmbInputPersonalisationGroupDefinitionElement: s
+v([
+  p()
+], d.prototype, "_index", 2);
+v([
+  p()
+], d.prototype, "_definition", 2);
+d = v([
+  f("umb-personalisation-group-definition-editor-modal")
+], d);
+const z = d, I = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  get UmbPersonalisationGroupDefinitionEditorModalElement() {
+    return d;
+  },
+  default: z
+}, Symbol.toStringTag, { value: "Module" })), N = [
+  ...E,
+  ...A
+], L = (t, e) => {
+  e.registerMany(N);
 };
 export {
-  l as UmbPropertyEditorPersonalisationGroupDefinitionElement,
-  E as default
+  l as UmbInputPersonalisationGroupDefinitionElement,
+  d as UmbPersonalisationGroupDefinitionEditorModalElement,
+  s as UmbPropertyEditorPersonalisationGroupDefinitionElement,
+  L as onInit
 };
 //# sourceMappingURL=personalisation-groups.js.map

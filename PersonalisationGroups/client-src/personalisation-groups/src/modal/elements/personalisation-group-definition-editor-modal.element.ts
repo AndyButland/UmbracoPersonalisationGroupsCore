@@ -1,10 +1,9 @@
 import { html, customElement, state } from '@umbraco-cms/backoffice/external/lit';
 import { UmbModalBaseElement } from '@umbraco-cms/backoffice/modal';
-import { buildUdi, getKeyFromUdi } from '@umbraco-cms/backoffice/utils';
-import { GroupDetailDefinitionType, PersonalisationGroupDefinitionEditorModalData, PersonalisationGroupDefinitionEditorModalResult } from "./types";
+import { GroupDetailDefinitionType, PersonalisationGroupDefinitionEditorModalData, PersonalisationGroupDefinitionEditorModalValue } from "../../types";
 
 @customElement('umb-personalisation-group-definition-editor-modal')
-export class UmbPersonalisationGroupDefinitionEditorModalElement extends UmbModalBaseElement<PersonalisationGroupDefinitionEditorModalData, PersonalisationGroupDefinitionEditorModalResult> {
+export class UmbPersonalisationGroupDefinitionEditorModalElement extends UmbModalBaseElement<PersonalisationGroupDefinitionEditorModalData, PersonalisationGroupDefinitionEditorModalValue> {
 
 
 	@state()
@@ -18,11 +17,21 @@ export class UmbPersonalisationGroupDefinitionEditorModalElement extends UmbModa
 	};
 
 	private _submit() {
-		this.modalContext?.submit({ index: this._index, definition: this._definition });
+		//this.modalContext?.submit({ index: this._index, definition: this._definition });
 	}
 
 	private _close() {
 		this.modalContext?.reject();
+	}
+
+	constructor() {
+        super();
+		console.log("from modal constructor");
+	}
+
+	connectedCallback() {
+		super.connectedCallback();
+		console.log("from modal connectedCallback");
 	}
 
 	render() {

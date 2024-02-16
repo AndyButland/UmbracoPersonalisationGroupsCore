@@ -3,7 +3,7 @@ import { defineConfig } from "vite";
 export default defineConfig({
   build: {
     lib: {
-      "entry": "src/property-editor-ui-personalisation-group-definition.element.ts",
+      "entry": "src/index.ts",
       "formats": [ "es" ]
     },
     outDir: "../../App_Plugins/PersonalisationGroups",

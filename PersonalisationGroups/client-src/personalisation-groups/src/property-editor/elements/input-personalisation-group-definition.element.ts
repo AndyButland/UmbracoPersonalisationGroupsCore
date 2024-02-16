@@ -2,8 +2,7 @@ import { customElement, html, LitElement, property, state } from "@umbraco-cms/b
 import { FormControlMixin } from '@umbraco-cms/backoffice/external/uui';
 import type { UUIModalSidebarSize } from '@umbraco-cms/backoffice/external/uui';
 import { UmbModalRouteRegistrationController } from '@umbraco-cms/backoffice/modal';
-//import type { UmbModalRouteBuilder } from '@umbraco-cms/backoffice/modal';
-import { GroupType, GroupDetailType, CriteriaType, TranslatorType, PERSONALISATION_GROUP_DEFINITION_EDITOR_MODAL } from "./types";
+import { GroupType, GroupDetailType, CriteriaType, TranslatorType, PERSONALISATION_GROUP_DEFINITION_EDITOR_MODAL } from "../../types";
 import { UmbElementMixin } from "@umbraco-cms/backoffice/element-api";
 
 
@@ -34,9 +33,6 @@ export class UmbInputPersonalisationGroupDefinitionElement
 
     private _definition: GroupType = { match: "All", duration: "Page", score: 50, details: [] };
 
-    //@state()
-    //private _modalRoute?: UmbModalRouteBuilder;
-
     @state()
     private _availableCriteria: Array<CriteriaType> = [];
 
@@ -44,7 +40,6 @@ export class UmbInputPersonalisationGroupDefinitionElement
     private _translators: { [alias: string]: TranslatorType; } = {};
 
     private _myModalRegistration;
-
 
     private async _getAvailableCriteria() {
         const response = await fetch("/App_Plugins/PersonalisationGroups/Criteria");
@@ -116,7 +111,6 @@ export class UmbInputPersonalisationGroupDefinitionElement
     }
 
     private _editCriteria(index: number) {
-        console.log(index);
         this._myModalRegistration.open({ index });
     }
 
@@ -124,7 +118,7 @@ export class UmbInputPersonalisationGroupDefinitionElement
         this.definition.details.splice(index, 1);
         this.requestUpdate();
     }
-    
+
     constructor() {
         super();
         this._getAvailableCriteria();
@@ -142,24 +136,25 @@ export class UmbInputPersonalisationGroupDefinitionElement
                 console.log(data);
 
                 return {
-                    index: index,
-                    definition: {
-                        alias: data.definition.alias,
-                        match: data.definition.match,
-                        value: data.definition.value
+                    data:{
+                        index: index,
+                        config: {
+                            overlaySize: this.overlaySize || 'small',
+                        }
                     },
-                    config: {
-                        overlaySize: this.overlaySize || 'small',
-                    },
+                    value:{
+                        definition: {
+                            alias: data.definition.alias,
+                            match: data.definition.match,
+                            value: data.definition.value
+                        }
+                    }
                 };
             })
             .onSubmit((submitData) => {
                 if (!submitData) return;
                 console.log(submitData);
             });
-            //.observeRouteBuilder((routeBuilder) => {
-            //    this._modalRoute = routeBuilder;
-            //});
     }
 
     render() {

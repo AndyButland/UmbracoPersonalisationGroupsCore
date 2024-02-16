@@ -4,29 +4,10 @@
   "version": "4.0.0-alpha1",
   "extensions": [
     {
-      "type": "headerApp",
-      "alias": "My.headerApp.Name",
-      "name": "My HeaderApp Demo",
-      "kind": "button",
-      "meta": {
-        "icon": "umb:hearts",
-        "label": "Hello!",
-        "href": "https://umbraco.com"
-      }
-    },
-    {
-      "type": "propertyEditorUi",
-      "alias": "PersonalisationGroups.PropertyEditorUi.GroupDefinition",
-      "name": "Personalisation Group Definition",
-      "js": "/App_Plugins/PersonalisationGroups/personalisation-groups.js",
-      "elementName": "umb-property-editor-ui-personalisation-group-definition",
-      "meta": {
-        "label": "Personalisation Group Definition",
-        "pathname": "property-editor-group-definition",
-        "icon": "umb:operator",
-        "group": "common",
-        "propertyEditorSchemaAlias": "personalisationGroupDefinition"
-      }
+      "name": "Personalisation Groups EntryPoint",
+      "alias": "Umb.Forms.EntryPoint",
+      "type": "entryPoint",
+      "js": "/App_Plugins/PersonalisationGroups/personalisation-groups.js"
     }
   ]
 }
