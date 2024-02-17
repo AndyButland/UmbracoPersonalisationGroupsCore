@@ -1,11 +1,9 @@
-import { html, customElement, state, unsafeHTML } from '@umbraco-cms/backoffice/external/lit';
+import { html, customElement, state } from '@umbraco-cms/backoffice/external/lit';
 import { UmbModalBaseElement } from '@umbraco-cms/backoffice/modal';
 import { GroupDetailType, PersonalisationGroupDefinitionEditorModalData, PersonalisationGroupDefinitionEditorModalValue } from "../../types";
-import { EditorRegistry } from "../../definition-editor/registry";
 
 @customElement('umb-personalisation-group-definition-editor-modal')
 export class UmbPersonalisationGroupDefinitionEditorModalElement extends UmbModalBaseElement<PersonalisationGroupDefinitionEditorModalData, PersonalisationGroupDefinitionEditorModalValue> {
-
 
 	@state()
 	_index: number | null = null;
@@ -13,35 +11,13 @@ export class UmbPersonalisationGroupDefinitionEditorModalElement extends UmbModa
 	@state()
 	_detail: GroupDetailType = { alias: "", definition: "" };
 
-	private _editorRegistry: EditorRegistry;
-
-	private _renderEditor() {
-        var editor = this._editorRegistry.getByAlias(this._detail.alias);
-		if (editor) {
-			editor.loadDefinition(this._detail.definition);
-			return editor?.render();
-		}
-
-		return "";
-	}
-
 	private _submit() {
-		var editor = this._editorRegistry.getByAlias(this._detail.alias);
-		if (editor) {
-			this.connectedCallback();
-			var editorNode = this.shadowRoot?.getElementById("definition-editor");
-			if (editorNode) {
-				console.log(editorNode.innerHTML);
- 				//console.log(editor.readDefinition(editorNode));
-			}
-		}
 
 		this._submitModal();
 	}
 
 	constructor() {
         super();
-		this._editorRegistry = new EditorRegistry();
 	}
 
 	connectedCallback(): void {
@@ -58,7 +34,7 @@ export class UmbPersonalisationGroupDefinitionEditorModalElement extends UmbModa
 		return html`
 			<umb-body-layout headline="Edit Definition">
 				<uui-box>
-					${unsafeHTML(this._renderEditor())}
+					<umb-personalisation-group-definition-editor-modal-detail .detail="${this._detail}" />
 				</uui-box>
 				<div slot="actions">
 					<uui-button label="Close" @click=${this._rejectModal}></uui-button>

@@ -29,8 +29,7 @@ export interface IDefinitionTranslator {
 export interface IDefinitionEditor {
     alias: string,
     loadDefinition: (definition: string) => void,
-    readDefinition: (editorNode: HTMLElement) => string,
-    render: () => string;
+    render: () => void;
 };
 
 export type PersonalisationGroupDefinitionEditorModalValue = { detail: GroupDetailType };
@@ -43,7 +42,7 @@ export interface PersonalisationGroupDefinitionEditorModalData {
 export interface PersonalisationGroupDefinitionEditorConfig {
 }
 
-export const PERSONALISATION_GROUP_DEFINITION_EDITOR_MODAL_ALIAS = "Umb.Modal.Forms.EditField";
+export const PERSONALISATION_GROUP_DEFINITION_EDITOR_MODAL_ALIAS = "PersonalisationGroup.Modal.EditDefinition";
 
 export const PERSONALISATION_GROUP_DEFINITION_EDITOR_MODAL = new UmbModalToken<PersonalisationGroupDefinitionEditorModalData, PersonalisationGroupDefinitionEditorModalValue>(
     PERSONALISATION_GROUP_DEFINITION_EDITOR_MODAL_ALIAS,
