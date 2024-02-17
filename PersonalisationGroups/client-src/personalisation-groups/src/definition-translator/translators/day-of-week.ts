@@ -1,6 +1,6 @@
-import { ITranslator } from "../../types.js"
+import { IDefinitionTranslator } from "../../types.js"
 
-export class DayOfWeekTranslator implements ITranslator {
+export class DayOfWeekTranslator implements IDefinitionTranslator {
     alias = "dayOfWeek";
 
     translate(definition: string) {

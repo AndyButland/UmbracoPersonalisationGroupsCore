@@ -21,12 +21,19 @@ export type CriteriaType = {
 
 export type TranslateFunction = (definition: string) => string;
 
-export interface ITranslator {
+export interface IDefinitionTranslator {
     alias: string,
     translate: TranslateFunction
 };
 
-export type PersonalisationGroupDefinitionEditorModalValue = { definition: string };
+export interface IDefinitionEditor {
+    alias: string,
+    loadDefinition: (definition: string) => void,
+    readDefinition: (editorNode: HTMLElement) => string,
+    render: () => string;
+};
+
+export type PersonalisationGroupDefinitionEditorModalValue = { detail: GroupDetailType };
 
 export interface PersonalisationGroupDefinitionEditorModalData {
 	config: PersonalisationGroupDefinitionEditorConfig;

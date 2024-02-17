@@ -1,6 +1,7 @@
-import { html, customElement, state } from '@umbraco-cms/backoffice/external/lit';
+import { html, customElement, state, unsafeHTML } from '@umbraco-cms/backoffice/external/lit';
 import { UmbModalBaseElement } from '@umbraco-cms/backoffice/modal';
-import { PersonalisationGroupDefinitionEditorModalData, PersonalisationGroupDefinitionEditorModalValue } from "../../types";
+import { GroupDetailType, PersonalisationGroupDefinitionEditorModalData, PersonalisationGroupDefinitionEditorModalValue } from "../../types";
+import { EditorRegistry } from "../../definition-editor/registry";
 
 @customElement('umb-personalisation-group-definition-editor-modal')
 export class UmbPersonalisationGroupDefinitionEditorModalElement extends UmbModalBaseElement<PersonalisationGroupDefinitionEditorModalData, PersonalisationGroupDefinitionEditorModalValue> {
@@ -10,34 +11,57 @@ export class UmbPersonalisationGroupDefinitionEditorModalElement extends UmbModa
 	_index: number | null = null;
 
 	@state()
-	_definition: string = "";
+	_detail: GroupDetailType = { alias: "", definition: "" };
 
-	private _submit() {
-		//this.modalContext?.submit({ index: this._index, definition: this._definition });
+	private _editorRegistry: EditorRegistry;
+
+	private _renderEditor() {
+        var editor = this._editorRegistry.getByAlias(this._detail.alias);
+		if (editor) {
+			editor.loadDefinition(this._detail.definition);
+			return editor?.render();
+		}
+
+		return "";
 	}
 
-	private _close() {
-		this.modalContext?.reject();
+	private _submit() {
+		var editor = this._editorRegistry.getByAlias(this._detail.alias);
+		if (editor) {
+			this.connectedCallback();
+			var editorNode = this.shadowRoot?.getElementById("definition-editor");
+			if (editorNode) {
+				console.log(editorNode.innerHTML);
+ 				//console.log(editor.readDefinition(editorNode));
+			}
+		}
+
+		this._submitModal();
 	}
 
 	constructor() {
         super();
-		console.log("from modal constructor");
+		this._editorRegistry = new EditorRegistry();
 	}
 
-	connectedCallback() {
+	connectedCallback(): void {
 		super.connectedCallback();
-		console.log("from modal connectedCallback");
-	}
+		if (this.value) {
+			this._detail = {
+				alias: this.value.detail.alias,
+				definition: this.value.detail.definition,
+			}
+		}
+	  }
 
 	render() {
 		return html`
 			<umb-body-layout headline="Edit Definition">
 				<uui-box>
-					<p>[EDIT]</p>
+					${unsafeHTML(this._renderEditor())}
 				</uui-box>
 				<div slot="actions">
-					<uui-button label="Close" @click=${this._close}></uui-button>
+					<uui-button label="Close" @click=${this._rejectModal}></uui-button>
 					<uui-button label="Submit" look="primary" color="positive" @click=${this._submit}></uui-button>
 				</div>
 			</umb-body-layout>

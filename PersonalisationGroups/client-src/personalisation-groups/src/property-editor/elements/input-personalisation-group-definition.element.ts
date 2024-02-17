@@ -71,7 +71,6 @@ export class UmbInputPersonalisationGroupDefinitionElement
     }
 
     private _getDefinitionTranslation(detail: GroupDetailType) {
-        console.log(detail);
         var translator = this._translatorRegistry.getByAlias(detail.alias);
         return translator?.translate(detail.definition);
     };
@@ -110,7 +109,6 @@ export class UmbInputPersonalisationGroupDefinitionElement
 
                 // Use the index to find data:
                 const data = this.definition.details[index];
-                console.log(data);
 
                 return {
                     data:{
@@ -120,7 +118,7 @@ export class UmbInputPersonalisationGroupDefinitionElement
                         }
                     },
                     value:{
-                        definition: data.definition
+                        detail: data
                     }
                 };
             })

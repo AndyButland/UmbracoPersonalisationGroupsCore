@@ -1,10 +1,10 @@
-import { ITranslator } from "../types.js"
+import { IDefinitionTranslator } from "../types.js"
 import { DayOfWeekTranslator } from "./index.js";
 
 export class TranslatorRegistry {
-    private _translators: Array<ITranslator> = [];
+    private _translators: Array<IDefinitionTranslator> = [];
 
-    private _register(translator: ITranslator) {
+    private _register(translator: IDefinitionTranslator) {
         this._translators.push(translator);
     }
 
