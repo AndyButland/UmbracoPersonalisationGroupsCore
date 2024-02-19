@@ -27,9 +27,7 @@ export interface IDefinitionTranslator {
 };
 
 export interface IDefinitionEditor {
-    alias: string,
-    loadDefinition: (definition: string) => void,
-    render: () => void;
+    alias: string
 };
 
 export type PersonalisationGroupDefinitionEditorModalValue = { detail: GroupDetailType };
