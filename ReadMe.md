@@ -399,3 +399,5 @@ See [here](https://github.com/AndyButland/UmbracoPersonalisationGroups#version-h
     - Added configuration option `DisableUserActivityTracking` to resolve issue [#10](https://github.com/AndyButland/UmbracoPersonalisationGroupsCore/issues/10)
 - 3.2.9
     - Extended version range to support Umbraco 13.
+- 3.2.10
+    - Fixed cookie and session criteria such that checking for "does not match regex" with a missing cookie or session key returns true.

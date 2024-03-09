@@ -70,7 +70,7 @@ namespace Our.Umbraco.PersonalisationGroups.Core.Criteria.Cookie
                 case CookieSettingMatch.MatchesRegex:
                     return cookieExists && MatchesRegex(cookieValue, cookieSetting.Value);
                 case CookieSettingMatch.DoesNotMatchRegex:
-                    return cookieExists && !MatchesRegex(cookieValue, cookieSetting.Value);
+                    return !cookieExists || !MatchesRegex(cookieValue, cookieSetting.Value);
                 default:
                     return false;
             }

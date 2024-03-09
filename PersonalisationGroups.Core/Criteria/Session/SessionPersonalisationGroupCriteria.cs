@@ -70,7 +70,7 @@ namespace Our.Umbraco.PersonalisationGroups.Core.Criteria.Session
                 case SessionSettingMatch.MatchesRegex:
                     return keyExists && MatchesRegex(value, sessionSetting.Value);
                 case SessionSettingMatch.DoesNotMatchRegex:
-                    return keyExists && !MatchesRegex(value, sessionSetting.Value);
+                    return !keyExists || !MatchesRegex(value, sessionSetting.Value);
 
                 default:
                     return false;
