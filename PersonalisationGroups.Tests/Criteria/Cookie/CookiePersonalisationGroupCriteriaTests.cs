@@ -366,6 +366,21 @@ namespace Our.Umbraco.PersonalisationGroups.Tests.Criteria.Cookie
         }
 
         [Test]
+        public void CookiePersonalisationGroupCriteria_MatchesVisitor_WithDefinitionDoesNotMatchRegex_WithMissingCookie_ReturnsTrue()
+        {
+            // Arrange
+            var mockCookieProvider = MockCookieProvider();
+            var criteria = new CookiePersonalisationGroupCriteria(mockCookieProvider.Object);
+            var definition = string.Format(DefinitionFormat, "missing-key", "DoesNotMatchRegex", "[a-z]");
+
+            // Act
+            var result = criteria.MatchesVisitor(definition);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
         public void CookiePersonalisationGroupCriteria_MatchesVisitor_WithDefinitionDoesNotMatchRegex_WithMatchingCookie_ReturnsFalse()
         {
             // Arrange

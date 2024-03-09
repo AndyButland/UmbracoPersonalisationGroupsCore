@@ -365,6 +365,21 @@ namespace Our.Umbraco.PersonalisationGroups.Tests.Criteria.Session
         }
 
         [Test]
+        public void SessionPersonalisationGroupCriteria_MatchesVisitor_WithDefinitionDoesNotMatchRegex_WithMissingSession_ReturnsTrue()
+        {
+            // Arrange
+            var mockSessionProvider = MockSessionProvider();
+            var criteria = new SessionPersonalisationGroupCriteria(mockSessionProvider.Object);
+            var definition = string.Format(DefinitionFormat, "missing-key", "DoesNotMatchRegex", "[a-z]");
+
+            // Act
+            var result = criteria.MatchesVisitor(definition);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
         public void SessionPersonalisationGroupCriteria_MatchesVisitor_WithDefinitionDoesNotMatchRegex_WithMatchingSession_ReturnsFalse()
         {
             // Arrange

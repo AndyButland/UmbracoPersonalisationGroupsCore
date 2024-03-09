@@ -1,9 +1,9 @@
 ﻿<Project>
 	<PropertyGroup>
-		<Version>3.2.9</Version>
-		<AssemblyVersion>3.2.9</AssemblyVersion>
-		<InformationalVersion>3.2.9</InformationalVersion>
-		<FileVersion>3.2.9</FileVersion>
+		<Version>3.2.10</Version>
+		<AssemblyVersion>3.2.10</AssemblyVersion>
+		<InformationalVersion>3.2.10</InformationalVersion>
+		<FileVersion>3.2.10</FileVersion>
 		<LangVersion Condition="'$(LangVersion)' == ''">10.0</LangVersion>
 		<NeutralLanguage>en-US</NeutralLanguage>
 		<TargetFramework>net5.0</TargetFramework>
