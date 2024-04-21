@@ -12,6 +12,8 @@ namespace Our.Umbraco.PersonalisationGroups.Core.Services
 
         bool MatchGroups(IList<IPublishedContent> pickedGroups);
 
+        int CountMatchingDefinitionDetails(PersonalisationGroupDefinition definition);
+
         bool MatchGroupsByName(string[] groupNames, IList<IPublishedContent> groups, PersonalisationGroupDefinitionMatch matchType);
 
         int ScoreGroup(IPublishedContent pickedGroup);

@@ -93,7 +93,7 @@ namespace Our.Umbraco.PersonalisationGroups.Core.Services
         /// </summary>
         /// <param name="definition">Personalisation group definition</param>
         /// <returns>Number of definition details that match</returns>
-        private int CountMatchingDefinitionDetails(PersonalisationGroupDefinition definition)
+        public int CountMatchingDefinitionDetails(PersonalisationGroupDefinition definition)
         {
             var matchCount = 0;
             foreach (var detail in definition.Details)
