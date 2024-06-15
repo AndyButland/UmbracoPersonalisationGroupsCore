@@ -403,3 +403,5 @@ See [here](https://github.com/AndyButland/UmbracoPersonalisationGroups#version-h
     - Fixed cookie and session criteria such that checking for "does not match regex" with a missing cookie or session key returns true.
 - 3.3.0
     - Surfaced the method `CountMatchingDefinitionDetails`, available in an earlier version of the package, via the `IGroupMatchingService` interface.
+- 3.4.0
+    - Used the secure option for all cookies.

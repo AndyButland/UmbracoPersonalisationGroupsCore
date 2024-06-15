@@ -53,6 +53,7 @@ namespace Our.Umbraco.PersonalisationGroups.Core.Providers.Cookie
             { 
                 Expires = expires.HasValue ? new DateTimeOffset(expires.Value) : (DateTimeOffset?)null,
                 HttpOnly = httpOnly,
+                Secure = true
             };
             _httpContextAccessor.HttpContext.Response.Cookies.Append(key, value, cookieOptions);
         }
