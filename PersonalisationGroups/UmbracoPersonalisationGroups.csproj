@@ -12,47 +12,34 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Content Include="App_Plugins\PersonalisationGroups\**\*.*">
-			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-		<None Include="build\**\*.*">
-			<Pack>True</Pack>
-			<PackagePath>build</PackagePath>
-		</None>
+		<PackageReference Include="MaxMind.GeoIP2" Version="4.0.1" />
+		<PackageReference Include="Umbraco.Cms.Web.Common" Version="[9.0.0, 14)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Migrations\package.xml" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<EmbeddedResource Include="Data\continents.txt" />
 		<EmbeddedResource Include="Data\countries.txt" />
 		<EmbeddedResource Include="Data\regions.txt" />
+		<EmbeddedResource Include="Migrations\package.xml" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\PersonalisationGroups.Core\UmbracoPersonalisationGroups.Core.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Content Update="App_Plugins\PersonalisationGroups\personalisation-groups.css">
-			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-	</ItemGroup>
-
-	<ItemGroup>
-		<Content Update="App_Plugins\PersonalisationGroups\personalisation-group-definition.html">
-			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Include="images\icon.png" Pack="true" PackagePath=""/>
-		<None Include="docs\NuGetReadMe.md" Pack="true" PackagePath="\"/>
+		<None Include="images\icon.png" Pack="true" PackagePath="" />
+		<None Include="docs\NuGetReadMe.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Folder Include="images\" />
 	</ItemGroup>
+
+	<ItemGroup>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+			<_Parameter1>Our.Umbraco.PersonalisationGroups.Tests</_Parameter1>
+		</AssemblyAttribute>
+	</ItemGroup>	
 
 </Project>

@@ -3,8 +3,8 @@
     using System;
     using NUnit.Framework;
     using Moq;
-    using Our.Umbraco.PersonalisationGroups.Core.Criteria.Host;
-    using Our.Umbraco.PersonalisationGroups.Core.Providers.Host;
+    using Our.Umbraco.PersonalisationGroups.Criteria.Host;
+    using Our.Umbraco.PersonalisationGroups.Providers.Host;
 
     [TestFixture]
     public class HostPersonalisationGroupCriteriaTests

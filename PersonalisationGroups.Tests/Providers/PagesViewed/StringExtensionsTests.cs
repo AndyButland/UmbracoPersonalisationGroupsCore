@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Our.Umbraco.PersonalisationGroups.Core.Providers.PagesViewed;
+using Our.Umbraco.PersonalisationGroups.Providers.PagesViewed;
 using System.Collections.Generic;
 
 namespace Our.Umbraco.PersonalisationGroups.Tests.Providers.PagesViewed

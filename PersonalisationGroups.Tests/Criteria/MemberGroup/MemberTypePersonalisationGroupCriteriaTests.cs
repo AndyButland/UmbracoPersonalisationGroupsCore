@@ -1,8 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
 using Moq;
-using Our.Umbraco.PersonalisationGroups.Core.Criteria.MemberGroup;
-using Our.Umbraco.PersonalisationGroups.Core.Providers.MemberGroup;
+using Our.Umbraco.PersonalisationGroups.Criteria.MemberGroup;
+using Our.Umbraco.PersonalisationGroups.Providers.MemberGroup;
 
 namespace Our.Umbraco.PersonalisationGroups.Tests.Criteria.MemberGroup
 {

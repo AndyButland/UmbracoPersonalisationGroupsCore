@@ -2,11 +2,11 @@
 using Microsoft.Extensions.Options;
 using Moq;
 using NUnit.Framework;
-using Our.Umbraco.PersonalisationGroups.Core.Configuration;
-using Our.Umbraco.PersonalisationGroups.Core.Criteria.Country;
-using Our.Umbraco.PersonalisationGroups.Core.Providers.GeoLocation;
-using Our.Umbraco.PersonalisationGroups.Core.Providers.Ip;
-using Our.Umbraco.PersonalisationGroups.Core.Providers.RequestHeaders;
+using Our.Umbraco.PersonalisationGroups.Configuration;
+using Our.Umbraco.PersonalisationGroups.Criteria.Country;
+using Our.Umbraco.PersonalisationGroups.Providers.GeoLocation;
+using Our.Umbraco.PersonalisationGroups.Providers.Ip;
+using Our.Umbraco.PersonalisationGroups.Providers.RequestHeaders;
 using System;
 
 namespace Our.Umbraco.PersonalisationGroups.Tests.Criteria.Country
@@ -340,7 +340,7 @@ namespace Our.Umbraco.PersonalisationGroups.Tests.Criteria.Country
 
             mock.Setup(x => x.GetCountryFromIp(It.IsAny<string>()))
                 .Returns(canGeolocate
-                    ? new Core.Providers.GeoLocation.Country
+                    ? new PersonalisationGroups.Providers.GeoLocation.Country
                     {
                             Code = "GB", Name = "United Kingdom"
                         }
@@ -356,7 +356,7 @@ namespace Our.Umbraco.PersonalisationGroups.Tests.Criteria.Country
             var resultHeaders = new HeaderDictionary();
             if (withHeader)
             {
-                resultHeaders.Add(Core.AppConstants.DefaultCdnCountryCodeHttpHeaderName, withValue ? "GB" : string.Empty);
+                resultHeaders.Add(AppConstants.DefaultCdnCountryCodeHttpHeaderName, withValue ? "GB" : string.Empty);
             }
 
             mock.Setup(x => x.GetHeaders()).Returns(resultHeaders);

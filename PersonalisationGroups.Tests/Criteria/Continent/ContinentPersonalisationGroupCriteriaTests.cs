@@ -1,9 +1,9 @@
 ﻿using System;
 using NUnit.Framework;
 using Moq;
-using Our.Umbraco.PersonalisationGroups.Core.Criteria.Continent;
-using Our.Umbraco.PersonalisationGroups.Core.Providers.GeoLocation;
-using Our.Umbraco.PersonalisationGroups.Core.Providers.Ip;
+using Our.Umbraco.PersonalisationGroups.Criteria.Continent;
+using Our.Umbraco.PersonalisationGroups.Providers.GeoLocation;
+using Our.Umbraco.PersonalisationGroups.Providers.Ip;
 
 namespace Our.Umbraco.PersonalisationGroups.Tests.Criteria.Continent
 {
@@ -164,7 +164,7 @@ namespace Our.Umbraco.PersonalisationGroups.Tests.Criteria.Continent
 
             mock.Setup(x => x.GetContinentFromIp(It.IsAny<string>()))
                 .Returns(canGeolocate
-                    ? new Core.Providers.GeoLocation.Continent
+                    ? new PersonalisationGroups.Providers.GeoLocation.Continent
                         {
                             Code = "EU", Name = "Europe"
                         }

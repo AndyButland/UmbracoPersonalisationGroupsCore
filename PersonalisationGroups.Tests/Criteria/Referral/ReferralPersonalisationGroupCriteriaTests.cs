@@ -1,8 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
 using Moq;
-using Our.Umbraco.PersonalisationGroups.Core.Criteria.Referral;
-using Our.Umbraco.PersonalisationGroups.Core.Providers.Referrer;
+using Our.Umbraco.PersonalisationGroups.Criteria.Referral;
+using Our.Umbraco.PersonalisationGroups.Providers.Referrer;
 
 namespace Our.Umbraco.PersonalisationGroups.Tests.Criteria.Referral
 {

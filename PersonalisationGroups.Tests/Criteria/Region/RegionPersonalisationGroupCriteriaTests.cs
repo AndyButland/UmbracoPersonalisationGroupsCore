@@ -1,8 +1,8 @@
 ﻿using Moq;
 using NUnit.Framework;
-using Our.Umbraco.PersonalisationGroups.Core.Criteria.Region;
-using Our.Umbraco.PersonalisationGroups.Core.Providers.GeoLocation;
-using Our.Umbraco.PersonalisationGroups.Core.Providers.Ip;
+using Our.Umbraco.PersonalisationGroups.Criteria.Region;
+using Our.Umbraco.PersonalisationGroups.Providers.GeoLocation;
+using Our.Umbraco.PersonalisationGroups.Providers.Ip;
 using System;
 
 namespace Our.Umbraco.PersonalisationGroups.Tests.Criteria.Region
@@ -182,7 +182,7 @@ namespace Our.Umbraco.PersonalisationGroups.Tests.Criteria.Region
 
             mock.Setup(x => x.GetCountryFromIp(It.IsAny<string>()))
                 .Returns(canGeolocate 
-                    ? new Core.Providers.GeoLocation.Country
+                    ? new PersonalisationGroups.Providers.GeoLocation.Country
                     {
                             Code = "GB",
                             Name = "United Kingdom"
@@ -190,11 +190,11 @@ namespace Our.Umbraco.PersonalisationGroups.Tests.Criteria.Region
                     : null);
             mock.Setup(x => x.GetRegionFromIp(It.IsAny<string>()))
                 .Returns(canGeolocate 
-                    ? new Core.Providers.GeoLocation.Region
+                    ? new PersonalisationGroups.Providers.GeoLocation.Region
                     {
                             City = "Cornwall",
                             Subdivisions = new[] { "South-west"},
-                            Country = new Core.Providers.GeoLocation.Country { Code = "GB", Name = "United Kingdom" }
+                            Country = new PersonalisationGroups.Providers.GeoLocation.Country { Code = "GB", Name = "United Kingdom" }
                         }
                     : null);
 

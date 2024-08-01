@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using NUnit.Framework;
-using Our.Umbraco.PersonalisationGroups.Core.Providers.Ip;
+using Our.Umbraco.PersonalisationGroups.Providers.Ip;
 using System.Net;
 
 namespace Our.Umbraco.PersonalisationGroups.Tests.Providers.Ip

@@ -197,10 +197,6 @@ ExamineIndexes/
 */media/created-packages/
 
 # Solution
-TestWebApp.V9/
-TestWebApp.V10/
-TestWebApp.V11/
-TestWebApp.V12/
-TestWebApp.V13/
+TestWebApp.V14/
 
 deploy.ps1

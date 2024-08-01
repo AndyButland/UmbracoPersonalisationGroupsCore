@@ -8,10 +8,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\PersonalisationGroups.Core\UmbracoPersonalisationGroups.Core.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<Folder Include="Criteria\" />
 	</ItemGroup>
 
@@ -19,6 +15,10 @@
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
 		<PackageReference Include="NUnit3TestAdapter" Version="3.16.1" />
 		<PackageReference Include="Umbraco.Cms.Tests" Version="9.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\PersonalisationGroups\UmbracoPersonalisationGroups.csproj" />
 	</ItemGroup>
 
 </Project>

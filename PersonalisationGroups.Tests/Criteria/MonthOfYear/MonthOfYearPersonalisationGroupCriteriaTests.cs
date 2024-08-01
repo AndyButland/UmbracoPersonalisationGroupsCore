@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using Our.Umbraco.PersonalisationGroups.Core.Criteria.MonthOfYear;
+using Our.Umbraco.PersonalisationGroups.Criteria.MonthOfYear;
 
 namespace Our.Umbraco.PersonalisationGroups.Tests.Criteria.MonthOfYear
 {
