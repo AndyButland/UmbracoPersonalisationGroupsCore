@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<AssemblyName>Our.Umbraco.PersonalisationGroups.Tests</AssemblyName>
 		<RootNamespace>Our.Umbraco.PersonalisationGroups.Tests</RootNamespace>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
 
@@ -14,7 +14,7 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
 		<PackageReference Include="NUnit3TestAdapter" Version="3.16.1" />
-		<PackageReference Include="Umbraco.Cms.Tests" Version="9.0.0" />
+		<PackageReference Include="Umbraco.Cms.Tests" Version="14.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

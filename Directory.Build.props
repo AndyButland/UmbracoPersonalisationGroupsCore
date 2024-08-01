@@ -1,14 +1,14 @@
 ﻿<Project>
 	<PropertyGroup>
-		<Version>3.4.0</Version>
-		<AssemblyVersion>3.4.0</AssemblyVersion>
-		<InformationalVersion>3.4.0</InformationalVersion>
-		<FileVersion>3.4.0</FileVersion>
+		<Version>4.0.0</Version>
+		<AssemblyVersion>4.0.0</AssemblyVersion>
+		<InformationalVersion>4.0.0-rc1</InformationalVersion>
+		<FileVersion>4.0.0</FileVersion>
 		<LangVersion Condition="'$(LangVersion)' == ''">10.0</LangVersion>
 		<NeutralLanguage>en-US</NeutralLanguage>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<Authors>Andy Butland</Authors>
-		<Copyright>2021-23 Andy Butland</Copyright>
+		<Copyright>2021-24 Andy Butland</Copyright>
 		<PackageProjectUrl>https://github.com/AndyButland/UmbracoPersonalisationGroupsCore/</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/AndyButland/UmbracoPersonalisationGroupsCore/</RepositoryUrl>
 		<RepositoryType>Github</RepositoryType>
