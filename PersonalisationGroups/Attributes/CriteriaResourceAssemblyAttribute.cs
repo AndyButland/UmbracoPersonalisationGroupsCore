@@ -1,10 +1,9 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Attributes
-{
-    using System;
+﻿namespace Our.Umbraco.PersonalisationGroups.Attributes;
 
-    [AttributeUsage(AttributeTargets.Class)]
-    public class CriteriaResourceAssemblyAttribute : Attribute
-    {
-        public string AssemblyName { get; set; }
-    }
+using System;
+
+[AttributeUsage(AttributeTargets.Class)]
+public class CriteriaResourceAssemblyAttribute : Attribute
+{
+    public required string AssemblyName { get; set; }
 }
