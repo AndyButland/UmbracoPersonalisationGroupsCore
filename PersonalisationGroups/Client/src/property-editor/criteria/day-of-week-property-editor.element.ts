@@ -61,6 +61,7 @@ export class DayOfWeekCriteriaPropertyUiElement extends UmbLitElement implements
 
   render() {
     return html`
+      <p>Please select the days for which this group will be valid:</p>
       <table>
         ${this.#days.map((d, i) =>
           html`
@@ -74,7 +75,7 @@ export class DayOfWeekCriteriaPropertyUiElement extends UmbLitElement implements
               ></uui-toggle>
               </td>
             </tr>`)}
-    </table>`;
+      </table>`;
   }
 }
 

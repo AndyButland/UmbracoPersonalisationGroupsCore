@@ -2,8 +2,12 @@
 
 export class AuthenticationStatusDefinitionDetailTranslator implements PersonalisationGroupDefinitionDetailTranslatorApi  {
    translate(definition: string) {
-		console.log(definition);
 		let translation = "";
+    if (definition) {
+      const authenticationStatusDetails = JSON.parse(definition);
+      translation = authenticationStatusDetails.isAuthenticated ? "Is logged in." : "Is not logged in.";
+    }
+
 		return translation;
   }
 
