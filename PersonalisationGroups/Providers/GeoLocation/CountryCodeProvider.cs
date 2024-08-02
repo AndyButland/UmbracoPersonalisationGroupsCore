@@ -1,8 +1,7 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Providers.GeoLocation
+﻿namespace Our.Umbraco.PersonalisationGroups.Providers.GeoLocation;
+
+public enum CountryCodeProvider
 {
-    public enum CountryCodeProvider
-    {
-        MaxMindDatabase,
-        CdnHeader
-    }
+    MaxMindDatabase,
+    CdnHeader
 }

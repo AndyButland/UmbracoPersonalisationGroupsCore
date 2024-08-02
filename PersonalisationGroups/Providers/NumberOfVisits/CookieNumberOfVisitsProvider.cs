@@ -2,29 +2,28 @@
 using Our.Umbraco.PersonalisationGroups.Configuration;
 using Our.Umbraco.PersonalisationGroups.Providers.Cookie;
 
-namespace Our.Umbraco.PersonalisationGroups.Providers.NumberOfVisits
+namespace Our.Umbraco.PersonalisationGroups.Providers.NumberOfVisits;
+
+public class CookieNumberOfVisitsProvider : INumberOfVisitsProvider
 {
-    public class CookieNumberOfVisitsProvider : INumberOfVisitsProvider
+    private readonly PersonalisationGroupsConfig _config;
+    private readonly ICookieProvider _cookieProvider;
+
+    public CookieNumberOfVisitsProvider(IOptions<PersonalisationGroupsConfig> config, ICookieProvider cookieProvider)
     {
-        private readonly PersonalisationGroupsConfig _config;
-        private readonly ICookieProvider _cookieProvider;
+        _config = config.Value;
+        _cookieProvider = cookieProvider;
+    }
 
-        public CookieNumberOfVisitsProvider(IOptions<PersonalisationGroupsConfig> config, ICookieProvider cookieProvider)
+    public int GetNumberOfVisits()
+    {
+        var cookieValue = _cookieProvider.GetCookieValue(_config.CookieKeyForTrackingNumberOfVisits);
+
+        if (!string.IsNullOrEmpty(cookieValue) && int.TryParse(cookieValue, out int cookieNumericValue))
         {
-            _config = config.Value;
-            _cookieProvider = cookieProvider;
+            return cookieNumericValue;
         }
 
-        public int GetNumberOfVisits()
-        {
-            var cookieValue = _cookieProvider.GetCookieValue(_config.CookieKeyForTrackingNumberOfVisits);
-
-            if (!string.IsNullOrEmpty(cookieValue) && int.TryParse(cookieValue, out int cookieNumericValue))
-            {
-                return cookieNumericValue;
-            }
-
-            return 0;
-        }
+        return 0;
     }
 }

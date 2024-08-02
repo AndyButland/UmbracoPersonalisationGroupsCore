@@ -1,17 +1,16 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Criteria.Host
+﻿namespace Our.Umbraco.PersonalisationGroups.Criteria.Host;
+
+public enum HostSettingMatch
 {
-    public enum HostSettingMatch
-    {
-        MatchesValue,
-        DoesNotMatchValue,
-        ContainsValue,
-        DoesNotContainValue,
-    }
+    MatchesValue,
+    DoesNotMatchValue,
+    ContainsValue,
+    DoesNotContainValue,
+}
 
-    public class HostSetting
-    {
-        public HostSettingMatch Match { get; set; }
+public class HostSetting
+{
+    public required HostSettingMatch Match { get; set; }
 
-        public string Value { get; set; }
-    }
+    public required string Value { get; set; }
 }

@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using Our.Umbraco.PersonalisationGroups.Criteria;
 
-namespace Our.Umbraco.PersonalisationGroups.Services
+namespace Our.Umbraco.PersonalisationGroups.Services;
+
+public interface ICriteriaService
 {
-    public interface ICriteriaService
-    {
-        IEnumerable<IPersonalisationGroupCriteria> GetAvailableCriteria();
-    }
+    IEnumerable<IPersonalisationGroupCriteria> GetAvailableCriteria();
 }

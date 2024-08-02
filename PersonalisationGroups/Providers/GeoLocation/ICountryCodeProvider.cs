@@ -1,7 +1,6 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Providers.GeoLocation
+﻿namespace Our.Umbraco.PersonalisationGroups.Providers.GeoLocation;
+
+public interface ICountryCodeProvider
 {
-    public interface ICountryCodeProvider
-    {
-        string GetCountryCode();
-    }
+    string? GetCountryCode();
 }

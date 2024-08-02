@@ -2,43 +2,48 @@
 using Microsoft.Extensions.Options;
 using Our.Umbraco.PersonalisationGroups.Configuration;
 
-namespace Our.Umbraco.PersonalisationGroups.Providers.Ip
+namespace Our.Umbraco.PersonalisationGroups.Providers.Ip;
+
+public class HttpContextIpProvider : IIpProvider
 {
-    public class HttpContextIpProvider : IIpProvider
+    private readonly PersonalisationGroupsConfig _config;
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly ClientIpParser _clientIpParser;
+
+    public HttpContextIpProvider(IOptions<PersonalisationGroupsConfig> config, IHttpContextAccessor httpContextAccessor, ClientIpParser clientIpParser)
     {
-        private readonly PersonalisationGroupsConfig _config;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly ClientIpParser _clientIpParser;
+        _config = config.Value;
+        _httpContextAccessor = httpContextAccessor;
+        _clientIpParser = clientIpParser;
+    }
 
-        public HttpContextIpProvider(IOptions<PersonalisationGroupsConfig> config, IHttpContextAccessor httpContextAccessor, ClientIpParser clientIpParser)
+    public string? GetIp()
+    {
+        var ip = GetIpFromHttpContext();
+        if (ip == "::1")
         {
-            _config = config.Value;
-            _httpContextAccessor = httpContextAccessor;
-            _clientIpParser = clientIpParser;
+            ip = "127.0.0.1";
         }
 
-        public string GetIp()
-        {
-            var ip = GetIpFromHttpContext();
-            if (ip == "::1")
-            {
-                ip = "127.0.0.1";
-            }
+        return ip;
+    }
 
-            return ip;
+    private string? GetIpFromHttpContext()
+    {
+        // Return a test Ip if we've configured one.
+        var testIp = _config.TestFixedIp;
+        if (!string.IsNullOrEmpty(testIp))
+        {
+            return testIp;
         }
 
-        private string GetIpFromHttpContext()
+        // Otherwise retrieve from the HTTP context.
+        var httpContext = _httpContextAccessor.HttpContext;
+        if (httpContext == null)
         {
-            // Return a test Ip if we've configured one.
-            var testIp = _config.TestFixedIp;
-            if (!string.IsNullOrEmpty(testIp))
-            {
-                return testIp;
-            }
-
-            // Otherwise retrieve from the HTTP context.
-            return _clientIpParser.ParseClientIp(_httpContextAccessor.HttpContext);
+            return null;
         }
+
+        return _clientIpParser.ParseClientIp(httpContext);
     }
 }

@@ -4,29 +4,28 @@ using Microsoft.Extensions.Options;
 using Our.Umbraco.PersonalisationGroups.Configuration;
 using Our.Umbraco.PersonalisationGroups.Providers.Cookie;
 
-namespace Our.Umbraco.PersonalisationGroups.Providers.PagesViewed
+namespace Our.Umbraco.PersonalisationGroups.Providers.PagesViewed;
+
+public class CookiePagesViewedProvider : IPagesViewedProvider
 {
-    public class CookiePagesViewedProvider : IPagesViewedProvider
+    private readonly PersonalisationGroupsConfig _config;
+    private readonly ICookieProvider _cookieProvider;
+
+    public CookiePagesViewedProvider(IOptions<PersonalisationGroupsConfig> config, ICookieProvider cookieProvider)
     {
-        private readonly PersonalisationGroupsConfig _config;
-        private readonly ICookieProvider _cookieProvider;
+        _config = config.Value;
+        _cookieProvider = cookieProvider;
+    }
 
-        public CookiePagesViewedProvider(IOptions<PersonalisationGroupsConfig> config, ICookieProvider cookieProvider)
+    public IEnumerable<int> GetNodeIdsViewed()
+    {
+        var cookieValue = _cookieProvider.GetCookieValue(_config.CookieKeyForTrackingPagesViewed);
+
+        if (!string.IsNullOrEmpty(cookieValue))
         {
-            _config = config.Value;
-            _cookieProvider = cookieProvider;
+            return cookieValue.ParsePageIds();
         }
 
-        public IEnumerable<int> GetNodeIdsViewed()
-        {
-            var cookieValue = _cookieProvider.GetCookieValue(_config.CookieKeyForTrackingPagesViewed);
-
-            if (!string.IsNullOrEmpty(cookieValue))
-            {
-                return cookieValue.ParsePageIds();
-            }
-
-            return Enumerable.Empty<int>();
-        }
+        return Enumerable.Empty<int>();
     }
 }

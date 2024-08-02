@@ -3,30 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using Umbraco.Cms.Core.Services;
 
-namespace Our.Umbraco.PersonalisationGroups.Providers.MemberGroup
+namespace Our.Umbraco.PersonalisationGroups.Providers.MemberGroup;
+
+public class UmbracoMemberGroupProvider : IMemberGroupProvider
 {
-    public class UmbracoMemberGroupProvider : IMemberGroupProvider
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly IMemberService _memberService;
+
+    public UmbracoMemberGroupProvider(IHttpContextAccessor httpContextAccessor, IMemberService memberService)
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IMemberService _memberService;
+        _httpContextAccessor = httpContextAccessor;
+        _memberService = memberService;
+    }
 
-        public UmbracoMemberGroupProvider(IHttpContextAccessor httpContextAccessor, IMemberService memberService)
+    public IEnumerable<string> GetMemberGroups()
+    {
+        var httpContext = _httpContextAccessor.HttpContext;
+        if (httpContext == null)
         {
-            _httpContextAccessor = httpContextAccessor;
-            _memberService = memberService;
+            return Enumerable.Empty<string>();
         }
 
-        public IEnumerable<string> GetMemberGroups()
+        return httpContext.User?.Identity?.IsAuthenticated ?? false
+            ? GetAuthenticatedMemberGroups()
+            : Enumerable.Empty<string>();
+    }
+
+    private IEnumerable<string> GetAuthenticatedMemberGroups()
+    {
+        var httpContext = _httpContextAccessor.HttpContext;
+        if (httpContext?.User?.Identity?.Name == null)
         {
-            return _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated
-                ? GetAuthenticatedMemberGroups()
-                : Enumerable.Empty<string>();
+            return Enumerable.Empty<string>();
         }
 
-        private IEnumerable<string> GetAuthenticatedMemberGroups()
-        {
-            var memberGroups = _memberService.GetAllRoles(_httpContextAccessor.HttpContext.User.Identity.Name);
-            return memberGroups ?? Enumerable.Empty<string>();
-        }
+        var memberGroups = _memberService.GetAllRoles(httpContext.User.Identity.Name);
+        return memberGroups ?? Enumerable.Empty<string>();
     }
 }

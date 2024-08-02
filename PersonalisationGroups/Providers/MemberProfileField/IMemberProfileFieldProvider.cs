@@ -1,7 +1,6 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Providers.MemberProfileField
+﻿namespace Our.Umbraco.PersonalisationGroups.Providers.MemberProfileField;
+
+public interface IMemberProfileFieldProvider
 {
-    public interface IMemberProfileFieldProvider
-    {
-        string GetMemberProfileFieldValue(string alias);
-    }
+    string? GetMemberProfileFieldValue(string alias);
 }

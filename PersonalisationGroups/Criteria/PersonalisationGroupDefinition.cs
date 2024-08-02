@@ -1,31 +1,31 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Criteria
+﻿namespace Our.Umbraco.PersonalisationGroups.Criteria;
+
+using System.Collections.Generic;
+using System.Linq;
+
+public enum PersonalisationGroupDefinitionMatch
 {
-    using System.Collections.Generic;
+    All,
+    Any
+}
 
-    public enum PersonalisationGroupDefinitionMatch
-    {
-        All,
-        Any
-    }
+public enum PersonalisationGroupDefinitionDuration
+{
+    Page,
+    Session,
+    Visitor
+}
 
-    public enum PersonalisationGroupDefinitionDuration
-    {
-        Page,
-        Session,
-        Visitor
-    }
+/// <summary>
+/// The definition of a personalisation group
+/// </summary>
+public class PersonalisationGroupDefinition
+{
+    public required PersonalisationGroupDefinitionMatch Match { get; set; }
 
-    /// <summary>
-    /// The definition of a personalisation group
-    /// </summary>
-    public class PersonalisationGroupDefinition
-    {
-        public PersonalisationGroupDefinitionMatch Match { get; set; }
+    public required PersonalisationGroupDefinitionDuration Duration { get; set; }
 
-        public PersonalisationGroupDefinitionDuration Duration { get; set; }
+    public required int Score { get; set; }
 
-        public int Score { get; set; }
-
-        public IEnumerable<PersonalisationGroupDefinitionDetail> Details { get; set; }
-    }
+    public IEnumerable<PersonalisationGroupDefinitionDetail> Details { get; set; } = Enumerable.Empty<PersonalisationGroupDefinitionDetail>();
 }

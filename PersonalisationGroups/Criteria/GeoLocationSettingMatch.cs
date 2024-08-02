@@ -1,9 +1,8 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Criteria
+﻿namespace Our.Umbraco.PersonalisationGroups.Criteria;
+
+public enum GeoLocationSettingMatch
 {
-    public enum GeoLocationSettingMatch
-    {
-        IsLocatedIn,
-        IsNotLocatedIn,
-        CouldNotBeLocated
-    }
+    IsLocatedIn,
+    IsNotLocatedIn,
+    CouldNotBeLocated
 }

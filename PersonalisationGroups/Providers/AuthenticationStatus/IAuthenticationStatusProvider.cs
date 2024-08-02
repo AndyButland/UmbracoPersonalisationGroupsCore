@@ -1,7 +1,6 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Providers.AuthenticationStatus
+﻿namespace Our.Umbraco.PersonalisationGroups.Providers.AuthenticationStatus;
+
+public interface IAuthenticationStatusProvider
 {
-    public interface IAuthenticationStatusProvider
-    {
-        bool IsAuthenticated();
-    }
+    bool IsAuthenticated();
 }

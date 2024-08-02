@@ -1,16 +1,15 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Criteria.NumberOfVisits
+﻿namespace Our.Umbraco.PersonalisationGroups.Criteria.NumberOfVisits;
+
+public enum NumberOfVisitsSettingMatch
 {
-    public enum NumberOfVisitsSettingMatch
-    {
-        MoreThan,
-        LessThan,
-        Exactly,
-    }
+    MoreThan,
+    LessThan,
+    Exactly,
+}
 
-    public class NumberOfVisitsSetting
-    {
-        public NumberOfVisitsSettingMatch Match { get; set; }
+public class NumberOfVisitsSetting
+{
+    public NumberOfVisitsSettingMatch Match { get; set; }
 
-        public int Number { get; set; }
-    }
+    public int Number { get; set; }
 }

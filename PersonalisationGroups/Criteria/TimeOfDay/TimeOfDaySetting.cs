@@ -1,9 +1,8 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Criteria.TimeOfDay
-{
-    public class TimeOfDaySetting
-    {
-        public int From { get; set; }
+﻿namespace Our.Umbraco.PersonalisationGroups.Criteria.TimeOfDay;
 
-        public int To { get; set; }
-    }
+public class TimeOfDaySetting
+{
+    public int From { get; set; }
+
+    public int To { get; set; }
 }

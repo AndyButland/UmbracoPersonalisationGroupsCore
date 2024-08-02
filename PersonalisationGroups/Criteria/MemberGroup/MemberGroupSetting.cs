@@ -1,15 +1,14 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Criteria.MemberGroup
-{
-    public enum MemberGroupSettingMatch
-    {
-        IsInGroup,
-        IsNotInGroup,
-    }
+﻿namespace Our.Umbraco.PersonalisationGroups.Criteria.MemberGroup;
 
-    public class MemberGroupSetting
-    {
-        public MemberGroupSettingMatch Match { get; set; }
-        
-        public string GroupName { get; set; }
-    }
+public enum MemberGroupSettingMatch
+{
+    IsInGroup,
+    IsNotInGroup,
+}
+
+public class MemberGroupSetting
+{
+    public required MemberGroupSettingMatch Match { get; set; }
+    
+    public required string GroupName { get; set; }
 }

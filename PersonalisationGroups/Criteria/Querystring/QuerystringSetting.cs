@@ -1,25 +1,24 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Criteria.Querystring
+﻿namespace Our.Umbraco.PersonalisationGroups.Criteria.Querystring;
+
+public enum QuerystringSettingMatch
 {
-    public enum QuerystringSettingMatch
-    {
-        MatchesValue,
-        DoesNotMatchValue,
-        ContainsValue,
-        DoesNotContainValue,
-        GreaterThanValue,
-        GreaterThanOrEqualToValue,
-        LessThanValue,
-        LessThanOrEqualToValue,
-        MatchesRegex,
-        DoesNotMatchRegex,
-    }
+    MatchesValue,
+    DoesNotMatchValue,
+    ContainsValue,
+    DoesNotContainValue,
+    GreaterThanValue,
+    GreaterThanOrEqualToValue,
+    LessThanValue,
+    LessThanOrEqualToValue,
+    MatchesRegex,
+    DoesNotMatchRegex,
+}
 
-    public class QuerystringSetting
-    {
-        public string Key { get; set; }
+public class QuerystringSetting
+{
+    public required string Key { get; set; }
 
-        public QuerystringSettingMatch Match { get; set; }
+    public required QuerystringSettingMatch Match { get; set; }
 
-        public string Value { get; set; }
-    }
+    public required string Value { get; set; }
 }

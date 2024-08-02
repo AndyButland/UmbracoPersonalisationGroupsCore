@@ -1,13 +1,12 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Providers.Cookie
+﻿namespace Our.Umbraco.PersonalisationGroups.Providers.Cookie;
+
+public interface ICookieProvider
 {
-    public interface ICookieProvider
-    {
-        bool CookieExists(string key);
+    bool CookieExists(string key);
 
-        string GetCookieValue(string key);
+    string? GetCookieValue(string key);
 
-        void SetCookie(string key, string value, System.DateTime? expires = null, bool httpOnly = true);
+    void SetCookie(string key, string value, System.DateTime? expires = null, bool httpOnly = true);
 
-        void DeleteCookie(string key);
-    }
+    void DeleteCookie(string key);
 }

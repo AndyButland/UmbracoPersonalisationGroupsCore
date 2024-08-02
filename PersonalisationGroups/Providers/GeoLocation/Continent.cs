@@ -1,9 +1,8 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Providers.GeoLocation
-{
-    public class Continent
-    {
-        public string Code { get; set; }
+﻿namespace Our.Umbraco.PersonalisationGroups.Providers.GeoLocation;
 
-        public string Name { get; set; }
-    }
+public class Continent
+{
+    public required string Code { get; set; }
+
+    public required string Name { get; set; }
 }

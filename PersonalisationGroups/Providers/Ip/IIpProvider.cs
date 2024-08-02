@@ -1,7 +1,6 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Providers.Ip
+﻿namespace Our.Umbraco.PersonalisationGroups.Providers.Ip;
+
+public interface IIpProvider
 {
-    public interface IIpProvider
-    {
-        string GetIp();
-    }
+    string? GetIp();
 }

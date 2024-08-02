@@ -1,9 +1,8 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Providers.GeoLocation
-{
-    public class Country
-    {
-        public string Code { get; set; }
+﻿namespace Our.Umbraco.PersonalisationGroups.Providers.GeoLocation;
 
-        public string Name { get; set; }
-    }
+public class Country
+{
+    public required string Code { get; set; }
+
+    public required string Name { get; set; }
 }

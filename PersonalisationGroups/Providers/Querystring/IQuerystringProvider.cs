@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Our.Umbraco.PersonalisationGroups.Providers.Querystring
+namespace Our.Umbraco.PersonalisationGroups.Providers.Querystring;
+
+public interface IQuerystringProvider
 {
-    public interface IQuerystringProvider
-    {
-        IQueryCollection GetQuerystring();
-    }
+    IQueryCollection GetQuerystring();
 }

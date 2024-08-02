@@ -1,21 +1,20 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Criteria.MemberProfileField
+﻿namespace Our.Umbraco.PersonalisationGroups.Criteria.MemberProfileField;
+
+public enum MemberProfileFieldSettingMatch
 {
-    public enum MemberProfileFieldSettingMatch
-    {
-        MatchesValue,
-        DoesNotMatchValue,
-        GreaterThanValue,
-        GreaterThanOrEqualToValue,
-        LessThanValue,
-        LessThanOrEqualToValue,
-    }
+    MatchesValue,
+    DoesNotMatchValue,
+    GreaterThanValue,
+    GreaterThanOrEqualToValue,
+    LessThanValue,
+    LessThanOrEqualToValue,
+}
 
-    public class MemberProfileFieldSetting
-    {
-        public string Alias { get; set; }
+public class MemberProfileFieldSetting
+{
+    public required string Alias { get; set; }
 
-        public MemberProfileFieldSettingMatch Match { get; set; }
+    public required MemberProfileFieldSettingMatch Match { get; set; }
 
-        public string Value { get; set; }
-    }
+    public required string Value { get; set; }
 }

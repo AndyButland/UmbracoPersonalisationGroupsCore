@@ -1,25 +1,24 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Criteria.Cookie
+﻿namespace Our.Umbraco.PersonalisationGroups.Criteria.Cookie;
+
+public enum CookieSettingMatch
 {
-    public enum CookieSettingMatch
-    {
-        Exists,
-        DoesNotExist,
-        MatchesValue,
-        ContainsValue,
-        GreaterThanValue,
-        GreaterThanOrEqualToValue,
-        LessThanValue,
-        LessThanOrEqualToValue,
-        MatchesRegex,
-        DoesNotMatchRegex,
-    }
+    Exists,
+    DoesNotExist,
+    MatchesValue,
+    ContainsValue,
+    GreaterThanValue,
+    GreaterThanOrEqualToValue,
+    LessThanValue,
+    LessThanOrEqualToValue,
+    MatchesRegex,
+    DoesNotMatchRegex,
+}
 
-    public class CookieSetting
-    {
-        public string Key { get; set; }
+public class CookieSetting
+{
+    public required string Key { get; set; }
 
-        public CookieSettingMatch Match { get; set; }
+    public required CookieSettingMatch Match { get; set; }
 
-        public string Value { get; set; }
-    }
+    public required string Value { get; set; }
 }

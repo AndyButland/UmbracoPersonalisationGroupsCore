@@ -1,11 +1,11 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Criteria.Country
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace Our.Umbraco.PersonalisationGroups.Criteria.Country;
+
+public class CountrySetting
 {
-    using System.Collections.Generic;
+    public GeoLocationSettingMatch Match { get; set; }
 
-    public class CountrySetting
-    {
-        public GeoLocationSettingMatch Match { get; set; }
-
-        public List<string> Codes { get; set; }
-    }
+    public IEnumerable<string> Codes { get; set; } = Enumerable.Empty<string>();
 }

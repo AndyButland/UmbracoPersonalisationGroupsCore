@@ -1,9 +1,8 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Providers.Session
-{
-    public interface ISessionProvider
-    {
-        bool KeyExists(string key);
+﻿namespace Our.Umbraco.PersonalisationGroups.Providers.Session;
 
-        string GetValue(string key);
-    }
+public interface ISessionProvider
+{
+    bool KeyExists(string key);
+
+    string? GetValue(string key);
 }

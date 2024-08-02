@@ -5,6 +5,8 @@
 		<RootNamespace>Our.Umbraco.PersonalisationGroups.Tests</RootNamespace>
 		<TargetFramework>net8.0</TargetFramework>
 		<IsPackable>false</IsPackable>
+		<Nullable>enable</Nullable>
+		<WarningsAsErrors>nullable</WarningsAsErrors>
 	</PropertyGroup>
 
 	<ItemGroup>

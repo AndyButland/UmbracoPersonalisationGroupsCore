@@ -1,9 +1,8 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Services
-{
-    public interface IUserActivityTracker
-    {
-        void TrackPageView(int pageId);
+﻿namespace Our.Umbraco.PersonalisationGroups.Services;
 
-        void TrackSession();
-    }
+public interface IUserActivityTracker
+{
+    void TrackPageView(int pageId);
+
+    void TrackSession();
 }

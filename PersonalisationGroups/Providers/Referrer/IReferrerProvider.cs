@@ -1,7 +1,6 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Providers.Referrer
+﻿namespace Our.Umbraco.PersonalisationGroups.Providers.Referrer;
+
+public interface IReferrerProvider
 {
-    public interface IReferrerProvider
-    {
-        string GetReferrer();
-    }
+    string? GetReferrer();
 }

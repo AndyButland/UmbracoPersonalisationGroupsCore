@@ -1,7 +1,6 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Providers.MemberType
+﻿namespace Our.Umbraco.PersonalisationGroups.Providers.MemberType;
+
+public interface IMemberTypeProvider
 {
-    public interface IMemberTypeProvider
-    {
-        string GetMemberType();
-    }
+    string? GetMemberType();
 }

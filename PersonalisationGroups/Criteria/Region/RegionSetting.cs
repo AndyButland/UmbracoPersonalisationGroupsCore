@@ -1,13 +1,13 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Criteria.Region
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace Our.Umbraco.PersonalisationGroups.Criteria.Region;
+
+public class RegionSetting
 {
-    using System.Collections.Generic;
+    public required GeoLocationSettingMatch Match { get; set; }
 
-    public class RegionSetting
-    {
-        public GeoLocationSettingMatch Match { get; set; }
+    public required string CountryCode { get; set; }
 
-        public string CountryCode { get; set; }
-
-        public List<string> Names { get; set; }
-    }
+    public IEnumerable<string> Names { get; set; } = Enumerable.Empty<string>();
 }

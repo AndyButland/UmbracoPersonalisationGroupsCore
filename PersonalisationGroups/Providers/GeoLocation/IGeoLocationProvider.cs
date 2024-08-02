@@ -1,11 +1,10 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Providers.GeoLocation
+﻿namespace Our.Umbraco.PersonalisationGroups.Providers.GeoLocation;
+
+public interface IGeoLocationProvider
 {
-    public interface IGeoLocationProvider
-    {
-        Continent GetContinentFromIp(string ip);
+    Continent? GetContinentFromIp(string ip);
 
-        Country GetCountryFromIp(string ip);
+    Country? GetCountryFromIp(string ip);
 
-        Region GetRegionFromIp(string ip);
-    }
+    Region? GetRegionFromIp(string ip);
 }

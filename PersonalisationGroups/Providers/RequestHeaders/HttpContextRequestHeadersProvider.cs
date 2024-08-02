@@ -1,19 +1,18 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Our.Umbraco.PersonalisationGroups.Providers.RequestHeaders
+namespace Our.Umbraco.PersonalisationGroups.Providers.RequestHeaders;
+
+public class HttpContextRequestHeadersProvider : IRequestHeadersProvider
 {
-    public class HttpContextRequestHeadersProvider : IRequestHeadersProvider
+    private readonly IHttpContextAccessor _httpContextAccessor;
+
+    public HttpContextRequestHeadersProvider(IHttpContextAccessor httpContextAccessor)
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        _httpContextAccessor = httpContextAccessor;
+    }
 
-        public HttpContextRequestHeadersProvider(IHttpContextAccessor httpContextAccessor)
-        {
-            _httpContextAccessor = httpContextAccessor;
-        }
-
-        public IHeaderDictionary GetHeaders()
-        {
-            return _httpContextAccessor.HttpContext.Request.Headers;
-        }
+    public IHeaderDictionary GetHeaders()
+    {
+        return _httpContextAccessor.HttpContext?.Request.Headers ?? new HeaderDictionary();
     }
 }

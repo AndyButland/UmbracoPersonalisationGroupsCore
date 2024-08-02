@@ -1,7 +1,6 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Providers.Host
+﻿namespace Our.Umbraco.PersonalisationGroups.Providers.Host;
+
+public interface IHostProvider
 {
-    public interface IHostProvider
-    {
-        string GetHost();
-    }
+    string? GetHost();
 }

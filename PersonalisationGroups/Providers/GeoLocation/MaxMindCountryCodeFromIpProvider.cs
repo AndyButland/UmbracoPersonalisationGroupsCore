@@ -1,28 +1,27 @@
 ﻿using Our.Umbraco.PersonalisationGroups.Providers.Ip;
 
-namespace Our.Umbraco.PersonalisationGroups.Providers.GeoLocation
+namespace Our.Umbraco.PersonalisationGroups.Providers.GeoLocation;
+
+public class MaxMindCountryCodeFromIpProvider : ICountryCodeProvider
 {
-    public class MaxMindCountryCodeFromIpProvider : ICountryCodeProvider
+    private readonly IIpProvider _ipProvider;
+    private readonly IGeoLocationProvider _geoLocationProvider;
+
+    public MaxMindCountryCodeFromIpProvider(IIpProvider ipProvider, IGeoLocationProvider geoLocationProvider)
     {
-        private readonly IIpProvider _ipProvider;
-        private readonly IGeoLocationProvider _geoLocationProvider;
+        _ipProvider = ipProvider;
+        _geoLocationProvider = geoLocationProvider;
+    }
 
-        public MaxMindCountryCodeFromIpProvider(IIpProvider ipProvider, IGeoLocationProvider geoLocationProvider)
+    public string? GetCountryCode()
+    {
+        var ip = _ipProvider.GetIp();
+        if (string.IsNullOrEmpty(ip))
         {
-            _ipProvider = ipProvider;
-            _geoLocationProvider = geoLocationProvider;
+            return string.Empty;
         }
 
-        public string GetCountryCode()
-        {
-            var ip = _ipProvider.GetIp();
-            if (string.IsNullOrEmpty(ip))
-            {
-                return string.Empty;
-            }
-
-            var country = _geoLocationProvider.GetCountryFromIp(ip);
-            return country != null ? country.Code : string.Empty;
-        }
+        var country = _geoLocationProvider.GetCountryFromIp(ip);
+        return country?.Code;
     }
 }

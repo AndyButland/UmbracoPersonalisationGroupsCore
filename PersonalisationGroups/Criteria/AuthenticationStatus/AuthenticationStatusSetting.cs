@@ -1,7 +1,6 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Criteria.AuthenticationStatus
+﻿namespace Our.Umbraco.PersonalisationGroups.Criteria.AuthenticationStatus;
+
+public class AuthenticationStatusSetting
 {
-    public class AuthenticationStatusSetting
-    {
-        public bool IsAuthenticated { get; set; }
-    }
+    public bool IsAuthenticated { get; set; }
 }

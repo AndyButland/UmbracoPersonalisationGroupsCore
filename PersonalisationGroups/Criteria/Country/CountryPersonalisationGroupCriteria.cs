@@ -1,68 +1,68 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Criteria.Country
+﻿namespace Our.Umbraco.PersonalisationGroups.Criteria.Country;
+
+using System;
+using System.Linq;
+using Newtonsoft.Json;
+using Our.Umbraco.PersonalisationGroups.Providers.GeoLocation;
+
+/// <summary>
+/// Implements a personalisation group criteria based on the country derived from the vistor's IP address
+/// </summary>
+public class CountryPersonalisationGroupCriteria : PersonalisationGroupCriteriaBase, IPersonalisationGroupCriteria
 {
-    using System;
-    using System.Linq;
-    using Newtonsoft.Json;
-    using Our.Umbraco.PersonalisationGroups.Providers.GeoLocation;
+    private readonly ICountryCodeProvider _countryCodeProvider;
 
-    /// <summary>
-    /// Implements a personalisation group criteria based on the country derived from the vistor's IP address
-    /// </summary>
-    public class CountryPersonalisationGroupCriteria : PersonalisationGroupCriteriaBase, IPersonalisationGroupCriteria
+    public CountryPersonalisationGroupCriteria(ICountryCodeProvider countryCodeProvider)
     {
-        private readonly ICountryCodeProvider _countryCodeProvider;
+        _countryCodeProvider = countryCodeProvider;
+    }
 
-        public CountryPersonalisationGroupCriteria(ICountryCodeProvider countryCodeProvider)
+    public string Name => "Country";
+
+    public string Alias => "country";
+
+    public string Description => "Matches visitor country derived from their IP address to a given list of countries";
+
+    public bool MatchesVisitor(string definition)
+    {
+        if (string.IsNullOrEmpty(definition))
         {
-            _countryCodeProvider = countryCodeProvider;
+            throw new ArgumentNullException(nameof(definition));
         }
 
-        public string Name => "Country";
-
-        public string Alias => "country";
-
-        public string Description => "Matches visitor country derived from their IP address to a given list of countries";
-
-        public bool MatchesVisitor(string definition)
+        CountrySetting countrySetting;
+        try
         {
-            if (string.IsNullOrEmpty(definition))
+            countrySetting = JsonConvert.DeserializeObject<CountrySetting>(definition)
+                ?? throw new InvalidOperationException($"Could not deserialize JSON: {definition}");
+        }
+        catch (JsonReaderException)
+        {
+            throw new ArgumentException($"Provided definition is not valid JSON: {definition}");
+        }
+
+        var countryCode = _countryCodeProvider.GetCountryCode();
+        if (!string.IsNullOrEmpty(countryCode))
+        {
+            if (countrySetting.Match == GeoLocationSettingMatch.CouldNotBeLocated)
             {
-                throw new ArgumentNullException(nameof(definition));
+                // We can't locate, so return false.
+                return false;
             }
 
-            CountrySetting countrySetting;
-            try
+            var matchedCountry = countrySetting.Codes
+                .Any(x => string.Equals(x, countryCode, StringComparison.InvariantCultureIgnoreCase));
+            switch (countrySetting.Match)
             {
-                countrySetting = JsonConvert.DeserializeObject<CountrySetting>(definition);
-            }
-            catch (JsonReaderException)
-            {
-                throw new ArgumentException($"Provided definition is not valid JSON: {definition}");
-            }
-
-            var countryCode = _countryCodeProvider.GetCountryCode();
-            if (!string.IsNullOrEmpty(countryCode))
-            {
-                if (countrySetting.Match == GeoLocationSettingMatch.CouldNotBeLocated)
-                {
-                    // We can't locate, so return false.
+                case GeoLocationSettingMatch.IsLocatedIn:
+                    return matchedCountry;
+                case GeoLocationSettingMatch.IsNotLocatedIn:
+                    return !matchedCountry;
+                default:
                     return false;
-                }
-
-                var matchedCountry = countrySetting.Codes
-                    .Any(x => string.Equals(x, countryCode, StringComparison.InvariantCultureIgnoreCase));
-                switch (countrySetting.Match)
-                {
-                    case GeoLocationSettingMatch.IsLocatedIn:
-                        return matchedCountry;
-                    case GeoLocationSettingMatch.IsNotLocatedIn:
-                        return !matchedCountry;
-                    default:
-                        return false;
-                }
             }
-
-            return countrySetting.Match == GeoLocationSettingMatch.CouldNotBeLocated;
         }
+
+        return countrySetting.Match == GeoLocationSettingMatch.CouldNotBeLocated;
     }
 }

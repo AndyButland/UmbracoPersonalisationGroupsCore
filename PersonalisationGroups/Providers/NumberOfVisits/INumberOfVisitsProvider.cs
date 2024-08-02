@@ -1,7 +1,6 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Providers.NumberOfVisits
+﻿namespace Our.Umbraco.PersonalisationGroups.Providers.NumberOfVisits;
+
+public interface INumberOfVisitsProvider
 {
-    public interface INumberOfVisitsProvider
-    {
-        int GetNumberOfVisits();
-    }
+    int GetNumberOfVisits();
 }

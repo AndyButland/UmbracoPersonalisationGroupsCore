@@ -1,24 +1,23 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Providers.GeoLocation
+﻿namespace Our.Umbraco.PersonalisationGroups.Providers.GeoLocation;
+
+using System.Collections.Generic;
+
+public class Region
 {
-    using System.Collections.Generic;
+    public required string City { get; set; }
 
-    public class Region
+    public required string[] Subdivisions { get; set; }
+
+    public required Country Country { get; set; }
+
+    public string[] GetAllNames()
     {
-        public string City { get; set; }
-
-        public string[] Subdivisions { get; set; }
-
-        public Country Country { get; set; }
-
-        public string[] GetAllNames()
+        var names = new List<string> { City };
+        if (Subdivisions != null)
         {
-            var names = new List<string> { City };
-            if (Subdivisions != null)
-            {
-                names.AddRange(Subdivisions);
-            }
-
-            return names.ToArray();
+            names.AddRange(Subdivisions);
         }
+
+        return names.ToArray();
     }
 }

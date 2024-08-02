@@ -1,17 +1,16 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Criteria.PagesViewed
+﻿namespace Our.Umbraco.PersonalisationGroups.Criteria.PagesViewed;
+
+public enum PagesViewedSettingMatch
 {
-    public enum PagesViewedSettingMatch
-    {
-        ViewedAny,
-        ViewedAll,
-        NotViewedAny,
-        NotViewedAll,
-    }
+    ViewedAny,
+    ViewedAll,
+    NotViewedAny,
+    NotViewedAll,
+}
 
-    public class PagesViewedSetting
-    {
-        public PagesViewedSettingMatch Match { get; set; }
+public class PagesViewedSetting
+{
+    public required PagesViewedSettingMatch Match { get; set; }
 
-        public int[] NodeIds { get; set; }
-    }
+    public required int[] NodeIds { get; set; }
 }

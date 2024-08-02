@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Our.Umbraco.PersonalisationGroups.Providers.RequestHeaders
+namespace Our.Umbraco.PersonalisationGroups.Providers.RequestHeaders;
+
+public interface IRequestHeadersProvider
 {
-    public interface IRequestHeadersProvider
-    {
-        IHeaderDictionary GetHeaders();
-    }
+    IHeaderDictionary GetHeaders();
 }

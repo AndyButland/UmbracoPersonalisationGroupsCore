@@ -1,7 +1,6 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Providers.DateTime
+﻿namespace Our.Umbraco.PersonalisationGroups.Providers.DateTime;
+
+public interface IDateTimeProvider
 {
-    public interface IDateTimeProvider
-    {
-        System.DateTime GetCurrentDateTime();
-    }
+    System.DateTime GetCurrentDateTime();
 }

@@ -1,12 +1,11 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Criteria
-{
-    /// <summary>
-    /// The definition of a detail record for a personalisation group
-    /// </summary>
-    public class PersonalisationGroupDefinitionDetail
-    {
-        public string Alias { get; set; }
+﻿namespace Our.Umbraco.PersonalisationGroups.Criteria;
 
-        public string Definition { get; set; }
-    }
+/// <summary>
+/// The definition of a detail record for a personalisation group
+/// </summary>
+public class PersonalisationGroupDefinitionDetail
+{
+    public required string Alias { get; set; }
+
+    public required string Definition { get; set; }
 }

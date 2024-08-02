@@ -1,9 +1,8 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Providers.MemberGroup
-{
-    using System.Collections.Generic;
+﻿namespace Our.Umbraco.PersonalisationGroups.Providers.MemberGroup;
 
-    public interface IMemberGroupProvider
-    {
-        IEnumerable<string> GetMemberGroups();
-    }
+using System.Collections.Generic;
+
+public interface IMemberGroupProvider
+{
+    IEnumerable<string> GetMemberGroups();
 }

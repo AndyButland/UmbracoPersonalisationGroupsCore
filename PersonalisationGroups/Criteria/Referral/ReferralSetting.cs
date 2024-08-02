@@ -1,17 +1,16 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Criteria.Referral
+﻿namespace Our.Umbraco.PersonalisationGroups.Criteria.Referral;
+
+public enum ReferralSettingMatch
 {
-    public enum ReferralSettingMatch
-    {
-        MatchesValue,
-        DoesNotMatchValue,
-        ContainsValue,
-        DoesNotContainValue,
-    }
+    MatchesValue,
+    DoesNotMatchValue,
+    ContainsValue,
+    DoesNotContainValue,
+}
 
-    public class ReferralSetting
-    {
-        public ReferralSettingMatch Match { get; set; }
+public class ReferralSetting
+{
+    public required ReferralSettingMatch Match { get; set; }
 
-        public string Value { get; set; }
-    }
+    public required string Value { get; set; }
 }
