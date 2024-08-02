@@ -1,4 +1,4 @@
-import { customElement, html, property, state } from "@umbraco-cms/backoffice/external/lit";
+import { customElement, html, property, state, when } from "@umbraco-cms/backoffice/external/lit";
 import { GroupType, GroupDetailType } from "../../types";
 import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
 import { UUISelectEvent } from "@umbraco-cms/backoffice/external/uui";
@@ -31,7 +31,7 @@ export class PersonalisationGroupDefinitionInput extends UmbLitElement {
     private _availableCriteria: Array<CriteriaDto> = [];
 
     @state()
-    private _selectedCriteriaAlias: string = "";
+    private _selectedCriteria?: CriteriaDto = undefined;
 
     async connectedCallback() {
         super.connectedCallback();
@@ -40,11 +40,10 @@ export class PersonalisationGroupDefinitionInput extends UmbLitElement {
 
     async #getAvailableCriteria() {
         const { data } = await tryExecute(CriteriaService.getCollection());
-        console.log(data);
         this._availableCriteria = data || [];
-        this._selectedCriteriaAlias = this._availableCriteria.length > 0
-            ? this._availableCriteria[0].alias
-            : "";
+        this._selectedCriteria = this._availableCriteria.length > 0
+            ? this._availableCriteria[0]
+            : undefined;
     }
 
     #getCriteriaName(alias: string) {
@@ -58,16 +57,10 @@ export class PersonalisationGroupDefinitionInput extends UmbLitElement {
 
     #getCriteriaByAlias(alias: string) {
         if (this._availableCriteria === undefined) {
-            return null;
+            return undefined;
         }
 
-        for (var i = 0; i < this._availableCriteria.length; i++) {
-            if (this._availableCriteria[i].alias === alias) {
-                return this._availableCriteria[i];
-            }
-        }
-
-        return null;
+        return this._availableCriteria.find(c => c.alias === alias);
     }
 
     #getMatchOptions() {
@@ -112,13 +105,18 @@ export class PersonalisationGroupDefinitionInput extends UmbLitElement {
     }
 
     #getAvailableCriteriaOptions() {
-        return this._availableCriteria.map((c) => {
+        return this._availableCriteria?.map((c) => {
             return {
                 name: c.name,
                 value: c.alias,
-                selected: this.#value.duration === "Page",
+                selected: c.alias === this._selectedCriteria?.alias,
             }
-        })
+        }) ?? [];
+    }
+
+    #onSelectedCriteriaChange(e: UUISelectEvent) {
+        const alias = e.target.value.toString();
+        this._selectedCriteria = this.#getCriteriaByAlias(alias);
     }
 
     #dispatchChangeEvent() {
@@ -129,20 +127,24 @@ export class PersonalisationGroupDefinitionInput extends UmbLitElement {
       }
 
     #addCriteria() {
-        const selectedCriteriaAlias = (<HTMLSelectElement>this.shadowRoot?.getElementById("availableCriteriaSelect")).value;
-        const newGroupDetail = <GroupDetailType>({ alias: selectedCriteriaAlias, definition: {} });
+        if (!this._selectedCriteria) {
+            return;
+        }
 
+        const newGroupDetail = <GroupDetailType>({ alias: this._selectedCriteria?.alias, definition: {} });
         this.#value.details.push(newGroupDetail);
+        this.#dispatchChangeEvent();
 
         this.#editCriteria(this.#value.details.length - 1);
     }
 
     #editCriteria(index: number) {
-        alert("edit: " + index);
+        console.log("edit: " + index);
     }
 
      #removeCriteria(index: number) {
         this.#value.details.splice(index, 1);
+        this.#dispatchChangeEvent();
     }
 
     render() {
@@ -183,13 +185,15 @@ export class PersonalisationGroupDefinitionInput extends UmbLitElement {
                         <uui-select
                             name="criteria"
                             @change=${this.#onSelectedCriteriaChange}
-                            .options=${this.#getAvailableCriteriaOptions}
+                            .options=${this.#getAvailableCriteriaOptions()}
                         ></uui-select>
-
                         <button type="button" @click=${this.#addCriteria}>Add</button>
-                        <div class="help-inline">
-                            <span></span>
-                        </div>
+                        ${when(this._selectedCriteria,
+                            () => html`
+                                <div class="help-inline">
+                                    <span>${this._selectedCriteria!.description}</span>
+                                </div>`)}
+
                     </div>
                 </div>
 
