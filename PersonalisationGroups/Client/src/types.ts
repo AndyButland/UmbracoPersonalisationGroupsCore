@@ -1,18 +1,11 @@
-export type GroupType = {
+export type PersonalisationGroup = {
     match: string;
     duration: string;
     score: Number,
-    details: Array<GroupDetailType>
+    details: Array<PersonalisationGroupDetail>
 };
 
-export type GroupDetailType = {
+export type PersonalisationGroupDetail = {
     alias: string,
     definition: string
-};
-
-export type CriteriaType = {
-    alias: string,
-    name: string,
-    description: string
-    clientAssetsFolder: string
 };

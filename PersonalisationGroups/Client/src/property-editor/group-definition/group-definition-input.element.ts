@@ -1,9 +1,12 @@
-import { customElement, html, property, state, when } from "@umbraco-cms/backoffice/external/lit";
-import { GroupType, GroupDetailType } from "../../types";
+import { customElement, html, property, state, until, when } from "@umbraco-cms/backoffice/external/lit";
+import { PersonalisationGroup, PersonalisationGroupDetail } from "../../types";
 import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
 import { UUISelectEvent } from "@umbraco-cms/backoffice/external/uui";
 import { tryExecute } from "@umbraco-cms/backoffice/resources";
 import { CriteriaDto, CriteriaService } from "@personalisationgroups/generated";
+import { umbExtensionsRegistry } from "@umbraco-cms/backoffice/extension-registry";
+import { ManifestPersonalisationGroupDefinitionDetailTranslator, PersonalisationGroupDefinitionDetailTranslatorApi } from "../../translator/translator.interface";
+import { loadManifestApi } from "@umbraco-cms/backoffice/extension-api";
 
 const elementName = "personalisation-group-definition-input";
 
@@ -11,7 +14,7 @@ const elementName = "personalisation-group-definition-input";
 export class PersonalisationGroupDefinitionInput extends UmbLitElement {
 
     @property({ attribute: false })
-    set value(data: GroupType) {
+    set value(data: PersonalisationGroup) {
         // Need to create a new object here, as the incoming one is immutable.
         this.#value = {
             match: data.match ?? "All",
@@ -25,13 +28,22 @@ export class PersonalisationGroupDefinitionInput extends UmbLitElement {
         return this.#value;
     }
 
-    #value: GroupType = { match: "All", duration: "Page", score: 50, details: [] };
+    #value: PersonalisationGroup = { match: "All", duration: "Page", score: 50, details: [] };
 
     @state()
     private _availableCriteria: Array<CriteriaDto> = [];
 
     @state()
     private _selectedCriteria?: CriteriaDto = undefined;
+
+    #translators: Array<ManifestPersonalisationGroupDefinitionDetailTranslator> = [];
+
+    constructor() {
+        super();
+        this.#translators = umbExtensionsRegistry.getAllExtensions()
+            .filter(e => e.type === "PersonalisationGroupDetailDefinitionTranslator")
+            .map(mt => mt as ManifestPersonalisationGroupDefinitionDetailTranslator);
+    }
 
     async connectedCallback() {
         super.connectedCallback();
@@ -131,7 +143,7 @@ export class PersonalisationGroupDefinitionInput extends UmbLitElement {
             return;
         }
 
-        const newGroupDetail = <GroupDetailType>({ alias: this._selectedCriteria?.alias, definition: {} });
+        const newGroupDetail = <PersonalisationGroupDetail>({ alias: this._selectedCriteria?.alias, definition: {} });
         this.#value.details.push(newGroupDetail);
         this.#dispatchChangeEvent();
 
@@ -145,6 +157,23 @@ export class PersonalisationGroupDefinitionInput extends UmbLitElement {
      #removeCriteria(index: number) {
         this.#value.details.splice(index, 1);
         this.#dispatchChangeEvent();
+    }
+
+    async #translateDetailDefinition(detail: PersonalisationGroupDetail) {
+        const translator = this.#translators.find(t => t.criteriaAlias === detail.alias);
+        if (!translator) {
+            return "";
+        }
+
+        const api = await loadManifestApi(translator.api);
+        if (api) {
+          const apiInstance = new api() as PersonalisationGroupDefinitionDetailTranslatorApi;
+          if (apiInstance) {
+            return apiInstance.translate(detail.definition);
+          }
+        }
+
+        return "";
     }
 
     render() {
@@ -206,10 +235,15 @@ export class PersonalisationGroupDefinitionInput extends UmbLitElement {
                         </tr>
                     </thead>
                     <tbody>
-                        ${this.#value.details.map((detail: GroupDetailType, index: number) =>
+                        ${this.#value.details.map((detail: PersonalisationGroupDetail, index: number) =>
                             html`<tr>
                                 <td>${this.#getCriteriaName(detail.alias)}</td>
-                                <td>[translation]</td>
+                                <td>
+                                    ${until(
+                                        this.#translateDetailDefinition(detail).then((t) => html`${t}`),
+                                        html``,
+                                    )}
+                                </td>
                                 <td>
                                     <button type="button" @click=${() => this.#editCriteria(index)}>Edit</button>
                                     <button type="button" @click=${() => this.#removeCriteria(index)}>Delete</button>

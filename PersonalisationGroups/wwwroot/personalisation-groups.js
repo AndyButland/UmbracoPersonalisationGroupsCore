@@ -1,13 +1,15 @@
-import { UMB_AUTH_CONTEXT as ee } from "@umbraco-cms/backoffice/auth";
-import { property as j, customElement as N, html as b, state as q, when as te } from "@umbraco-cms/backoffice/external/lit";
-import { UmbLitElement as I } from "@umbraco-cms/backoffice/lit-element";
-import { tryExecute as ie } from "@umbraco-cms/backoffice/resources";
-class D extends Error {
-  constructor(e, i, n) {
-    super(n), this.name = "ApiError", this.url = i.url, this.status = i.status, this.statusText = i.statusText, this.body = i.body, this.request = e;
+import { UMB_AUTH_CONTEXT as re } from "@umbraco-cms/backoffice/auth";
+import { property as I, customElement as q, html as f, state as x, when as ne, until as ae } from "@umbraco-cms/backoffice/external/lit";
+import { UmbLitElement as U } from "@umbraco-cms/backoffice/lit-element";
+import { tryExecute as se } from "@umbraco-cms/backoffice/resources";
+import { umbExtensionsRegistry as oe } from "@umbraco-cms/backoffice/extension-registry";
+import { loadManifestApi as le } from "@umbraco-cms/backoffice/extension-api";
+class $ extends Error {
+  constructor(e, i, r) {
+    super(r), this.name = "ApiError", this.url = i.url, this.status = i.status, this.statusText = i.statusText, this.body = i.body, this.request = e;
   }
 }
-class re extends Error {
+class ce extends Error {
   constructor(e) {
     super(e), this.name = "CancelError";
   }
@@ -15,24 +17,24 @@ class re extends Error {
     return !0;
   }
 }
-class ne {
+class de {
   constructor(e) {
-    this._isResolved = !1, this._isRejected = !1, this._isCancelled = !1, this.cancelHandlers = [], this.promise = new Promise((i, n) => {
-      this._resolve = i, this._reject = n;
-      const r = (o) => {
+    this._isResolved = !1, this._isRejected = !1, this._isCancelled = !1, this.cancelHandlers = [], this.promise = new Promise((i, r) => {
+      this._resolve = i, this._reject = r;
+      const n = (o) => {
         this._isResolved || this._isRejected || this._isCancelled || (this._isResolved = !0, this._resolve && this._resolve(o));
-      }, s = (o) => {
-        this._isResolved || this._isRejected || this._isCancelled || (this._isRejected = !0, this._reject && this._reject(o));
       }, a = (o) => {
+        this._isResolved || this._isRejected || this._isCancelled || (this._isRejected = !0, this._reject && this._reject(o));
+      }, s = (o) => {
         this._isResolved || this._isRejected || this._isCancelled || this.cancelHandlers.push(o);
       };
-      return Object.defineProperty(a, "isResolved", {
+      return Object.defineProperty(s, "isResolved", {
         get: () => this._isResolved
-      }), Object.defineProperty(a, "isRejected", {
+      }), Object.defineProperty(s, "isRejected", {
         get: () => this._isRejected
-      }), Object.defineProperty(a, "isCancelled", {
+      }), Object.defineProperty(s, "isCancelled", {
         get: () => this._isCancelled
-      }), e(r, s, a);
+      }), e(n, a, s);
     });
   }
   get [Symbol.toStringTag]() {
@@ -57,14 +59,14 @@ class ne {
           console.warn("Cancellation threw an error", e);
           return;
         }
-      this.cancelHandlers.length = 0, this._reject && this._reject(new re("Request aborted"));
+      this.cancelHandlers.length = 0, this._reject && this._reject(new ce("Request aborted"));
     }
   }
   get isCancelled() {
     return this._isCancelled;
   }
 }
-class O {
+class j {
   constructor() {
     this._fns = [];
   }
@@ -76,7 +78,7 @@ class O {
     this._fns = [...this._fns, e];
   }
 }
-const f = {
+const y = {
   BASE: "",
   CREDENTIALS: "include",
   ENCODE_PATH: void 0,
@@ -87,79 +89,79 @@ const f = {
   VERSION: "Latest",
   WITH_CREDENTIALS: !1,
   interceptors: {
-    request: new O(),
-    response: new O()
+    request: new j(),
+    response: new j()
   }
-}, y = (t) => typeof t == "string", E = (t) => y(t) && t !== "", w = (t) => t instanceof Blob, U = (t) => t instanceof FormData, se = (t) => {
+}, m = (t) => typeof t == "string", D = (t) => m(t) && t !== "", S = (t) => t instanceof Blob, G = (t) => t instanceof FormData, ue = (t) => {
   try {
     return btoa(t);
   } catch {
     return Buffer.from(t).toString("base64");
   }
-}, ae = (t) => {
-  const e = [], i = (r, s) => {
-    e.push(`${encodeURIComponent(r)}=${encodeURIComponent(String(s))}`);
-  }, n = (r, s) => {
-    s != null && (s instanceof Date ? i(r, s.toISOString()) : Array.isArray(s) ? s.forEach((a) => n(r, a)) : typeof s == "object" ? Object.entries(s).forEach(([a, o]) => n(`${r}[${a}]`, o)) : i(r, s));
+}, he = (t) => {
+  const e = [], i = (n, a) => {
+    e.push(`${encodeURIComponent(n)}=${encodeURIComponent(String(a))}`);
+  }, r = (n, a) => {
+    a != null && (a instanceof Date ? i(n, a.toISOString()) : Array.isArray(a) ? a.forEach((s) => r(n, s)) : typeof a == "object" ? Object.entries(a).forEach(([s, o]) => r(`${n}[${s}]`, o)) : i(n, a));
   };
-  return Object.entries(t).forEach(([r, s]) => n(r, s)), e.length ? `?${e.join("&")}` : "";
-}, oe = (t, e) => {
-  const i = encodeURI, n = e.url.replace("{api-version}", t.VERSION).replace(/{(.*?)}/g, (s, a) => {
+  return Object.entries(t).forEach(([n, a]) => r(n, a)), e.length ? `?${e.join("&")}` : "";
+}, pe = (t, e) => {
+  const i = encodeURI, r = e.url.replace("{api-version}", t.VERSION).replace(/{(.*?)}/g, (a, s) => {
     var o;
-    return (o = e.path) != null && o.hasOwnProperty(a) ? i(String(e.path[a])) : s;
-  }), r = t.BASE + n;
-  return e.query ? r + ae(e.query) : r;
-}, le = (t) => {
+    return (o = e.path) != null && o.hasOwnProperty(s) ? i(String(e.path[s])) : a;
+  }), n = t.BASE + r;
+  return e.query ? n + he(e.query) : n;
+}, fe = (t) => {
   if (t.formData) {
-    const e = new FormData(), i = (n, r) => {
-      y(r) || w(r) ? e.append(n, r) : e.append(n, JSON.stringify(r));
+    const e = new FormData(), i = (r, n) => {
+      m(n) || S(n) ? e.append(r, n) : e.append(r, JSON.stringify(n));
     };
-    return Object.entries(t.formData).filter(([, n]) => n != null).forEach(([n, r]) => {
-      Array.isArray(r) ? r.forEach((s) => i(n, s)) : i(n, r);
+    return Object.entries(t.formData).filter(([, r]) => r != null).forEach(([r, n]) => {
+      Array.isArray(n) ? n.forEach((a) => i(r, a)) : i(r, n);
     }), e;
   }
-}, g = async (t, e) => typeof e == "function" ? e(t) : e, ce = async (t, e) => {
-  const [i, n, r, s] = await Promise.all([
-    g(e, t.TOKEN),
-    g(e, t.USERNAME),
-    g(e, t.PASSWORD),
-    g(e, t.HEADERS)
-  ]), a = Object.entries({
+}, b = async (t, e) => typeof e == "function" ? e(t) : e, ye = async (t, e) => {
+  const [i, r, n, a] = await Promise.all([
+    b(e, t.TOKEN),
+    b(e, t.USERNAME),
+    b(e, t.PASSWORD),
+    b(e, t.HEADERS)
+  ]), s = Object.entries({
     Accept: "application/json",
-    ...s,
+    ...a,
     ...e.headers
   }).filter(([, o]) => o != null).reduce((o, [p, h]) => ({
     ...o,
     [p]: String(h)
   }), {});
-  if (E(i) && (a.Authorization = `Bearer ${i}`), E(n) && E(r)) {
-    const o = se(`${n}:${r}`);
-    a.Authorization = `Basic ${o}`;
+  if (D(i) && (s.Authorization = `Bearer ${i}`), D(r) && D(n)) {
+    const o = ue(`${r}:${n}`);
+    s.Authorization = `Basic ${o}`;
   }
-  return e.body !== void 0 && (e.mediaType ? a["Content-Type"] = e.mediaType : w(e.body) ? a["Content-Type"] = e.body.type || "application/octet-stream" : y(e.body) ? a["Content-Type"] = "text/plain" : U(e.body) || (a["Content-Type"] = "application/json")), new Headers(a);
-}, de = (t) => {
+  return e.body !== void 0 && (e.mediaType ? s["Content-Type"] = e.mediaType : S(e.body) ? s["Content-Type"] = e.body.type || "application/octet-stream" : m(e.body) ? s["Content-Type"] = "text/plain" : G(e.body) || (s["Content-Type"] = "application/json")), new Headers(s);
+}, _e = (t) => {
   var e, i;
   if (t.body !== void 0)
-    return (e = t.mediaType) != null && e.includes("application/json") || (i = t.mediaType) != null && i.includes("+json") ? JSON.stringify(t.body) : y(t.body) || w(t.body) || U(t.body) ? t.body : JSON.stringify(t.body);
-}, ue = async (t, e, i, n, r, s, a) => {
+    return (e = t.mediaType) != null && e.includes("application/json") || (i = t.mediaType) != null && i.includes("+json") ? JSON.stringify(t.body) : m(t.body) || S(t.body) || G(t.body) ? t.body : JSON.stringify(t.body);
+}, ve = async (t, e, i, r, n, a, s) => {
   const o = new AbortController();
   let p = {
-    headers: s,
-    body: n ?? r,
+    headers: a,
+    body: r ?? n,
     method: e.method,
     signal: o.signal
   };
   t.WITH_CREDENTIALS && (p.credentials = t.CREDENTIALS);
   for (const h of t.interceptors.request._fns)
     p = await h(p);
-  return a(() => o.abort()), await fetch(i, p);
-}, he = (t, e) => {
+  return s(() => o.abort()), await fetch(i, p);
+}, me = (t, e) => {
   if (e) {
     const i = t.headers.get(e);
-    if (y(i))
+    if (m(i))
       return i;
   }
-}, pe = async (t) => {
+}, ge = async (t) => {
   if (t.status !== 204)
     try {
       const e = t.headers.get("Content-Type");
@@ -167,7 +169,7 @@ const f = {
         const i = ["application/octet-stream", "application/pdf", "application/zip", "audio/", "image/", "video/"];
         if (e.includes("application/json") || e.includes("+json"))
           return await t.json();
-        if (i.some((n) => e.includes(n)))
+        if (i.some((r) => e.includes(r)))
           return await t.blob();
         if (e.includes("multipart/form-data"))
           return await t.formData();
@@ -177,8 +179,8 @@ const f = {
     } catch (e) {
       console.error(e);
     }
-}, fe = (t, e) => {
-  const n = {
+}, be = (t, e) => {
+  const r = {
     400: "Bad Request",
     401: "Unauthorized",
     402: "Payment Required",
@@ -221,49 +223,49 @@ const f = {
     511: "Network Authentication Required",
     ...t.errors
   }[e.status];
-  if (n)
-    throw new D(t, e, n);
+  if (r)
+    throw new $(t, e, r);
   if (!e.ok) {
-    const r = e.status ?? "unknown", s = e.statusText ?? "unknown", a = (() => {
+    const n = e.status ?? "unknown", a = e.statusText ?? "unknown", s = (() => {
       try {
         return JSON.stringify(e.body, null, 2);
       } catch {
         return;
       }
     })();
-    throw new D(
+    throw new $(
       t,
       e,
-      `Generic Error: status: ${r}; status text: ${s}; body: ${a}`
+      `Generic Error: status: ${n}; status text: ${a}; body: ${s}`
     );
   }
-}, ve = (t, e) => new ne(async (i, n, r) => {
+}, Ce = (t, e) => new de(async (i, r, n) => {
   try {
-    const s = oe(t, e), a = le(e), o = de(e), p = await ce(t, e);
-    if (!r.isCancelled) {
-      let h = await ue(t, e, s, o, a, p, r);
-      for (const Z of t.interceptors.response._fns)
-        h = await Z(h);
-      const X = await pe(h), Y = he(h, e.responseHeader), T = {
-        url: s,
+    const a = pe(t, e), s = fe(e), o = _e(e), p = await ye(t, e);
+    if (!n.isCancelled) {
+      let h = await ve(t, e, a, o, s, p, n);
+      for (const ie of t.interceptors.response._fns)
+        h = await ie(h);
+      const ee = await ge(h), te = me(h, e.responseHeader), O = {
+        url: a,
         ok: h.ok,
         status: h.status,
         statusText: h.statusText,
-        body: Y ?? X
+        body: te ?? ee
       };
-      fe(e, T), i(T.body);
+      be(e, O), i(O.body);
     }
-  } catch (s) {
-    n(s);
+  } catch (a) {
+    r(a);
   }
 });
-class _e {
+class Ee {
   /**
    * @returns unknown OK
    * @throws ApiError
    */
   static getCollection() {
-    return ve(f, {
+    return Ce(y, {
       method: "GET",
       url: "/umbraco/personalisation-groups/management/api/v1/criteria",
       errors: {
@@ -272,69 +274,85 @@ class _e {
     });
   }
 }
-const ye = {
+const De = {
   type: "propertyEditorUi",
   alias: "PersonalisationGroups.PropertyEditorUi.GroupDefinition",
   name: "Personalisation Group Definition Editor",
-  js: () => Promise.resolve().then(() => Ae),
+  js: () => Promise.resolve().then(() => Ie),
   meta: {
     label: "Personalisation Group Definition Editor",
     propertyEditorSchemaAlias: "PersonalisationGroups.GroupDefinition",
     icon: "icon-operator",
     group: "personalisation"
   }
-}, me = [
-  ye
+}, we = [
+  De
 ];
-var ge = Object.defineProperty, be = Object.getOwnPropertyDescriptor, x = (t) => {
+class Ae {
+  translate(e) {
+    return "TRANSLATED";
+  }
+  destroy() {
+  }
+}
+const Se = [
+  {
+    type: "PersonalisationGroupDetailDefinitionTranslator",
+    alias: "PersonalisationGroup.DefinitionDetailTranslator.DayOfWeek",
+    name: "Day Of Week Translator",
+    criteriaAlias: "dayOfWeek",
+    api: Ae
+  }
+];
+var Re = Object.defineProperty, Te = Object.getOwnPropertyDescriptor, H = (t) => {
   throw TypeError(t);
-}, H = (t, e, i, n) => {
-  for (var r = n > 1 ? void 0 : n ? be(e, i) : e, s = t.length - 1, a; s >= 0; s--)
-    (a = t[s]) && (r = (n ? a(e, i, r) : a(r)) || r);
-  return n && r && ge(e, i, r), r;
-}, Ce = (t, e, i) => e.has(t) || x("Cannot " + i), Ee = (t, e, i) => e.has(t) ? x("Cannot add the same private member more than once") : e instanceof WeakSet ? e.add(t) : e.set(t, i), Se = (t, e, i) => (Ce(t, e, "access private method"), i), S, G;
-const we = "personalisation-group-definition-property-editor";
-let v = class extends I {
+}, M = (t, e, i, r) => {
+  for (var n = r > 1 ? void 0 : r ? Te(e, i) : e, a = t.length - 1, s; a >= 0; a--)
+    (s = t[a]) && (n = (r ? s(e, i, n) : s(n)) || n);
+  return r && n && Re(e, i, n), n;
+}, Pe = (t, e, i) => e.has(t) || H("Cannot " + i), Oe = (t, e, i) => e.has(t) ? H("Cannot add the same private member more than once") : e instanceof WeakSet ? e.add(t) : e.set(t, i), $e = (t, e, i) => (Pe(t, e, "access private method"), i), A, B;
+const je = "personalisation-group-definition-property-editor";
+let _ = class extends U {
   constructor() {
-    super(...arguments), Ee(this, S), this.value = void 0;
+    super(...arguments), Oe(this, A), this.value = void 0;
   }
   render() {
-    return b`<personalisation-group-definition-input
-    @change="${Se(this, S, G)}"
+    return f`<personalisation-group-definition-input
+    @change="${$e(this, A, B)}"
     .value="${this.value ?? {}}"></personalisation-group-definition-input>`;
   }
 };
-S = /* @__PURE__ */ new WeakSet();
-G = function(t) {
+A = /* @__PURE__ */ new WeakSet();
+B = function(t) {
   this.value = t.target.value, this.dispatchEvent(new CustomEvent("property-value-change"));
 };
-H([
-  j({ type: Object })
-], v.prototype, "value", 2);
-v = H([
-  N(we)
-], v);
-const Re = v, Ae = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+M([
+  I({ type: Object })
+], _.prototype, "value", 2);
+_ = M([
+  q(je)
+], _);
+const Ne = _, Ie = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   get PersonalisationGroupDefinitionPropertyUiElement() {
-    return v;
+    return _;
   },
-  default: Re
+  default: Ne
 }, Symbol.toStringTag, { value: "Module" }));
-var Pe = Object.defineProperty, Te = Object.getOwnPropertyDescriptor, B = (t) => {
+var qe = Object.defineProperty, xe = Object.getOwnPropertyDescriptor, L = (t) => {
   throw TypeError(t);
-}, C = (t, e, i, n) => {
-  for (var r = n > 1 ? void 0 : n ? Te(e, i) : e, s = t.length - 1, a; s >= 0; s--)
-    (a = t[s]) && (r = (n ? a(e, i, r) : a(r)) || r);
-  return n && r && Pe(e, i, r), r;
-}, R = (t, e, i) => e.has(t) || B("Cannot " + i), u = (t, e, i) => (R(t, e, "read from private field"), i ? i.call(t) : e.get(t)), $ = (t, e, i) => e.has(t) ? B("Cannot add the same private member more than once") : e instanceof WeakSet ? e.add(t) : e.set(t, i), De = (t, e, i, n) => (R(t, e, "write to private field"), e.set(t, i), i), c = (t, e, i) => (R(t, e, "access private method"), i), d, l, M, L, A, F, W, k, V, z, J, m, K, P, Q;
-const Oe = "personalisation-group-definition-input";
-let _ = class extends I {
+}, E = (t, e, i, r) => {
+  for (var n = r > 1 ? void 0 : r ? xe(e, i) : e, a = t.length - 1, s; a >= 0; a--)
+    (s = t[a]) && (n = (r ? s(e, i, n) : s(n)) || n);
+  return r && n && qe(e, i, n), n;
+}, R = (t, e, i) => e.has(t) || L("Cannot " + i), u = (t, e, i) => (R(t, e, "read from private field"), i ? i.call(t) : e.get(t)), w = (t, e, i) => e.has(t) ? L("Cannot add the same private member more than once") : e instanceof WeakSet ? e.add(t) : e.set(t, i), N = (t, e, i, r) => (R(t, e, "write to private field"), e.set(t, i), i), c = (t, e, i) => (R(t, e, "access private method"), i), d, C, l, W, k, T, F, V, z, J, K, Q, g, X, P, Y, Z;
+const Ue = "personalisation-group-definition-input";
+let v = class extends U {
   constructor() {
-    super(...arguments), $(this, l), $(this, d, { match: "All", duration: "Page", score: 50, details: [] }), this._availableCriteria = [], this._selectedCriteria = void 0;
+    super(), w(this, l), w(this, d, { match: "All", duration: "Page", score: 50, details: [] }), this._availableCriteria = [], this._selectedCriteria = void 0, w(this, C, []), N(this, C, oe.getAllExtensions().filter((t) => t.type === "PersonalisationGroupDetailDefinitionTranslator").map((t) => t));
   }
   set value(t) {
-    De(this, d, {
+    N(this, d, {
       match: t.match ?? "All",
       duration: t.duration ?? "Page",
       score: t.score ?? 50,
@@ -345,16 +363,16 @@ let _ = class extends I {
     return u(this, d);
   }
   async connectedCallback() {
-    super.connectedCallback(), await c(this, l, M).call(this);
+    super.connectedCallback(), await c(this, l, W).call(this);
   }
   render() {
-    return b`<div>
+    return f`<div>
 
                 <div>
                     <label>Match:</label>
                     <uui-select
                         name="match"
-                        @change=${c(this, l, W)}
+                        @change=${c(this, l, V)}
                         .options=${c(this, l, F).call(this)}
                     ></uui-select>
                 </div>
@@ -363,8 +381,8 @@ let _ = class extends I {
                     <label>Duration:</label>
                     <uui-select
                         name="duration"
-                        @change=${c(this, l, V)}
-                        .options=${c(this, l, k).call(this)}
+                        @change=${c(this, l, J)}
+                        .options=${c(this, l, z).call(this)}
                     ></uui-select>
                     <div class="help-inline">
                         <span>Determines for how long a user that is matched to a personalisation group remains in it</span>
@@ -384,13 +402,13 @@ let _ = class extends I {
                     <div class="controls controls-row">
                         <uui-select
                             name="criteria"
-                            @change=${c(this, l, J)}
-                            .options=${c(this, l, z).call(this)}
+                            @change=${c(this, l, Q)}
+                            .options=${c(this, l, K).call(this)}
                         ></uui-select>
-                        <button type="button" @click=${c(this, l, K)}>Add</button>
-                        ${te(
+                        <button type="button" @click=${c(this, l, X)}>Add</button>
+                        ${ne(
       this._selectedCriteria,
-      () => b`
+      () => f`
                                 <div class="help-inline">
                                     <span>${this._selectedCriteria.description}</span>
                                 </div>`
@@ -409,12 +427,17 @@ let _ = class extends I {
                     </thead>
                     <tbody>
                         ${u(this, d).details.map(
-      (t, e) => b`<tr>
-                                <td>${c(this, l, L).call(this, t.alias)}</td>
-                                <td>[translation]</td>
+      (t, e) => f`<tr>
+                                <td>${c(this, l, k).call(this, t.alias)}</td>
+                                <td>
+                                    ${ae(
+        c(this, l, Z).call(this, t).then((i) => f`${i}`),
+        f``
+      )}
+                                </td>
                                 <td>
                                     <button type="button" @click=${() => c(this, l, P).call(this, e)}>Edit</button>
-                                    <button type="button" @click=${() => c(this, l, Q).call(this, e)}>Delete</button>
+                                    <button type="button" @click=${() => c(this, l, Y).call(this, e)}>Delete</button>
                                 </td>
                             </tr>`
     )}
@@ -425,16 +448,17 @@ let _ = class extends I {
   }
 };
 d = /* @__PURE__ */ new WeakMap();
+C = /* @__PURE__ */ new WeakMap();
 l = /* @__PURE__ */ new WeakSet();
-M = async function() {
-  const { data: t } = await ie(_e.getCollection());
+W = async function() {
+  const { data: t } = await se(Ee.getCollection());
   this._availableCriteria = t || [], this._selectedCriteria = this._availableCriteria.length > 0 ? this._availableCriteria[0] : void 0;
 };
-L = function(t) {
-  var e = c(this, l, A).call(this, t);
+k = function(t) {
+  var e = c(this, l, T).call(this, t);
   return e ? e.name : "";
 };
-A = function(t) {
+T = function(t) {
   if (this._availableCriteria !== void 0)
     return this._availableCriteria.find((e) => e.alias === t);
 };
@@ -452,10 +476,10 @@ F = function() {
     }
   ];
 };
-W = function(t) {
-  u(this, d).match = t.target.value.toString(), c(this, l, m).call(this);
+V = function(t) {
+  u(this, d).match = t.target.value.toString(), c(this, l, g).call(this);
 };
-k = function() {
+z = function() {
   return [
     {
       name: "Per page request",
@@ -474,10 +498,10 @@ k = function() {
     }
   ];
 };
-V = function(t) {
-  u(this, d).duration = t.target.value.toString(), c(this, l, m).call(this);
+J = function(t) {
+  u(this, d).duration = t.target.value.toString(), c(this, l, g).call(this);
 };
-z = function() {
+K = function() {
   var t;
   return ((t = this._availableCriteria) == null ? void 0 : t.map((e) => {
     var i;
@@ -488,50 +512,66 @@ z = function() {
     };
   })) ?? [];
 };
-J = function(t) {
+Q = function(t) {
   const e = t.target.value.toString();
-  this._selectedCriteria = c(this, l, A).call(this, e);
+  this._selectedCriteria = c(this, l, T).call(this, e);
 };
-m = function() {
+g = function() {
   this.requestUpdate(), this.dispatchEvent(
     new CustomEvent("change", { composed: !0, bubbles: !0 })
   );
 };
-K = function() {
+X = function() {
   var e;
   if (!this._selectedCriteria)
     return;
   const t = { alias: (e = this._selectedCriteria) == null ? void 0 : e.alias, definition: {} };
-  u(this, d).details.push(t), c(this, l, m).call(this), c(this, l, P).call(this, u(this, d).details.length - 1);
+  u(this, d).details.push(t), c(this, l, g).call(this), c(this, l, P).call(this, u(this, d).details.length - 1);
 };
 P = function(t) {
-  alert("edit: " + t);
+  console.log("edit: " + t);
 };
-Q = function(t) {
-  u(this, d).details.splice(t, 1), c(this, l, m).call(this);
+Y = function(t) {
+  u(this, d).details.splice(t, 1), c(this, l, g).call(this);
 };
-C([
-  j({ attribute: !1 })
-], _.prototype, "value", 1);
-C([
-  q()
-], _.prototype, "_availableCriteria", 2);
-C([
-  q()
-], _.prototype, "_selectedCriteria", 2);
-_ = C([
-  N(Oe)
-], _);
-const Ie = (t, e) => {
-  e.registerMany(me), t.consumeContext(ee, async (i) => {
+Z = async function(t) {
+  const e = u(this, C).find((r) => r.criteriaAlias === t.alias);
+  if (!e)
+    return "";
+  const i = await le(e.api);
+  if (i) {
+    const r = new i();
+    if (r)
+      return r.translate(t.definition);
+  }
+  return "";
+};
+E([
+  I({ attribute: !1 })
+], v.prototype, "value", 1);
+E([
+  x()
+], v.prototype, "_availableCriteria", 2);
+E([
+  x()
+], v.prototype, "_selectedCriteria", 2);
+v = E([
+  q(Ue)
+], v);
+const Ge = [
+  ...we,
+  ...Se
+], Fe = (t, e) => {
+  e.registerMany(Ge), t.consumeContext(re, async (i) => {
     if (!i) return;
-    const n = i.getOpenApiConfiguration();
-    f.BASE = n.base, f.TOKEN = n.token, f.WITH_CREDENTIALS = n.withCredentials, f.CREDENTIALS = n.credentials;
+    const r = i.getOpenApiConfiguration();
+    y.BASE = r.base, y.TOKEN = r.token, y.WITH_CREDENTIALS = r.withCredentials, y.CREDENTIALS = r.credentials;
   });
 };
 export {
-  _ as PersonalisationGroupDefinitionInput,
-  v as PersonalisationGroupDefinitionPropertyUiElement,
-  Ie as onInit
+  Ae as DayOfWeekDefinitionDetailTranslator,
+  v as PersonalisationGroupDefinitionInput,
+  _ as PersonalisationGroupDefinitionPropertyUiElement,
+  Fe as onInit
 };
 //# sourceMappingURL=personalisation-groups.js.map

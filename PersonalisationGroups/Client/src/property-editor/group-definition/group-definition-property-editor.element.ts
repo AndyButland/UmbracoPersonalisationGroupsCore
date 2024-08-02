@@ -5,7 +5,7 @@ import {
 } from "@umbraco-cms/backoffice/external/lit";
 import type { UmbPropertyEditorUiElement } from "@umbraco-cms/backoffice/extension-registry";
 import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
-import { GroupType } from "../../types";
+import { PersonalisationGroup } from "../../types";
 import PersonalisationGroupDefinitionInput from "./group-definition-input.element";
 
 const elementName = "personalisation-group-definition-property-editor";
@@ -15,7 +15,7 @@ export class PersonalisationGroupDefinitionPropertyUiElement extends UmbLitEleme
 
   @property({ type: Object })
   value:
-      | GroupType
+      | PersonalisationGroup
       | undefined = undefined;
 
   #onChange(event: CustomEvent) {
