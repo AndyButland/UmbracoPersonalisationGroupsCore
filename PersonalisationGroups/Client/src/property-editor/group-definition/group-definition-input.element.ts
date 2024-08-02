@@ -1,12 +1,14 @@
-import { customElement, html, property, state, until, when } from "@umbraco-cms/backoffice/external/lit";
+import { css, customElement, html, property, state, until, when } from "@umbraco-cms/backoffice/external/lit";
 import { PersonalisationGroup, PersonalisationGroupDetail } from "../../types";
 import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
-import { UUISelectEvent } from "@umbraco-cms/backoffice/external/uui";
+import { UUIInputEvent, UUISelectEvent } from "@umbraco-cms/backoffice/external/uui";
 import { tryExecute } from "@umbraco-cms/backoffice/resources";
 import { CriteriaDto, CriteriaService } from "@personalisationgroups/generated";
 import { umbExtensionsRegistry } from "@umbraco-cms/backoffice/extension-registry";
 import { ManifestPersonalisationGroupDefinitionDetailTranslator, PersonalisationGroupDefinitionDetailTranslatorApi } from "../../translator/translator.interface";
 import { loadManifestApi } from "@umbraco-cms/backoffice/extension-api";
+import { UMB_MODAL_MANAGER_CONTEXT } from "@umbraco-cms/backoffice/modal";
+import { EDIT_DETAIL_DEFINITION_MODAL, EditDetailDefinitionModalValue } from "../../modal";
 
 const elementName = "personalisation-group-definition-input";
 
@@ -30,6 +32,8 @@ export class PersonalisationGroupDefinitionInput extends UmbLitElement {
 
     #value: PersonalisationGroup = { match: "All", duration: "Page", score: 50, details: [] };
 
+    #modalContext?: typeof UMB_MODAL_MANAGER_CONTEXT.TYPE;
+
     @state()
     private _availableCriteria: Array<CriteriaDto> = [];
 
@@ -40,6 +44,11 @@ export class PersonalisationGroupDefinitionInput extends UmbLitElement {
 
     constructor() {
         super();
+
+        this.consumeContext(UMB_MODAL_MANAGER_CONTEXT, (instance) => {
+            this.#modalContext = instance;
+          });
+
         this.#translators = umbExtensionsRegistry.getAllExtensions()
             .filter(e => e.type === "PersonalisationGroupDetailDefinitionTranslator")
             .map(mt => mt as ManifestPersonalisationGroupDefinitionDetailTranslator);
@@ -126,6 +135,11 @@ export class PersonalisationGroupDefinitionInput extends UmbLitElement {
         }) ?? [];
     }
 
+    #onScoreChange(e: UUIInputEvent) {
+        this.#value.score = parseInt(e.target.value.toString());
+        this.#dispatchChangeEvent();
+    }
+
     #onSelectedCriteriaChange(e: UUISelectEvent) {
         const alias = e.target.value.toString();
         this._selectedCriteria = this.#getCriteriaByAlias(alias);
@@ -143,7 +157,7 @@ export class PersonalisationGroupDefinitionInput extends UmbLitElement {
             return;
         }
 
-        const newGroupDetail = <PersonalisationGroupDetail>({ alias: this._selectedCriteria?.alias, definition: {} });
+        const newGroupDetail = <PersonalisationGroupDetail>({ alias: this._selectedCriteria?.alias, definition: "" });
         this.#value.details.push(newGroupDetail);
         this.#dispatchChangeEvent();
 
@@ -151,7 +165,36 @@ export class PersonalisationGroupDefinitionInput extends UmbLitElement {
     }
 
     #editCriteria(index: number) {
-        console.log("edit: " + index);
+        if (!this.#modalContext) {
+            return;
+        }
+
+        const detail = this.#value.details[index];
+        const criteria = this.#getCriteriaByAlias(detail.alias);
+        if (!criteria) {
+            throw new Error("Could not find criteria with alias: " + detail.alias);
+        }
+
+        const modalHandler = this.#modalContext.open(
+            this,
+            EDIT_DETAIL_DEFINITION_MODAL,
+            {
+              data: {
+                criteriaName: criteria.name,
+                propertyEditorUiAlias: `PersonalisationGroups.PropertyEditorUi.${criteria.alias}Criteria`
+              },
+              value: {
+                detail
+              },
+            }
+          );
+
+          modalHandler.onSubmit()
+            .then((v: EditDetailDefinitionModalValue) => {
+                this.#value.details[index] = v.detail;
+                this.#dispatchChangeEvent();
+            })
+            .catch(() => undefined);
     }
 
      #removeCriteria(index: number) {
@@ -179,82 +222,128 @@ export class PersonalisationGroupDefinitionInput extends UmbLitElement {
     render() {
         return html`<div>
 
-                <div>
-                    <label>Match:</label>
-                    <uui-select
-                        name="match"
-                        @change=${this.#onMatchChange}
-                        .options=${this.#getMatchOptions()}
-                    ></uui-select>
-                </div>
+                <table class="group-settings">
+                    <tr>
+                        <td class="label"><label for="Match">Match:</label></td>
+                        <td>
+                            <uui-select
+                                id="Match"
+                                label="Match"
+                                @change=${this.#onMatchChange}
+                                .options=${this.#getMatchOptions()}
+                            ></uui-select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label"><label for="Duration">Duration:</label></td>
+                        <td>
+                            <uui-select
+                                id="Duration"
+                                label="Duration"
+                                @change=${this.#onDurationChange}
+                                .options=${this.#getDurationOptions()}
+                            ></uui-select>
+                            <div class="help-inline">
+                                <span>Determines for how long a user that is matched to a personalisation group remains in it</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label"><label for="Score">Score:</label></td>
+                        <td>
+                            <uui-input
+                                type="number"
+                                min="0"
+                                max="100"
+                                step="1"
+                                id="Score"
+                                label="Score"
+                                .value=${this.#value.score}
+                                @change=${this.#onScoreChange}
+                                label="score"
+                            ></uui-input>
+                            <div class="help-inline">
+                                <span>A number between 1 and 100, can be used to weight groups when scoring the visitor's match to a piece of content</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label"><label for="Criteria">Add Criteria:</label></td>
+                        <td>
+                            <uui-select
+                                id="Criteria"
+                                label="Criteria"
+                                @change=${this.#onSelectedCriteriaChange}
+                                .options=${this.#getAvailableCriteriaOptions()}
+                            ></uui-select>
+                            <uui-button
+                                label="Add"
+                                look="outline"
+                                @click=${this.#addCriteria}
+                            ></uui-button>
+                            ${when(this._selectedCriteria,
+                                () => html`
+                                    <div class="help-inline">
+                                        <span>${this._selectedCriteria!.description}</span>
+                                    </div>`)}
 
-                <div>
-                    <label>Duration:</label>
-                    <uui-select
-                        name="duration"
-                        @change=${this.#onDurationChange}
-                        .options=${this.#getDurationOptions()}
-                    ></uui-select>
-                    <div class="help-inline">
-                        <span>Determines for how long a user that is matched to a personalisation group remains in it</span>
-                    </div>
-                </div>
-
-                <div>
-                    <label>Score:</label>
-                    <input type="number" min="0" max="100" step="1" value="${this.#value.score ?? 50}" />
-                    <div class="help-inline">
-                        <span>A number between 1 and 100, can be used to weight groups when scoring the visitor's match to a piece of content</span>
-                    </div>
-                </div>
-
-                <div>
-                    <label>Add Criteria:</label>
-                    <div class="controls controls-row">
-                        <uui-select
-                            name="criteria"
-                            @change=${this.#onSelectedCriteriaChange}
-                            .options=${this.#getAvailableCriteriaOptions()}
-                        ></uui-select>
-                        <button type="button" @click=${this.#addCriteria}>Add</button>
-                        ${when(this._selectedCriteria,
-                            () => html`
-                                <div class="help-inline">
-                                    <span>${this._selectedCriteria!.description}</span>
-                                </div>`)}
-
-                    </div>
-                </div>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Criteria</th>
-                            <th>Definition</th>
-                            <td></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${this.#value.details.map((detail: PersonalisationGroupDetail, index: number) =>
-                            html`<tr>
-                                <td>${this.#getCriteriaName(detail.alias)}</td>
-                                <td>
-                                    ${until(
-                                        this.#translateDetailDefinition(detail).then((t) => html`${t}`),
-                                        html``,
-                                    )}
-                                </td>
-                                <td>
-                                    <button type="button" @click=${() => this.#editCriteria(index)}>Edit</button>
-                                    <button type="button" @click=${() => this.#removeCriteria(index)}>Delete</button>
-                                </td>
-                            </tr>`
-                        )}
-                    </tbody>
+                        </td>
+                    </tr>
                 </table>
+
+                <uui-table>
+                    <uui-table-head>
+                        <uui-table-head-cell>Criteria</uui-table-head-cell>
+                        <uui-table-head-cell>Definition</uui-table-head-cell>
+                        <uui-table-head-cell></uui-table-head-cell>
+                    </uui-table-head>
+                    ${this.#value.details.map((detail: PersonalisationGroupDetail, index: number) =>
+                        html`<uui-table-row>
+                            <uui-table-cell>${this.#getCriteriaName(detail.alias)}</uui-table-cell>
+                            <uui-table-cell>
+                                ${until(
+                                    this.#translateDetailDefinition(detail).then((t) => html`${t}`),
+                                    html``,
+                                )}
+                            </uui-table-cell>
+                            <uui-table-cell>
+                                <uui-button
+                                    label="Edit"
+                                    look="outline"
+                                    @click=${() => this.#editCriteria(index)}
+                                ></uui-button>
+                                <uui-button
+                                    label="Delete"
+                                    look="outline"
+                                    color="danger"
+                                    @click=${() => this.#removeCriteria(index)}
+                                ></uui-button>
+                            </uui-table-cell>
+                        </uui-table-row>`
+                    )}
+                </uui-table>
 
             </div>`;
     }
+
+    static styles = [
+        css`
+          table.group-settings td {
+            vertical-align: top;
+            padding-right: 10px;
+          }
+
+          table.group-settings td.label {
+            padding-top: 4px;
+          }
+
+          .help-inline {
+            margin: 4px;
+            font-size: 12px;
+            color: var(--uui-color-text-alt);
+          }
+        `,
+      ];
 }
 
 export default PersonalisationGroupDefinitionInput;

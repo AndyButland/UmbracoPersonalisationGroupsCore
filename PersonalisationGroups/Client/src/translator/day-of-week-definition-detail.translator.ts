@@ -2,7 +2,6 @@
 
 export class DayOfWeekDefinitionDetailTranslator implements PersonalisationGroupDefinitionDetailTranslatorApi  {
    translate(definition: string) {
-		return "TRANSLATED";
 		let translation = "";
 		if (definition) {
 				var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
