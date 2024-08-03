@@ -260,7 +260,6 @@ export class PersonalisationGroupDefinitionInput extends UmbLitElement {
                                 label="Score"
                                 .value=${this.#value.score}
                                 @change=${this.#onScoreChange}
-                                label="score"
                             ></uui-input>
                             <div class="help-inline">
                                 <span>A number between 1 and 100, can be used to weight groups when scoring the visitor's match to a piece of content</span>
