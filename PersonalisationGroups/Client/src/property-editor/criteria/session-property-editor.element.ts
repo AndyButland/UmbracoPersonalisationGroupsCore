@@ -8,13 +8,13 @@ import type { UmbPropertyEditorUiElement } from "@umbraco-cms/backoffice/extensi
 import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
 import { UUIInputEvent, UUISelectEvent } from "@umbraco-cms/backoffice/external/uui";
 
-const elementName = "personalisation-group-session-criteria-property-editor";
-
 type SessionSetting = {
   key: string;
   match: string;
   value: string
 };
+
+const elementName = "personalisation-group-session-criteria-property-editor";
 
 @customElement(elementName)
 export class SessionCriteriaPropertyUiElement extends UmbLitElement implements UmbPropertyEditorUiElement {
@@ -118,16 +118,17 @@ export class SessionCriteriaPropertyUiElement extends UmbLitElement implements U
 
   render() {
     return html`
+      <p>Please enter the session settings:</p>
       <table>
         <tr>
             <td><label for="Key">Key:</label></td>
             <td>
               <uui-input
-                  id="Key"
-                  label="Key"
-                  .value=${this._typedValue.key}
-                  @change=${this.#onKeyChange}>
-                </uui-input>
+                id="Key"
+                label="Key"
+                .value=${this._typedValue.key}
+                @change=${this.#onKeyChange}>
+              </uui-input>
             </td>
         </tr>
         <tr>

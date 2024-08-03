@@ -35,7 +35,6 @@ export class EditDetailDefinitionModalElement extends UmbModalBaseElement<
   #onDefinitionChange(e: CustomEvent) {
     const value = (e.target as UmbPropertyDatasetElement).value;
     this._definitionAsPropertyValues = value;
-    console.log(this._definitionAsPropertyValues);
 
     const detail = structuredClone(this.value.detail);
     detail.definition = this._definitionAsPropertyValues[0].value?.toString() ?? "";

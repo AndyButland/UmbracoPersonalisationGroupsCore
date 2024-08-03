@@ -8,13 +8,13 @@ import type { UmbPropertyEditorUiElement } from "@umbraco-cms/backoffice/extensi
 import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
 import { UUIInputEvent, UUISelectEvent } from "@umbraco-cms/backoffice/external/uui";
 
-const elementName = "personalisation-group-cookie-criteria-property-editor";
-
 type CookieSetting = {
   key: string;
   match: string;
   value: string
 };
+
+const elementName = "personalisation-group-cookie-criteria-property-editor";
 
 @customElement(elementName)
 export class CookieCriteriaPropertyUiElement extends UmbLitElement implements UmbPropertyEditorUiElement {
@@ -118,6 +118,7 @@ export class CookieCriteriaPropertyUiElement extends UmbLitElement implements Um
 
   render() {
     return html`
+      <p>Please enter the cookie settings:</p>
       <table>
         <tr>
             <td><label for="Key">Key:</label></td>

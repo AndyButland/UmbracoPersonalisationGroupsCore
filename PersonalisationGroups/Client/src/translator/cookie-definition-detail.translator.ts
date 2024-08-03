@@ -2,7 +2,7 @@
 
 export class CookieDefinitionDetailTranslator implements PersonalisationGroupDefinitionDetailTranslatorApi  {
   translate(definition: string) {
-    var translation = "";
+    let translation = "";
     if (definition) {
         var selectedCookieDetails = JSON.parse(definition);
         translation = "Cookie with key '" + selectedCookieDetails.key + "' ";
