@@ -93,13 +93,16 @@ export class CookieCriteriaPropertyUiElement extends UmbLitElement implements Um
         value: "DoesNotMatchRegex",
         selected: this._typedValue.match === "DoesNotMatchRegex",
     }];
-}
+  }
 
-#onMatchChange(e: UUISelectEvent) {
-  this._typedValue.match = e.target.value.toString();
-  this.#refreshValue();
-}
+  #onMatchChange(e: UUISelectEvent) {
+    this._typedValue.match = e.target.value.toString();
+    this.#refreshValue();
+  }
 
+  #isValueRequired() {
+    return this._typedValue.match !== "Exists" && this._typedValue.match !== "DoesNotExist"
+  }
 
   #onValueChange(e: UUIInputEvent) {
     this._typedValue.value = e.target.value.toString();
@@ -144,6 +147,7 @@ export class CookieCriteriaPropertyUiElement extends UmbLitElement implements Um
           <uui-input
               id="Value"
               label="Value"
+              ?disabled=${!this.#isValueRequired()}
               .value=${this._typedValue.value}
               @change=${this.#onValueChange}>
             </uui-input>
