@@ -4,7 +4,7 @@ export class SessionDefinitionDetailTranslator implements PersonalisationGroupDe
   translate(definition: string) {
     let translation = "";
     if (definition) {
-        var selectedCookieDetails = JSON.parse(definition);
+        const selectedCookieDetails = JSON.parse(definition);
         translation = "Session key '" + selectedCookieDetails.key + "' ";
         switch (selectedCookieDetails.match) {
             case "Exists":

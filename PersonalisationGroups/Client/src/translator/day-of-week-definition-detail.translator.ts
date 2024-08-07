@@ -4,10 +4,10 @@ export class DayOfWeekDefinitionDetailTranslator implements PersonalisationGroup
    translate(definition: string) {
 		let translation = "";
 		if (definition) {
-				var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-				var selectedDays = JSON.parse(definition);
+			  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+				const selectedDays = JSON.parse(definition);
 
-				for (var i = 0; i < selectedDays.length; i++) {
+				for (let i = 0; i < selectedDays.length; i++) {
 						if (translation.length > 0) {
 								translation += ", ";
 						}
