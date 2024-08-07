@@ -108,7 +108,7 @@ export const manifests: Array<ManifestPersonalisationGroupDefinitionDetailTransl
     type: "PersonalisationGroupDetailDefinitionTranslator",
     alias: "PersonalisationGroup.DefinitionDetailTranslator.QueryString",
     name: "QueryString Translator",
-    criteriaAlias: "queryString",
+    criteriaAlias: "querystring",
     api: QueryStringDefinitionDetailTranslator,
   },
   {
