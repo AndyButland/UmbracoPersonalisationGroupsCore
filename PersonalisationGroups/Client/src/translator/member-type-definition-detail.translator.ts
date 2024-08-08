@@ -2,9 +2,15 @@
 
 export class MemberTypeDefinitionDetailTranslator implements PersonalisationGroupDefinitionDetailTranslatorApi  {
    translate(definition: string) {
-		console.log(definition);
-		let translation = "";
-		return translation;
+    let translation = "";
+    if (definition) {
+        const memberTypeDetails = JSON.parse(definition);
+        translation = (memberTypeDetails.match === "IsOfType" ? "Is of type " : "Is not of type ") +
+            "'" + memberTypeDetails.typeName + "'.";
+
+    }
+
+    return translation;
   }
 
   destroy() {

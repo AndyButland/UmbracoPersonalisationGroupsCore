@@ -144,16 +144,16 @@ export class CookieCriteriaPropertyUiElement extends UmbLitElement implements Um
           </td>
         </tr>
         <tr>
-        <td class="label"><label for="Value">Value:</label></td>
-        <td>
-          <uui-input
-              id="Value"
-              label="Value"
-              ?disabled=${!this.#isValueRequired()}
-              .value=${this._typedValue.value}
-              @change=${this.#onValueChange}>
-            </uui-input>
-        </td>
+          <td class="label"><label for="Value">Value:</label></td>
+          <td>
+            <uui-input
+                id="Value"
+                label="Value"
+                ?disabled=${!this.#isValueRequired()}
+                .value=${this._typedValue.value}
+                @change=${this.#onValueChange}>
+              </uui-input>
+          </td>
         </tr>
     </table>`;
   }

@@ -45,13 +45,12 @@ export class MemberGroupCriteriaPropertyUiElement extends UmbLitElement implemen
   async connectedCallback() {
     super.connectedCallback();
     await this.#getMemberGroups();
-}
+  }
 
-async #getMemberGroups() {
-    const { data } = await tryExecute(MemberGroupService.getCollection());
-    console.log(data);
-    this._memberGroups = data || [];
-}
+  async #getMemberGroups() {
+      const { data } = await tryExecute(MemberGroupService.getCollection());
+      this._memberGroups = data || [];
+  }
 
   #getMatchOptions() {
     return [{
@@ -95,7 +94,7 @@ async #getMemberGroups() {
 
   render() {
     return html`
-      <p>Please enter the host settings:</p>
+      <p>Please enter the member group settings:</p>
       <table>
         <tr>
           <td class="label"><label for="Match">Comparison:</label></td>
@@ -109,7 +108,7 @@ async #getMemberGroups() {
           </td>
         </tr>
         <tr>
-          <td class="label"><label for="Group">Value:</label></td>
+          <td class="label"><label for="Group">Group:</label></td>
           <td>
               <uui-select
                   id="Group"

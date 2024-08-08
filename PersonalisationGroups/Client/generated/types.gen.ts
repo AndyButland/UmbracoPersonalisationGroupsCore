@@ -10,6 +10,16 @@ export type MemberGroupDto = {
     name: string;
 };
 
+export type MemberProfileFieldDto = {
+    alias: string;
+    name: string;
+};
+
+export type MemberTypeDto = {
+    alias: string;
+    name: string;
+};
+
 export type GetCollectionResponse = Array<(CriteriaDto)>;
 
 export type $OpenApiTs = {
@@ -34,6 +44,34 @@ export type $OpenApiTs = {
                  * OK
                  */
                 200: Array<(MemberGroupDto)>;
+                /**
+                 * The resource is protected and requires an authentication token
+                 */
+                401: unknown;
+            };
+        };
+    };
+    '/umbraco/personalisation-groups/management/api/v1/member-profile-field': {
+        get: {
+            res: {
+                /**
+                 * OK
+                 */
+                200: Array<(MemberProfileFieldDto)>;
+                /**
+                 * The resource is protected and requires an authentication token
+                 */
+                401: unknown;
+            };
+        };
+    };
+    '/umbraco/personalisation-groups/management/api/v1/member-type': {
+        get: {
+            res: {
+                /**
+                 * OK
+                 */
+                200: Array<(MemberTypeDto)>;
                 /**
                  * The resource is protected and requires an authentication token
                  */

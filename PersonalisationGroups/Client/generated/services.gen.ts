@@ -38,3 +38,37 @@ export class MemberGroupService {
     }
     
 }
+
+export class MemberProfileFieldService {
+    /**
+     * @returns unknown OK
+     * @throws ApiError
+     */
+    public static getCollection(): CancelablePromise<GetCollectionResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/umbraco/personalisation-groups/management/api/v1/member-profile-field',
+            errors: {
+                401: 'The resource is protected and requires an authentication token'
+            }
+        });
+    }
+    
+}
+
+export class MemberTypeService {
+    /**
+     * @returns unknown OK
+     * @throws ApiError
+     */
+    public static getCollection(): CancelablePromise<GetCollectionResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/umbraco/personalisation-groups/management/api/v1/member-type',
+            errors: {
+                401: 'The resource is protected and requires an authentication token'
+            }
+        });
+    }
+    
+}
