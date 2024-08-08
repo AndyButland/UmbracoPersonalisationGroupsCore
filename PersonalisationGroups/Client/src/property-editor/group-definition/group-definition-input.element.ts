@@ -7,7 +7,7 @@ import { CriteriaDto, CriteriaService } from "@personalisationgroups/generated";
 import { umbExtensionsRegistry } from "@umbraco-cms/backoffice/extension-registry";
 import { ManifestPersonalisationGroupDefinitionDetailTranslator, PersonalisationGroupDefinitionDetailTranslatorApi } from "../../translator/translator.interface";
 import { loadManifestApi } from "@umbraco-cms/backoffice/extension-api";
-import { UMB_MODAL_MANAGER_CONTEXT } from "@umbraco-cms/backoffice/modal";
+import { UMB_MODAL_MANAGER_CONTEXT, umbConfirmModal } from "@umbraco-cms/backoffice/modal";
 import { EDIT_DETAIL_DEFINITION_MODAL, EditDetailDefinitionModalValue } from "../../modal";
 
 const elementName = "personalisation-group-definition-input";
@@ -197,7 +197,13 @@ export class PersonalisationGroupDefinitionInput extends UmbLitElement {
             .catch(() => undefined);
     }
 
-     #removeCriteria(index: number) {
+     async #removeCriteria(index: number) {
+        await umbConfirmModal(this, {
+            headline: "Remove criteria",
+            content: "Are you sure you wish to remove the selected criteria?",
+            confirmLabel: this.localize.term("general_yes"),
+            color: "danger",
+          });
         this.#value.details.splice(index, 1);
         this.#dispatchChangeEvent();
     }
