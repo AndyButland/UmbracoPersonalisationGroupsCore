@@ -35,19 +35,27 @@ export type RegionDto = {
     name: string;
 };
 
-export type GetCollectionResponse = Array<(CriteriaDto)>;
+export type GetCriteriaCollectionResponse = Array<(CriteriaDto)>;
 
-export type GetCollection1Data = {
+export type GetContinentCollectionResponse = Array<(ContinentDto)>;
+
+export type GetCountryCollectionData = {
     withRegionsOnly?: boolean;
 };
 
-export type GetCollection1Response = Array<(CountryDto)>;
+export type GetCountryCollectionResponse = Array<(CountryDto)>;
 
-export type GetCollection2Data = {
+export type GetRegionCollectionData = {
     countryCode: string;
 };
 
-export type GetCollection2Response = Array<(RegionDto)>;
+export type GetRegionCollectionResponse = Array<(RegionDto)>;
+
+export type GetMemberGroupCollectionResponse = Array<(MemberGroupDto)>;
+
+export type GetMemberProfileFieldCollectionResponse = Array<(MemberProfileFieldDto)>;
+
+export type GetMemberTypeCollectionResponse = Array<(MemberTypeDto)>;
 
 export type $OpenApiTs = {
     '/umbraco/personalisation-groups/management/api/v1/criteria': {
@@ -80,7 +88,7 @@ export type $OpenApiTs = {
     };
     '/umbraco/personalisation-groups/management/api/v1/country': {
         get: {
-            req: GetCollection1Data;
+            req: GetCountryCollectionData;
             res: {
                 /**
                  * OK
@@ -95,7 +103,7 @@ export type $OpenApiTs = {
     };
     '/umbraco/personalisation-groups/management/api/v1/country/{countryCode}/region': {
         get: {
-            req: GetCollection2Data;
+            req: GetRegionCollectionData;
             res: {
                 /**
                  * OK

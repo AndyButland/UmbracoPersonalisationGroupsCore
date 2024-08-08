@@ -29,7 +29,7 @@ public class GetCollectionController : PersonalisationGroupsGeoLocationControlle
 
     [HttpGet("continent/")]
     [ProducesResponseType(typeof(IEnumerable<ContinentDto>), StatusCodes.Status200OK)]
-    public IActionResult GetCollection()
+    public IActionResult GetContinentCollection()
     {
         var cacheKey = $"PersonalisationGroups_GeoLocation_Continents";
         var continents = AppCaches.RuntimeCache.Get(cacheKey,

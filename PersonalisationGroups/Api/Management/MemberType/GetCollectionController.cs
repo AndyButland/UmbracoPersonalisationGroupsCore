@@ -18,7 +18,7 @@ public class GetCollectionController : PersonalisationGroupsControllerBase
 
     [HttpGet("member-type/")]
     [ProducesResponseType(typeof(IEnumerable<MemberTypeDto>), StatusCodes.Status200OK)]
-    public IActionResult GetCollection()
+    public IActionResult GetMemberTypeCollection()
     {
         var dtos = _memberTypeService.GetAll()
             .Select(x => new MemberTypeDto

@@ -19,7 +19,7 @@ public class GetCollectionController : PersonalisationGroupsControllerBase
 
     [HttpGet("member-group/")]
     [ProducesResponseType(typeof(IEnumerable<MemberGroupDto>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetCollection()
+    public async Task<IActionResult> GetMemberGroupCollection()
     {
         var dtos = (await _memberGroupService.GetAllAsync())
             .Select(x => new MemberGroupDto

@@ -9,7 +9,7 @@ import type { UmbPropertyEditorUiElement } from "@umbraco-cms/backoffice/extensi
 import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
 import { UUISelectEvent } from "@umbraco-cms/backoffice/external/uui";
 import { tryExecute } from "@umbraco-cms/backoffice/resources";
-import { MemberTypeDto, MemberTypeService } from "@personalisationgroups/generated";
+import { MemberTypeDto, MemberService } from "@personalisationgroups/generated";
 
 type MemberTypeSetting = {
   match: string;
@@ -48,7 +48,7 @@ export class MemberTypeCriteriaPropertyUiElement extends UmbLitElement implement
   }
 
   async #getMemberTypes() {
-      const { data } = await tryExecute(MemberTypeService.getCollection());
+      const { data } = await tryExecute(MemberService.getMemberTypeCollection());
       this._memberTypes = data || [];
   }
 

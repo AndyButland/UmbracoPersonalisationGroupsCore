@@ -60,7 +60,7 @@ export class PersonalisationGroupDefinitionInput extends UmbLitElement {
     }
 
     async #getAvailableCriteria() {
-        const { data } = await tryExecute(CriteriaService.getCollection());
+        const { data } = await tryExecute(CriteriaService.getCriteriaCollection());
         this._availableCriteria = data || [];
         this._selectedCriteria = this._availableCriteria.length > 0
             ? this._availableCriteria[0]
@@ -125,6 +125,11 @@ export class PersonalisationGroupDefinitionInput extends UmbLitElement {
         this.#dispatchChangeEvent();
     }
 
+    #onScoreChange(e: UUIInputEvent) {
+        this.#value.score = parseInt(e.target.value.toString());
+        this.#dispatchChangeEvent();
+    }
+
     #getAvailableCriteriaOptions() {
         return this._availableCriteria?.map((c) => {
             return {
@@ -133,11 +138,6 @@ export class PersonalisationGroupDefinitionInput extends UmbLitElement {
                 selected: c.alias === this._selectedCriteria?.alias,
             }
         }) ?? [];
-    }
-
-    #onScoreChange(e: UUIInputEvent) {
-        this.#value.score = parseInt(e.target.value.toString());
-        this.#dispatchChangeEvent();
     }
 
     #onSelectedCriteriaChange(e: UUISelectEvent) {

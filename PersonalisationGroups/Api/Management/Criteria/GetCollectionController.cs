@@ -2,9 +2,7 @@ using Asp.Versioning;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Our.Umbraco.PersonalisationGroups.Api.Models;
-using Our.Umbraco.PersonalisationGroups.Criteria;
 using Our.Umbraco.PersonalisationGroups.Services;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,7 +18,7 @@ public class GetCollectionController : PersonalisationGroupsControllerBase
 
     [HttpGet("criteria/")]
     [ProducesResponseType(typeof(IEnumerable<CriteriaDto>), StatusCodes.Status200OK)]
-    public IActionResult GetCollection()
+    public IActionResult GetCriteriaCollection()
     {
         var dtos = _criteriaService.GetAvailableCriteria()
             .Select(x => new CriteriaDto

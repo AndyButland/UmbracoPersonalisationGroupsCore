@@ -3,14 +3,14 @@
 import type { CancelablePromise } from './core/CancelablePromise';
 import { OpenAPI } from './core/OpenAPI';
 import { request as __request } from './core/request';
-import type { GetCollectionResponse, GetCollection1Data, GetCollection1Response, GetCollection2Data, GetCollection2Response } from './types.gen';
+import type { GetCriteriaCollectionResponse, GetContinentCollectionResponse, GetCountryCollectionData, GetCountryCollectionResponse, GetRegionCollectionData, GetRegionCollectionResponse, GetMemberGroupCollectionResponse, GetMemberProfileFieldCollectionResponse, GetMemberTypeCollectionResponse } from './types.gen';
 
 export class CriteriaService {
     /**
      * @returns unknown OK
      * @throws ApiError
      */
-    public static getCollection(): CancelablePromise<GetCollectionResponse> {
+    public static getCriteriaCollection(): CancelablePromise<GetCriteriaCollectionResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/umbraco/personalisation-groups/management/api/v1/criteria',
@@ -27,7 +27,7 @@ export class GeoLocationService {
      * @returns unknown OK
      * @throws ApiError
      */
-    public static getCollection(): CancelablePromise<GetCollectionResponse> {
+    public static getContinentCollection(): CancelablePromise<GetContinentCollectionResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/umbraco/personalisation-groups/management/api/v1/continent',
@@ -43,7 +43,7 @@ export class GeoLocationService {
      * @returns unknown OK
      * @throws ApiError
      */
-    public static getCollection1(data: GetCollection1Data = {}): CancelablePromise<GetCollection1Response> {
+    public static getCountryCollection(data: GetCountryCollectionData = {}): CancelablePromise<GetCountryCollectionResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/umbraco/personalisation-groups/management/api/v1/country',
@@ -62,7 +62,7 @@ export class GeoLocationService {
      * @returns unknown OK
      * @throws ApiError
      */
-    public static getCollection2(data: GetCollection2Data): CancelablePromise<GetCollection2Response> {
+    public static getRegionCollection(data: GetRegionCollectionData): CancelablePromise<GetRegionCollectionResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/umbraco/personalisation-groups/management/api/v1/country/{countryCode}/region',
@@ -82,7 +82,7 @@ export class MemberService {
      * @returns unknown OK
      * @throws ApiError
      */
-    public static getCollection(): CancelablePromise<GetCollectionResponse> {
+    public static getMemberGroupCollection(): CancelablePromise<GetMemberGroupCollectionResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/umbraco/personalisation-groups/management/api/v1/member-group',
@@ -96,7 +96,7 @@ export class MemberService {
      * @returns unknown OK
      * @throws ApiError
      */
-    public static getCollection1(): CancelablePromise<GetCollection1Response> {
+    public static getMemberProfileFieldCollection(): CancelablePromise<GetMemberProfileFieldCollectionResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/umbraco/personalisation-groups/management/api/v1/member-profile-field',
@@ -110,7 +110,7 @@ export class MemberService {
      * @returns unknown OK
      * @throws ApiError
      */
-    public static getCollection2(): CancelablePromise<GetCollection2Response> {
+    public static getMemberTypeCollection(): CancelablePromise<GetMemberTypeCollectionResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/umbraco/personalisation-groups/management/api/v1/member-type',

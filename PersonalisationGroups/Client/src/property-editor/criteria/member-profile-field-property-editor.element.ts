@@ -9,7 +9,7 @@ import type { UmbPropertyEditorUiElement } from "@umbraco-cms/backoffice/extensi
 import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
 import { UUIInputEvent, UUISelectEvent } from "@umbraco-cms/backoffice/external/uui";
 import { tryExecute } from "@umbraco-cms/backoffice/resources";
-import { MemberProfileFieldDto, MemberProfileFieldService } from "@personalisationgroups/generated";
+import { MemberProfileFieldDto, MemberService } from "@personalisationgroups/generated";
 
 type MemberProfileFieldSetting = {
   alias: string;
@@ -49,7 +49,7 @@ export class MemberProfileFieldCriteriaPropertyUiElement extends UmbLitElement i
   }
 
   async #getMemberProfileFields() {
-      const { data } = await tryExecute(MemberProfileFieldService.getCollection());
+      const { data } = await tryExecute(MemberService.getMemberProfileFieldCollection());
       this._memberProfileFields = data || [];
   }
 

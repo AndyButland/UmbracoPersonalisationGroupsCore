@@ -30,7 +30,7 @@ public class GetCollectionController : PersonalisationGroupsGeoLocationControlle
 
     [HttpGet("country/{countryCode}/region/")]
     [ProducesResponseType(typeof(IEnumerable<RegionDto>), StatusCodes.Status200OK)]
-    public IActionResult GetCollection(string countryCode)
+    public IActionResult GetRegionCollection(string countryCode)
     {
         var cacheKey = $"PersonalisationGroups_GeoLocation_Regions_{countryCode}";
         var regions = AppCaches.RuntimeCache.Get(cacheKey,

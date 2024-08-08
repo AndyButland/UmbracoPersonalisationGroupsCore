@@ -18,7 +18,7 @@ public class GetCollectionController : PersonalisationGroupsControllerBase
 
     [HttpGet("member-profile-field/")]
     [ProducesResponseType(typeof(IEnumerable<MemberProfileFieldDto>), StatusCodes.Status200OK)]
-    public IActionResult GetCollection()
+    public IActionResult GetMemberProfileFieldCollection()
     {
         var dtos = _memberTypeService.GetAll()
             .SelectMany(x => x.PropertyTypes)
