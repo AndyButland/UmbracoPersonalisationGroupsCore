@@ -2,7 +2,6 @@
 
 export class ReferralDefinitionDetailTranslator implements PersonalisationGroupDefinitionDetailTranslatorApi  {
    translate(definition: string) {
-		console.log(definition);
     let translation = "";
     if (definition) {
         const selectedReferrerDetails = JSON.parse(definition);
