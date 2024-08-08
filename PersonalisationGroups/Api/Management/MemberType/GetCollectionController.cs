@@ -9,7 +9,7 @@ using Umbraco.Cms.Core.Services;
 namespace Our.Umbraco.PersonalisationGroups.Api.Management.MemberType;
 
 [ApiVersion("1.0")]
-[ApiExplorerSettings(GroupName = "Member Type")]
+[ApiExplorerSettings(GroupName = "Member")]
 public class GetCollectionController : PersonalisationGroupsControllerBase
 {
     private readonly IMemberTypeService _memberTypeService;

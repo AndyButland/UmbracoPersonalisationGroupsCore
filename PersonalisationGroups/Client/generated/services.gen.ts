@@ -3,7 +3,7 @@
 import type { CancelablePromise } from './core/CancelablePromise';
 import { OpenAPI } from './core/OpenAPI';
 import { request as __request } from './core/request';
-import type { GetCollectionResponse } from './types.gen';
+import type { GetCollectionResponse, GetCollection1Data, GetCollection1Response, GetCollection2Data, GetCollection2Response } from './types.gen';
 
 export class CriteriaService {
     /**
@@ -22,7 +22,62 @@ export class CriteriaService {
     
 }
 
-export class MemberGroupService {
+export class GeoLocationService {
+    /**
+     * @returns unknown OK
+     * @throws ApiError
+     */
+    public static getCollection(): CancelablePromise<GetCollectionResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/umbraco/personalisation-groups/management/api/v1/continent',
+            errors: {
+                401: 'The resource is protected and requires an authentication token'
+            }
+        });
+    }
+    
+    /**
+     * @param data The data for the request.
+     * @param data.withRegionsOnly
+     * @returns unknown OK
+     * @throws ApiError
+     */
+    public static getCollection1(data: GetCollection1Data = {}): CancelablePromise<GetCollection1Response> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/umbraco/personalisation-groups/management/api/v1/country',
+            query: {
+                withRegionsOnly: data.withRegionsOnly
+            },
+            errors: {
+                401: 'The resource is protected and requires an authentication token'
+            }
+        });
+    }
+    
+    /**
+     * @param data The data for the request.
+     * @param data.countryCode
+     * @returns unknown OK
+     * @throws ApiError
+     */
+    public static getCollection2(data: GetCollection2Data): CancelablePromise<GetCollection2Response> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/umbraco/personalisation-groups/management/api/v1/country/{countryCode}/region',
+            path: {
+                countryCode: data.countryCode
+            },
+            errors: {
+                401: 'The resource is protected and requires an authentication token'
+            }
+        });
+    }
+    
+}
+
+export class MemberService {
     /**
      * @returns unknown OK
      * @throws ApiError
@@ -37,14 +92,11 @@ export class MemberGroupService {
         });
     }
     
-}
-
-export class MemberProfileFieldService {
     /**
      * @returns unknown OK
      * @throws ApiError
      */
-    public static getCollection(): CancelablePromise<GetCollectionResponse> {
+    public static getCollection1(): CancelablePromise<GetCollection1Response> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/umbraco/personalisation-groups/management/api/v1/member-profile-field',
@@ -54,14 +106,11 @@ export class MemberProfileFieldService {
         });
     }
     
-}
-
-export class MemberTypeService {
     /**
      * @returns unknown OK
      * @throws ApiError
      */
-    public static getCollection(): CancelablePromise<GetCollectionResponse> {
+    public static getCollection2(): CancelablePromise<GetCollection2Response> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/umbraco/personalisation-groups/management/api/v1/member-type',
