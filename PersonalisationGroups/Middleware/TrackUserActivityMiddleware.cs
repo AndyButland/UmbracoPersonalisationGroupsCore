@@ -33,14 +33,14 @@ internal class TrackUserActivityMiddleware : IMiddleware
             return;
         }
 
-        var pageId = umbracoContext.PublishedRequest?.PublishedContent?.Id;
-        if (pageId == null)
+        var pageKey = umbracoContext.PublishedRequest?.PublishedContent?.Key;
+        if (pageKey == null)
         {
             await next(context);
             return;
         }
 
-        _userActivityTracker.TrackPageView(pageId.Value);
+        _userActivityTracker.TrackPageView(pageKey.Value);
 
         _userActivityTracker.TrackSession();
 

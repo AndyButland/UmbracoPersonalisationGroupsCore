@@ -1,8 +1,9 @@
 ﻿namespace Our.Umbraco.PersonalisationGroups.Providers.PagesViewed;
 
+using System;
 using System.Collections.Generic;
 
 public interface IPagesViewedProvider
 {
-    IEnumerable<int> GetNodeIdsViewed();
+    IEnumerable<Guid> GetNodeKeysViewed();
 }

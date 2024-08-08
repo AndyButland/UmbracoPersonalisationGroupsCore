@@ -3,6 +3,7 @@ import {
   customElement,
   property,
   state,
+  css,
 } from "@umbraco-cms/backoffice/external/lit";
 import type { UmbPropertyEditorUiElement } from "@umbraco-cms/backoffice/extension-registry";
 import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
@@ -76,7 +77,7 @@ export class NumberOfVisitsCriteriaPropertyUiElement extends UmbLitElement imple
       <p>Please enter the number of visits settings:</p>
       <table>
         <tr>
-          <td><label for="Match">Visitor has accessed the site:</label></td>
+          <td class="label"><label for="Match">Visitor has accessed the site:</label></td>
           <td>
               <uui-select
                   id="Match"
@@ -87,7 +88,7 @@ export class NumberOfVisitsCriteriaPropertyUiElement extends UmbLitElement imple
           </td>
         </tr>
         <tr>
-          <td><label for="Number">Number of times:</label></td>
+          <td class="label"><label for="Number">Number of times:</label></td>
           <td>
             <uui-input
                 id="Number"
@@ -102,6 +103,16 @@ export class NumberOfVisitsCriteriaPropertyUiElement extends UmbLitElement imple
         </tr>
     </table>`;
   }
+
+  static styles = [
+    css`
+      td.label {
+        vertical-align: top;
+        padding-top: 4px;
+        padding-right: 4px;
+      }
+    `,
+  ];
 }
 
 export default NumberOfVisitsCriteriaPropertyUiElement;

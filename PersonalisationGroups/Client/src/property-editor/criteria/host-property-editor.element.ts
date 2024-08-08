@@ -3,6 +3,7 @@ import {
   customElement,
   property,
   state,
+  css,
 } from "@umbraco-cms/backoffice/external/lit";
 import type { UmbPropertyEditorUiElement } from "@umbraco-cms/backoffice/extension-registry";
 import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
@@ -81,7 +82,7 @@ export class HostCriteriaPropertyUiElement extends UmbLitElement implements UmbP
       <p>Please enter the host settings:</p>
       <table>
         <tr>
-          <td><label for="Match">Comparison:</label></td>
+          <td class="label"><label for="Match">Comparison:</label></td>
           <td>
               <uui-select
                   id="Match"
@@ -92,7 +93,7 @@ export class HostCriteriaPropertyUiElement extends UmbLitElement implements UmbP
           </td>
         </tr>
         <tr>
-          <td><label for="Value">Value:</label></td>
+          <td class="label"><label for="Value">Value:</label></td>
           <td>
             <uui-input
                 id="Value"
@@ -104,6 +105,16 @@ export class HostCriteriaPropertyUiElement extends UmbLitElement implements UmbP
         </tr>
     </table>`;
   }
+
+  static styles = [
+    css`
+      td.label {
+        vertical-align: top;
+        padding-top: 4px;
+        padding-right: 4px;
+      }
+    `,
+  ];
 }
 
 export default HostCriteriaPropertyUiElement;

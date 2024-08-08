@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using Our.Umbraco.PersonalisationGroups.Services;
+using System;
 
 namespace Our.Umbraco.PersonalisationGroups.Tests.Criteria.PagesViewed;
 
@@ -7,15 +8,15 @@ namespace Our.Umbraco.PersonalisationGroups.Tests.Criteria.PagesViewed;
 public class UserActivityTrackerTests
 {
     [Test]
-    public void AppendPageIdIfNotPreviouslyViewed_ShouldAddPageIdToEmptyCookie()
+    public void AppendPageIdIfNotPreviouslyViewed_ShouldAddPageKeyToEmptyCookie()
     {
         // Arrange
-        var expected = "1000";
+        var expected = "77d47dd7-a0e2-42a3-9103-27d5f9470ce8";
         var cookieValue = string.Empty;
-        var pageId = 1000;
+        var pageKey = Guid.Parse("77d47dd7-a0e2-42a3-9103-27d5f9470ce8");
 
         // Act
-        var actual = UserActivityTracker.AppendPageIdIfNotPreviouslyViewed(cookieValue, pageId);
+        var actual = UserActivityTracker.AppendPageIdIfNotPreviouslyViewed(cookieValue, pageKey);
 
         // Assert
         Assert.AreEqual(expected, actual);
@@ -25,12 +26,12 @@ public class UserActivityTrackerTests
     public void AppendPageIdIfNotPreviouslyViewed_ShouldAddPageIdToValidCookie()
     {
         // Arrange
-        var expected = "1,2,3,4,1000";
-        var cookieValue = "1,2,3,4";
-        var pageId = 1000;
+        var expected = "77d47dd7-a0e2-42a3-9103-27d5f9470ce8,6056e478-c614-4cb1-b389-c9fe7e950555";
+        var cookieValue = "77d47dd7-a0e2-42a3-9103-27d5f9470ce8";
+        var pageKey = Guid.Parse("6056e478-c614-4cb1-b389-c9fe7e950555");
 
         // Act
-        var actual = UserActivityTracker.AppendPageIdIfNotPreviouslyViewed(cookieValue, pageId);
+        var actual = UserActivityTracker.AppendPageIdIfNotPreviouslyViewed(cookieValue, pageKey);
 
         // Assert
         Assert.AreEqual(expected, actual);
@@ -40,12 +41,12 @@ public class UserActivityTrackerTests
     public void AppendPageIdIfNotPreviouslyViewed_ShouldRemoveInvalidValuesAndAddPageIdToCookie()
     {
         // Arrange
-        var expected = "1,2,3,4,1000";
-        var cookieValue = "1,invalid,2,3,####,4,@!@!";
-        var pageId = 1000;
+        var expected = "77d47dd7-a0e2-42a3-9103-27d5f9470ce8,6056e478-c614-4cb1-b389-c9fe7e950555";
+        var cookieValue = "77d47dd7-a0e2-42a3-9103-27d5f9470ce8,xxx";
+        var pageKey = Guid.Parse("6056e478-c614-4cb1-b389-c9fe7e950555");
 
         // Act
-        var actual = UserActivityTracker.AppendPageIdIfNotPreviouslyViewed(cookieValue, pageId);
+        var actual = UserActivityTracker.AppendPageIdIfNotPreviouslyViewed(cookieValue, pageKey);
 
         // Assert
         Assert.AreEqual(expected, actual);
@@ -55,12 +56,12 @@ public class UserActivityTrackerTests
     public void AppendPageIdIfNotPreviouslyViewed_ShouldIgnoreInvalidCookieAndAddPageId()
     {
         // Arrange
-        var expected = "1000";
+        var expected = "77d47dd7-a0e2-42a3-9103-27d5f9470ce8";
         var cookieValue = "ThisIsABadCookie";
-        var pageId = 1000;
+        var pageKey = Guid.Parse("77d47dd7-a0e2-42a3-9103-27d5f9470ce8");
 
         // Act
-        var actual = UserActivityTracker.AppendPageIdIfNotPreviouslyViewed(cookieValue, pageId);
+        var actual = UserActivityTracker.AppendPageIdIfNotPreviouslyViewed(cookieValue, pageKey);
 
         // Assert
         Assert.AreEqual(expected, actual);

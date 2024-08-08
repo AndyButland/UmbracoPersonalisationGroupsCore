@@ -1,18 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Our.Umbraco.PersonalisationGroups.Providers.PagesViewed;
 
 public static class StringExtensions
 {
-    public static List<int> ParsePageIds(this string commaSeparatedPageIds)
+    public static List<Guid> ParsePageKeys(this string commaSeparatedPageKeys)
     {
-        return commaSeparatedPageIds
+        return commaSeparatedPageKeys
             .Split(',')
-            .Aggregate(new List<int>(),
+            .Aggregate(new List<Guid>(),
                         (result, value) =>
                         {
-                            if (int.TryParse(value, out var item))
+                            if (Guid.TryParse(value, out var item))
                             {
                                 result.Add(item);
                             }

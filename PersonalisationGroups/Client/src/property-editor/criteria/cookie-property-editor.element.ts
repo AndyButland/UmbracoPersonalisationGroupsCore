@@ -3,6 +3,7 @@ import {
   customElement,
   property,
   state,
+  css,
 } from "@umbraco-cms/backoffice/external/lit";
 import type { UmbPropertyEditorUiElement } from "@umbraco-cms/backoffice/extension-registry";
 import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
@@ -121,7 +122,7 @@ export class CookieCriteriaPropertyUiElement extends UmbLitElement implements Um
       <p>Please enter the cookie settings:</p>
       <table>
         <tr>
-            <td><label for="Key">Key:</label></td>
+            <td class="label"><label for="Key">Key:</label></td>
             <td>
               <uui-input
                   id="Key"
@@ -132,7 +133,7 @@ export class CookieCriteriaPropertyUiElement extends UmbLitElement implements Um
             </td>
         </tr>
         <tr>
-          <td><label for="Match">Comparison:</label></td>
+          <td class="label"><label for="Match">Comparison:</label></td>
           <td>
               <uui-select
                   id="Match"
@@ -143,7 +144,7 @@ export class CookieCriteriaPropertyUiElement extends UmbLitElement implements Um
           </td>
         </tr>
         <tr>
-        <td><label for="Value">Value:</label></td>
+        <td class="label"><label for="Value">Value:</label></td>
         <td>
           <uui-input
               id="Value"
@@ -156,6 +157,16 @@ export class CookieCriteriaPropertyUiElement extends UmbLitElement implements Um
         </tr>
     </table>`;
   }
+
+  static styles = [
+    css`
+      td.label {
+        vertical-align: top;
+        padding-top: 4px;
+        padding-right: 4px;
+      }
+    `,
+  ];
 }
 
 export default CookieCriteriaPropertyUiElement;

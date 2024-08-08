@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Options;
 using Our.Umbraco.PersonalisationGroups.Configuration;
@@ -17,15 +18,15 @@ public class CookiePagesViewedProvider : IPagesViewedProvider
         _cookieProvider = cookieProvider;
     }
 
-    public IEnumerable<int> GetNodeIdsViewed()
+    public IEnumerable<Guid> GetNodeKeysViewed()
     {
         var cookieValue = _cookieProvider.GetCookieValue(_config.CookieKeyForTrackingPagesViewed);
 
         if (!string.IsNullOrEmpty(cookieValue))
         {
-            return cookieValue.ParsePageIds();
+            return cookieValue.ParsePageKeys();
         }
 
-        return Enumerable.Empty<int>();
+        return Enumerable.Empty<Guid>();
     }
 }

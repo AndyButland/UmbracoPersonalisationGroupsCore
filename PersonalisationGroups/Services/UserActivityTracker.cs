@@ -3,6 +3,7 @@ using Our.Umbraco.PersonalisationGroups.Configuration;
 using Our.Umbraco.PersonalisationGroups.Providers.Cookie;
 using Our.Umbraco.PersonalisationGroups.Providers.DateTime;
 using Our.Umbraco.PersonalisationGroups.Providers.PagesViewed;
+using System;
 
 namespace Our.Umbraco.PersonalisationGroups.Services;
 
@@ -19,33 +20,33 @@ public class UserActivityTracker : IUserActivityTracker
         _dateTimeProvider = dateTimeProvider;
     }
 
-    public void TrackPageView(int pageId)
+    public void TrackPageView(Guid pageKey)
     {
         var key = _config.CookieKeyForTrackingPagesViewed;
         var value = _cookieProvider.GetCookieValue(key);
         if (!string.IsNullOrEmpty(value))
         {
-            value = AppendPageIdIfNotPreviouslyViewed(value, pageId);
+            value = AppendPageIdIfNotPreviouslyViewed(value, pageKey);
         }
         else
         {
-            value = pageId.ToString();
+            value = pageKey.ToString();
         }
 
         var expires = _dateTimeProvider.GetCurrentDateTime().AddDays(_config.ViewedPagesTrackingCookieExpiryInDays);
         _cookieProvider.SetCookie(key, value, expires);
     }
 
-    internal static string AppendPageIdIfNotPreviouslyViewed(string viewedPageIds, int pageId)
+    internal static string AppendPageIdIfNotPreviouslyViewed(string viewedPageIds, Guid pageKey)
     {
-        var ids = viewedPageIds.ParsePageIds();
+        var keys = viewedPageIds.ParsePageKeys();
 
-        if (!ids.Contains(pageId))
+        if (!keys.Contains(pageKey))
         {
-            ids.Add(pageId);
+            keys.Add(pageKey);
         }
 
-        return string.Join(",", ids);
+        return string.Join(",", keys);
     }
 
     public void TrackSession()

@@ -50,7 +50,7 @@ export class AuthenticationStatusCriteriaPropertyUiElement extends UmbLitElement
           ?checked=${this._isAuthenticated}
           @change=${this.#toggleIsAuthenticated}
       ></uui-toggle>`;
-      }
+  }
 }
 
 export default AuthenticationStatusCriteriaPropertyUiElement;

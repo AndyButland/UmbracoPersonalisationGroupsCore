@@ -43,22 +43,22 @@ public class PagesViewedPersonalisationGroupCriteria : PersonalisationGroupCrite
             throw new ArgumentException($"Provided definition is not valid JSON: {definition}");
         }
 
-        var nodeIdsViewed = _pagesViewedProvider.GetNodeIdsViewed();
+        var nodeKeysViewed = _pagesViewedProvider.GetNodeKeysViewed();
 
         switch (pagesViewedSetting.Match)
         {
             case PagesViewedSettingMatch.ViewedAny:
-                return nodeIdsViewed
-                    .ContainsAny(pagesViewedSetting.NodeIds);
+                return nodeKeysViewed
+                    .ContainsAny(pagesViewedSetting.NodeKeys);
             case PagesViewedSettingMatch.ViewedAll:
-                return nodeIdsViewed
-                    .ContainsAll(pagesViewedSetting.NodeIds);
+                return nodeKeysViewed
+                    .ContainsAll(pagesViewedSetting.NodeKeys);
             case PagesViewedSettingMatch.NotViewedAny:
-                return !nodeIdsViewed
-                    .ContainsAny(pagesViewedSetting.NodeIds);
+                return !nodeKeysViewed
+                    .ContainsAny(pagesViewedSetting.NodeKeys);
             case PagesViewedSettingMatch.NotViewedAll:
-                return !nodeIdsViewed
-                    .ContainsAll(pagesViewedSetting.NodeIds);
+                return !nodeKeysViewed
+                    .ContainsAll(pagesViewedSetting.NodeKeys);
             default:
                 return false;
         }

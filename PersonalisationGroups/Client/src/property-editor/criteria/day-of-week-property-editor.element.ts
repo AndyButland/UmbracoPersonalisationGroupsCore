@@ -3,6 +3,7 @@ import {
   customElement,
   property,
   state,
+  css,
 } from "@umbraco-cms/backoffice/external/lit";
 import type { UmbPropertyEditorUiElement } from "@umbraco-cms/backoffice/extension-registry";
 import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
@@ -77,6 +78,16 @@ export class DayOfWeekCriteriaPropertyUiElement extends UmbLitElement implements
             </tr>`)}
       </table>`;
   }
+
+  static styles = [
+    css`
+      td.label {
+        vertical-align: top;
+        padding-top: 4px;
+        padding-right: 4px;
+      }
+    `,
+  ];
 }
 
 export default DayOfWeekCriteriaPropertyUiElement;
