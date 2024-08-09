@@ -1,87 +1,95 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <umbPackage>
-  <info>
-    <package>
-      <name>Personalisation Groups</name>
-    </package>
-  </info>
-  <Documents>
-    <DocumentSet importMode="root">
-      <personalisationGroupsFolder id="1060" key="bdde6a23-2e72-41dc-9941-e921e6be4a6f" parentID="-1" level="1" creatorID="-1" sortOrder="0" createDate="2021-03-26T15:06:16" updateDate="2021-03-26T21:10:04" nodeName="Personalisation Groups" urlName="personalisation-groups" path="-1,1060" isDoc="" nodeType="1059" nodeTypeAlias="personalisationGroupsFolder" creatorName="Andy Butland" writerName="Andy Butland" writerID="-1" template="" isPublished="true" />
-    </DocumentSet>
-  </Documents>
-  <DocumentTypes>
-    <DocumentType>
-      <Info>
-        <Name>Personalisation Group</Name>
-        <Alias>personalisationGroup</Alias>
-        <Key>a960545f-a794-412d-996a-8f9a7da522c4</Key>
-        <Icon>icon-operator color-green</Icon>
-        <Thumbnail>folder.png</Thumbnail>
-        <Description />
-        <AllowAtRoot>False</AllowAtRoot>
-        <IsListView>False</IsListView>
-        <IsElement>False</IsElement>
-        <Variations>Nothing</Variations>
-        <Compositions />
-        <AllowedTemplates />
-        <DefaultTemplate></DefaultTemplate>
-      </Info>
-      <Structure />
-      <GenericProperties>
-        <GenericProperty>
-          <Name>Group definition</Name>
-          <Alias>definition</Alias>
-          <Key>167df64e-ad8a-4af1-b0c6-a39dfe21820d</Key>
-          <Type>PersonalisationGroups.GroupDefinition</Type>
-          <Definition>56f6775d-e85f-4863-819d-fbf890bc6666</Definition>
-          <Tab>Settings</Tab>
-          <SortOrder>0</SortOrder>
-          <Mandatory>False</Mandatory>
-          <LabelOnTop>False</LabelOnTop>
-          <Variations>Nothing</Variations>
-        </GenericProperty>
-      </GenericProperties>
-      <Tabs>
-        <Tab>
-          <Id>14</Id>
-          <Caption>Settings</Caption>
-          <SortOrder>0</SortOrder>
-        </Tab>
-      </Tabs>
-    </DocumentType>
-    <DocumentType>
-      <Info>
-        <Name>Personalisation Groups Folder</Name>
-        <Alias>personalisationGroupsFolder</Alias>
-        <Key>46b8efcf-a31d-43bf-b5b6-bea0e42bed41</Key>
-        <Icon>icon-folder color-green</Icon>
-        <Thumbnail>folder.png</Thumbnail>
-        <Description />
-        <AllowAtRoot>True</AllowAtRoot>
-        <IsListView>False</IsListView>
-        <IsElement>False</IsElement>
-        <Variations>Nothing</Variations>
-        <Compositions />
-        <AllowedTemplates />
-        <DefaultTemplate></DefaultTemplate>
-      </Info>
-      <Structure>
-        <DocumentType>personalisationGroup</DocumentType>
-      </Structure>
-      <GenericProperties />
-      <Tabs />
-    </DocumentType>
-  </DocumentTypes>
-  <MediaTypes />
-  <Templates />
-  <Stylesheets />
-  <Macros />
-  <DictionaryItems />
-  <Languages />
-  <DataTypes>
-    <DataType Name="Personalisation Group Definition" Id="PersonalisationGroups.PropertyEditorUi.GroupDefinition" Definition="56f6775d-e85f-4863-819d-fbf890bc6666" DatabaseType="Ntext" Configuration="{}" />
-    <DataType Name="Personalisation Group Picker" Id="Umbraco.MultiNodeTreePicker" Definition="ad3f26f7-cbad-4c79-9177-2a1102c6f6e1" DatabaseType="Ntext" Configuration="{&quot;startNode&quot;:{&quot;type&quot;:&quot;content&quot;,&quot;query&quot;:null,&quot;id&quot;:&quot;umb://document/bdde6a232e7241dc9941e921e6be4a6f&quot;},&quot;filter&quot;:&quot;personalisationGroup&quot;,&quot;minNumber&quot;:0,&quot;maxNumber&quot;:0,&quot;showOpenButton&quot;:false,&quot;ignoreUserStartNodes&quot;:false}" />
-  </DataTypes>
-  <MediaItems />
+	<info>
+		<package>
+			<name>Personalisation Groups</name>
+		</package>
+	</info>
+	<Documents>
+		<DocumentSet importMode="root">
+			<personalisationGroupsFolder id="1059" key="bdde6a23-2e72-41dc-9941-e921e6be4a6f" parentID="-1" level="1" creatorID="-1" sortOrder="0" createDate="2024-08-09T12:08:49" updateDate="2024-08-09T12:29:59" nodeName="Personalisation Groups" urlName="personalisation-groups" path="-1,1059" isDoc="" nodeType="1058" nodeTypeAlias="personalisationGroupsFolder" creatorName="Andy Butland" writerName="Andy Butland" writerID="-1" template="" isPublished="true" />
+		</DocumentSet>
+	</Documents>
+	<DocumentTypes>
+		<DocumentType>
+			<Info>
+				<Name>Personalisation Group</Name>
+				<Alias>personalisationGroup</Alias>
+				<Key>a960545f-a794-412d-996a-8f9a7da522c4</Key>
+				<Icon>icon-operator color-green</Icon>
+				<Thumbnail>folder.png</Thumbnail>
+				<Description />
+				<AllowAtRoot>False</AllowAtRoot>
+				<ListView></ListView>
+				<IsElement>False</IsElement>
+				<Variations>Nothing</Variations>
+				<Compositions />
+				<AllowedTemplates />
+				<DefaultTemplate></DefaultTemplate>
+			</Info>
+			<Structure />
+			<GenericProperties>
+				<GenericProperty>
+					<Name>Group definition</Name>
+					<Alias>definition</Alias>
+					<Key>167df64e-ad8a-4af1-b0c6-a39dfe21820d</Key>
+					<Type>PersonalisationGroups.GroupDefinition</Type>
+					<Definition>56f6775d-e85f-4863-819d-fbf890bc6666</Definition>
+					<Tab Alias="settings">Settings</Tab>
+					<SortOrder>0</SortOrder>
+					<Mandatory>False</Mandatory>
+					<LabelOnTop>False</LabelOnTop>
+					<MandatoryMessage></MandatoryMessage>
+					<ValidationRegExpMessage></ValidationRegExpMessage>
+					<Variations>Nothing</Variations>
+				</GenericProperty>
+			</GenericProperties>
+			<Tabs>
+				<Tab>
+					<Id>56</Id>
+					<Key>7b144c1c-7609-4d50-83a7-faa8e4decc34</Key>
+					<Type>Group</Type>
+					<Caption>Settings</Caption>
+					<Alias>settings</Alias>
+					<SortOrder>0</SortOrder>
+				</Tab>
+			</Tabs>
+			<HistoryCleanupPolicy preventCleanup="false" />
+		</DocumentType>
+		<DocumentType>
+			<Info>
+				<Name>Personalisation Groups Folder</Name>
+				<Alias>personalisationGroupsFolder</Alias>
+				<Key>46b8efcf-a31d-43bf-b5b6-bea0e42bed41</Key>
+				<Icon>icon-folder color-green</Icon>
+				<Thumbnail>folder.png</Thumbnail>
+				<Description />
+				<AllowAtRoot>True</AllowAtRoot>
+				<ListView></ListView>
+				<IsElement>False</IsElement>
+				<Variations>Nothing</Variations>
+				<Compositions />
+				<AllowedTemplates />
+				<DefaultTemplate></DefaultTemplate>
+			</Info>
+			<Structure>
+				<DocumentType>personalisationGroup</DocumentType>
+			</Structure>
+			<GenericProperties />
+			<Tabs />
+			<HistoryCleanupPolicy preventCleanup="false" />
+		</DocumentType>
+	</DocumentTypes>
+	<MediaTypes />
+	<Templates />
+	<Stylesheets />
+	<Scripts />
+	<PartialViews />
+	<DictionaryItems />
+	<Languages />
+	<DataTypes>
+		<DataType Name="Personalisation Group Definition" Id="PersonalisationGroups.GroupDefinition" EditorUiAlias="PersonalisationGroups.PropertyEditorUi.GroupDefinition" Definition="56f6775d-e85f-4863-819d-fbf890bc6666" DatabaseType="Ntext" Configuration="{}" />
+		<DataType Name="Personalisation Group Picker" Id="Umbraco.MultiNodeTreePicker" EditorUiAlias="Umb.PropertyEditorUi.ContentPicker" Definition="ad3f26f7-cbad-4c79-9177-2a1102c6f6e1" DatabaseType="Ntext" Configuration="{&quot;startNode&quot;:{&quot;type&quot;:&quot;content&quot;,&quot;query&quot;:null,&quot;dynamicRoot&quot;:{&quot;originAlias&quot;:&quot;ByKey&quot;,&quot;originKey&quot;:&quot;bdde6a23-2e72-41dc-9941-e921e6be4a6f&quot;,&quot;querySteps&quot;:[]},&quot;id&quot;:&quot;bdde6a23-2e72-41dc-9941-e921e6be4a6f&quot;},&quot;minNumber&quot;:0,&quot;maxNumber&quot;:0,&quot;ignoreUserStartNodes&quot;:false}" />
+	</DataTypes>
+	<MediaItems />
 </umbPackage>
