@@ -82,6 +82,26 @@ Once installed, the default Umbraco `StartUp.cs` class should be augmented with 
 
 The package includes a migration that will create the necessary document types, data types and root content nodes.
 
+### Upgrades
+
+To upgrade update the reference to the version of the NuGet package in your `.csproj` file and rebuild.
+
+#### Version specific upgrade notes
+
+Upgrading an Umbraco database that used the package with Umbraco 13 or below to Umbraco 14 will carry over your groups and definitions. Please note though breaking changes listed at the bottom of this document for version 4 of the package.
+
+Once the database is upgraded you will need to carry out these two one-off actions:
+
+- Navigate to _Settings > Data Types_ and find "Personalisation Group Definition"
+- Note that the property editor will be defined as "personalisationGroupDefinition | Umbraco.Label"
+- Click "Change" and select the editor "Personalisation Group Definition Editor"
+- Save the data type
+
+Not essential, but you will likely also find the "Personalisation Groups Folder" content node is missing an icon.  To fix:
+
+- Navigate to _Settings > Document Types_ and find "Personalisation Groups Folder"
+- Select an icon (`icon-folder` in green is the standard provided with a clean install)
+
 ### Example usage
 
  - Within the "Content" section, confirm or create a root node of type **Personalisation Groups Folder**, called **Personalisation Groups**
