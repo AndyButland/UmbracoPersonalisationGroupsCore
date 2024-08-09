@@ -455,3 +455,8 @@ See [here](https://github.com/AndyButland/UmbracoPersonalisationGroups#version-h
     - Used the secure option for all cookies.
 - 4.0.0-rc1
     - Package updated to work with Umbraco 14.
+
+> [!WARNING]
+> The 4.0.0. release running on Umbraco 14 contains various breaking changes at the code levelrelated to the backoffice update, the move to a single project using an RCL, and the migration of controllers into a management API.
+> From a data perspective please note:
+> - The "pages viewed" criteria now uses GUID keys rather than integer IDs.
