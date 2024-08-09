@@ -40,7 +40,7 @@ It contains a few different pieces:
 Installation is via NuGet:
 
 ```
-    PM> Install-Package UmbracoPersonalisationGroups
+PM> Install-Package UmbracoPersonalisationGroups
 ```
 
 Once installed, the default Umbraco `StartUp.cs` class should be augmented with additional extension methods for registering the package: `AddPersonalisationGroups` and `UsePersonalisationGroupsEndpoints`.  When complete, it should look like this:
@@ -77,7 +77,10 @@ Once installed, the default Umbraco `StartUp.cs` class should be augmented with 
     }
 ```
 
-The package includes a migration that will create the necesssary document types, data types and root content nodes.
+> [!NOTE]
+> For Umbraco 14, the addition of `u.UsePersonalisationGroupsEndpoints();` is not required.
+
+The package includes a migration that will create the necessary document types, data types and root content nodes.
 
 ### Example usage
 
@@ -197,7 +200,7 @@ The keys for this cookie and session can be amended in configuration if required
 
 No configuration is required if you are happy to accept the default behaviour of the package.
 
-Optioanl keys and values can be added to your `appSettings.json` if required to amend this, within _Umbraco:PersonalisationGroups_, e.g.:
+Optional keys and values can be added to your `appSettings.json` if required to amend this, within _Umbraco:PersonalisationGroups_, e.g.:
 
 ```
   "Umbraco": {
@@ -214,8 +217,8 @@ The following configuration is available:
 - `GeoLocationCountryDatabasePath` - amends the convention path for where the IP-country geolocation database can be found. See the "Country and region" section below for more details.
 - `GeoLocationCityDatabasePath` - amends the convention path for where the IP-city geolocation database can be found. See the "Country and region" section below for more details.
 - `GeoLocationRegionListPath` - if provided, the file referenced will be used to construct the list of regions for selection. See the "Country and region" section below for more details.
-- `IncludeCriteria` - provides the specific list of criteria to make available for creating personsaliation groups.
-- `ExcludeCriteria` - provides a list of criteria to exclude from the full list of available criteria made available for creating personsaliation groups.
+- `IncludeCriteria` - provides the specific list of criteria to make available for creating personalisation groups.
+- `ExcludeCriteria` - provides a list of criteria to exclude from the full list of available criteria made available for creating personalisation groups.
 - `NumberOfVisitsTrackingCookieExpiryInDays` - sets the expiry time for the cookie used for number of visits page tracking for the pages viewed criteria (default if not provided is 90).
 - `ViewedPagesTrackingCookieExpiryInDays` - sets the expiry time for the cookie used for viewed page tracking for the pages viewed criteria (default if not provided is 90).
 - `CookieKeyForTrackingNumberOfVisits` - defines the cookie key name used for tracking the number of visits.
@@ -260,13 +263,23 @@ It then makes these criteria available to application logic that needs to create
 
 `PersonalisationGroupDefinitionPropertyEditor` defines an Umbraco property editor for the definition of the personalisation groups.  It has a related angular view and controller, and also ensures the angular assets required for the specific criteria that are provided with the core package are loaded and available for use.
 
-### Angular views and controllers
+### Front-end components
+
+#### Umbraco 9 to 13: AngularJs views and controllers
 
 The primary view and controller for the property editor are `editor.html` and `editor.controller.js` respectively.
 
 In addition to these, each criteria has it's own view and controller that provide a user friendly means of configuring the definitions, named `definition.editor.html` and `definition.editor.controller.js` which are loaded via a call to the Umbraco dialogService.  All are provided as embedded resources.
 
 Each criteria also has an angular service named `definition.translator.js` responsible for translating the JSON syntax into something more human readable.  So again for example the `DayOfWeekPersonalisationGroupCriteria` will render "Sunday, Tuesday, Thursday" from `[1, 3, 5]`.
+
+#### Umbraco 14+: Web components
+
+With the version created for Umbraco 14 the angularjs views and controllers have been moved into web components.
+
+The editors for each criteria are implemented as Umbraco property editors.
+
+The translators a provided as implementations of a custom manifest type introduced by the package, `ManifestPersonalisationGroupDefinitionDetailTranslator`.
 
 ### PublishedContentExtensions / PublishedElementExtensions
 
@@ -304,7 +317,9 @@ If you don't want this cookie to be written, you can remove this criteria from t
 
 ## How to extend it
 
-The idea moving forward is that not every criteria will necessarily be provided by the core package - it should be extensible by developers looking to implement something that might be quite specific to their application.  This should be mostly straightforward.  Due to the fact that the criteria that are made available come from a scan of all loaded assemblies, it should only be necessary to provide a dll with an implementation of `IPersonalisationGroupCriteria` and a unique `Alias` property, along with the definition editor angular view, controller and translation service - `definition.editor.html`, `definition.editor.controller.js` and `definition.definition.translator.js` respectively.
+The idea moving forward is that not every criteria will necessarily be provided by the core package - it should be extensible by developers looking to implement something that might be quite specific to their application.  Due to the fact that the criteria that are made available come from a scan of all loaded assemblies, it should only be necessary to provide a dll with an implementation of `IPersonalisationGroupCriteria` and a unique `Alias` property, along with the appropriate front-end components.
+
+For versions up to and include Umbraco 13, these are the definition editor angular view, controller and translation service - `definition.editor.html`, `definition.editor.controller.js` and `definition.definition.translator.js` respectively.
 
 As with other Umbraco packages, you'll also need to create a `package.manifest` file listing out the additional JavaScript files you need, e.g.:
 
@@ -317,13 +332,19 @@ As with other Umbraco packages, you'll also need to create a `package.manifest` 
 }
 ```
 
-As well as the interface, there's a helper base class `PersonalisationGroupCriteriaBase` that you can inherit from that provides some useful methods for matching values and regular expressions.  This isn't required though for the criteria to be recognised and used.
+For Umbraco 14 and above you will need to register two components using the manifest system. One, a property editor, for the interface for editing your criteria. And second, an implementation of the TypeScript interface `PersonalisationGroupDefinitionDetailTranslatorApi`, registered via the custom manifest type `ManifestPersonalisationGroupDefinitionDetailTranslator.
 
-The C# files can sit anywhere of course.
+As well as the `IPersonalisationGroupCriteria` interface, there's a helper base class `PersonalisationGroupCriteriaBase` that you can inherit from that provides some useful methods for matching values and regular expressions.  This isn't required though for the criteria to be recognised and used.
 
-Prior to 3.1, the client-side files had to live in `App_Plugins/PersonalisationGroups/Criteria/<criteriaAlias>`, and the manifest file in `App_Plugins/PersonalisationGroups/`.  This [caused issues](https://github.com/AndyButland/UmbracoPersonalisationGroupsCore/issues/2) with custom criteria though, as they would be removed on each build.
+Prior to 3.1, when running Umbraco 13 or lower, the client-side files had to live in `App_Plugins/PersonalisationGroups/Criteria/<criteriaAlias>`, and the manifest file in `App_Plugins/PersonalisationGroups/`.  This [caused issues](https://github.com/AndyButland/UmbracoPersonalisationGroupsCore/issues/2) with custom criteria though, as they would be removed on each build.
 
 To resolve that, `IPersonalisationGroupCriteria` has a property called `ClientAssetsFolder` that can be set to provide a custom location for the files.  For example, rather than `PersonalisationGroups/Criteria`, you can set it to `MyCustomFolder/Criteria`, and store your client-side asset files in `App_Plugins/MyCustomFolder/Criteria`.
+
+The source code is the best place to look for details of the specific syntax and implementation you will need to provide for your custom criteria.
+
+Examples for Umbraco 9 to 13 are found in the `support/3` branch.
+
+And for Umbraco 14 in `develop`.
 
 ## Working with caching
 
@@ -405,3 +426,5 @@ See [here](https://github.com/AndyButland/UmbracoPersonalisationGroups#version-h
     - Surfaced the method `CountMatchingDefinitionDetails`, available in an earlier version of the package, via the `IGroupMatchingService` interface.
 - 3.4.0
     - Used the secure option for all cookies.
+- 4.0.0-rc1
+    - Package updated to work with Umbraco 14.
