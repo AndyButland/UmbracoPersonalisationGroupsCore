@@ -384,6 +384,33 @@ To do this you can exclude such critieria by alias via configuration, the two pr
 
 If you needed to personalise by these criteria - number of pages viewed and/or number of visits - it would be necessary to implement an alternate criteria that uses a different storage mechanism (such as a custom table or hooked into an analytics engine).
 
+## Management API (for Umbraco 14+)
+
+Following patterns established for Umbraco CMS itself and other packages, the data needed in backoffice is provided by a management API.
+
+This can be found at `/umbraco/swagger/index.html?urls.primaryName=Personalisation+Groups+Management+API`
+
+## Package development (for Umbraco 14+)
+
+To build and run (assuming a test site in the solution root):
+
+```
+cd TestWebapp.V14\
+dotnet run
+```
+
+```
+cd PersonalisationGroups\Client
+npm i
+npm run build
+```
+
+If management API changes are made, in order to generate updated typed front-end services and types:
+
+```
+npm run generate:api
+```
+
 ## Version history
 
 See [here](https://github.com/AndyButland/UmbracoPersonalisationGroups#version-history) for history of the package supporting Umbraco V7 and V8.
