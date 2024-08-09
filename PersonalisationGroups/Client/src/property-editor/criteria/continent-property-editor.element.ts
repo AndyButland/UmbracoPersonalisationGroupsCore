@@ -145,7 +145,7 @@ export class ContinentCriteriaPropertyUiElement extends UmbLitElement implements
 
   render() {
     return html`
-      <p>Please enter the host settings:</p>
+      <p>Please enter the continent settings:</p>
       <table>
         <tr>
           <td class="label"><label for="Match">Comparison:</label></td>

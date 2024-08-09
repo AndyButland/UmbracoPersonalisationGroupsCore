@@ -31,7 +31,7 @@ export class RegionDefinitionDetailTranslator implements PersonalisationGroupDef
                 translation += selectedRegionDetails.names[i];
             }
 
-            translation += ", " + selectedRegionDetails.countryName;
+            translation += " (" + selectedRegionDetails.countryCode + ")";
         }
     }
 

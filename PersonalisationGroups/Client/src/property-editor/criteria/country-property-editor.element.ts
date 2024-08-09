@@ -145,7 +145,7 @@ export class CountryCriteriaPropertyUiElement extends UmbLitElement implements U
 
   render() {
     return html`
-      <p>Please enter the host settings:</p>
+      <p>Please enter the country settings:</p>
       <table>
         <tr>
           <td class="label"><label for="Match">Comparison:</label></td>
