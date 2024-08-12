@@ -1,5 +1,5 @@
 {
-  "id": "Our.Umbraco.PersonalisationGroups",
+  "id": "UmbracoPersonalisationGroups",
   "name": "Personalisation Groups",
   "version": "4.0.0-rc1",
   "extensions": [

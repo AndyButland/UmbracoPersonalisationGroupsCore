@@ -43,11 +43,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="images\" />
-		<Folder Include="Client\" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
 			<_Parameter1>Our.Umbraco.PersonalisationGroups.Tests</_Parameter1>
 		</AssemblyAttribute>
