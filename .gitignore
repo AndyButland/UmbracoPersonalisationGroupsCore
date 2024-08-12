@@ -197,10 +197,11 @@ ExamineIndexes/
 */media/created-packages/
 
 # Solution
-TestWebApp.V9/
-TestWebApp.V10/
-TestWebApp.V11/
-TestWebApp.V12/
-TestWebApp.V13/
+TestWebApp.V14/
+
+PersonalisationGroups.Tests/*schema*.json
 
 deploy.ps1
+
+PersonalisationGroups/wwwroot/*.js
+PersonalisationGroups/wwwroot/*.map

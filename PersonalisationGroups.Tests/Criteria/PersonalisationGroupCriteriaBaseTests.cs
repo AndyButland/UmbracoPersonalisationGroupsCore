@@ -1,155 +1,154 @@
 ﻿using NUnit.Framework;
-using Our.Umbraco.PersonalisationGroups.Core;
-using Our.Umbraco.PersonalisationGroups.Core.Criteria;
+using Our.Umbraco.PersonalisationGroups;
+using Our.Umbraco.PersonalisationGroups.Criteria;
 
-namespace Our.Umbraco.PersonalisationGroups.Tests.Criteria
+namespace Our.Umbraco.PersonalisationGroups.Tests.Criteria;
+
+[TestFixture]
+public class PersonalisationGroupCriteriaBaseTests
 {
-    [TestFixture]
-    public class PersonalisationGroupCriteriaBaseTests
+    private StubPersonalisationGroupCriteria _criteria = null!;
+
+    private class StubPersonalisationGroupCriteria : PersonalisationGroupCriteriaBase
     {
-        private StubPersonalisationGroupCriteria _criteria;
-
-        private class StubPersonalisationGroupCriteria : PersonalisationGroupCriteriaBase
+        public bool TestCompareValues(string value, string definitionValue, Comparison comparison)
         {
-            public bool TestCompareValues(string value, string definitionValue, Comparison comparison)
-            {
-                return CompareValues(value, definitionValue, comparison);
-            }
+            return CompareValues(value, definitionValue, comparison);
         }
+    }
 
-        [SetUp]
-        public void Initialize()
-        {
-            _criteria = new StubPersonalisationGroupCriteria();
-        }
+    [SetUp]
+    public void Initialize()
+    {
+        _criteria = new StubPersonalisationGroupCriteria();
+    }
 
-        [Test]
-        public void PersonalisationGroupCriteriaBase_TestCompareValues_DateComparisons_ReturnsCorrectValues()
-        {
-            // Arrange
-            const string value1 = "1-APR-2015";
-            const string value2 = "1-MAY-2015";
-            const string value3 = "1-JUN-2015";
+    [Test]
+    public void PersonalisationGroupCriteriaBase_TestCompareValues_DateComparisons_ReturnsCorrectValues()
+    {
+        // Arrange
+        const string value1 = "1-APR-2015";
+        const string value2 = "1-MAY-2015";
+        const string value3 = "1-JUN-2015";
 
-            // Act
-            var result = _criteria.TestCompareValues(value2, value1, Comparison.GreaterThan);
-            var result2 = _criteria.TestCompareValues(value2, value2, Comparison.GreaterThan);
-            var result3 = _criteria.TestCompareValues(value2, value3, Comparison.GreaterThan);
+        // Act
+        var result = _criteria.TestCompareValues(value2, value1, Comparison.GreaterThan);
+        var result2 = _criteria.TestCompareValues(value2, value2, Comparison.GreaterThan);
+        var result3 = _criteria.TestCompareValues(value2, value3, Comparison.GreaterThan);
 
-            var result4 = _criteria.TestCompareValues(value2, value1, Comparison.GreaterThanOrEqual);
-            var result5 = _criteria.TestCompareValues(value2, value2, Comparison.GreaterThanOrEqual);
-            var result6 = _criteria.TestCompareValues(value2, value3, Comparison.GreaterThanOrEqual);
+        var result4 = _criteria.TestCompareValues(value2, value1, Comparison.GreaterThanOrEqual);
+        var result5 = _criteria.TestCompareValues(value2, value2, Comparison.GreaterThanOrEqual);
+        var result6 = _criteria.TestCompareValues(value2, value3, Comparison.GreaterThanOrEqual);
 
-            var result7 = _criteria.TestCompareValues(value2, value1, Comparison.LessThan);
-            var result8 = _criteria.TestCompareValues(value2, value2, Comparison.LessThan);
-            var result9 = _criteria.TestCompareValues(value2, value3, Comparison.LessThan);
+        var result7 = _criteria.TestCompareValues(value2, value1, Comparison.LessThan);
+        var result8 = _criteria.TestCompareValues(value2, value2, Comparison.LessThan);
+        var result9 = _criteria.TestCompareValues(value2, value3, Comparison.LessThan);
 
-            var result10 = _criteria.TestCompareValues(value2, value1, Comparison.LessThanOrEqual);
-            var result11 = _criteria.TestCompareValues(value2, value2, Comparison.LessThanOrEqual);
-            var result12 = _criteria.TestCompareValues(value2, value3, Comparison.LessThanOrEqual);
+        var result10 = _criteria.TestCompareValues(value2, value1, Comparison.LessThanOrEqual);
+        var result11 = _criteria.TestCompareValues(value2, value2, Comparison.LessThanOrEqual);
+        var result12 = _criteria.TestCompareValues(value2, value3, Comparison.LessThanOrEqual);
 
-            // Assert
-            Assert.IsTrue(result);
-            Assert.IsFalse(result2);
-            Assert.IsFalse(result3);
+        // Assert
+        Assert.IsTrue(result);
+        Assert.IsFalse(result2);
+        Assert.IsFalse(result3);
 
-            Assert.IsTrue(result4);
-            Assert.IsTrue(result5);
-            Assert.IsFalse(result6);
+        Assert.IsTrue(result4);
+        Assert.IsTrue(result5);
+        Assert.IsFalse(result6);
 
-            Assert.IsFalse(result7);
-            Assert.IsFalse(result8);
-            Assert.IsTrue(result9);
+        Assert.IsFalse(result7);
+        Assert.IsFalse(result8);
+        Assert.IsTrue(result9);
 
-            Assert.IsFalse(result10);
-            Assert.IsTrue(result11);
-            Assert.IsTrue(result12);
-        }
+        Assert.IsFalse(result10);
+        Assert.IsTrue(result11);
+        Assert.IsTrue(result12);
+    }
 
-        [Test]
-        public void PersonalisationGroupCriteriaBase_TestCompareValues_NumericComparisons_ReturnsCorrectValues()
-        {
-            // Arrange
-            const string value1 = "1.1";
-            const string value2 = "2.2";
-            const string value3 = "3.3";
+    [Test]
+    public void PersonalisationGroupCriteriaBase_TestCompareValues_NumericComparisons_ReturnsCorrectValues()
+    {
+        // Arrange
+        const string value1 = "1.1";
+        const string value2 = "2.2";
+        const string value3 = "3.3";
 
-            // Act
-            var result = _criteria.TestCompareValues(value2, value1, Comparison.GreaterThan);
-            var result2 = _criteria.TestCompareValues(value2, value2, Comparison.GreaterThan);
-            var result3 = _criteria.TestCompareValues(value2, value3, Comparison.GreaterThan);
+        // Act
+        var result = _criteria.TestCompareValues(value2, value1, Comparison.GreaterThan);
+        var result2 = _criteria.TestCompareValues(value2, value2, Comparison.GreaterThan);
+        var result3 = _criteria.TestCompareValues(value2, value3, Comparison.GreaterThan);
 
-            var result4 = _criteria.TestCompareValues(value2, value1, Comparison.GreaterThanOrEqual);
-            var result5 = _criteria.TestCompareValues(value2, value2, Comparison.GreaterThanOrEqual);
-            var result6 = _criteria.TestCompareValues(value2, value3, Comparison.GreaterThanOrEqual);
+        var result4 = _criteria.TestCompareValues(value2, value1, Comparison.GreaterThanOrEqual);
+        var result5 = _criteria.TestCompareValues(value2, value2, Comparison.GreaterThanOrEqual);
+        var result6 = _criteria.TestCompareValues(value2, value3, Comparison.GreaterThanOrEqual);
 
-            var result7 = _criteria.TestCompareValues(value2, value1, Comparison.LessThan);
-            var result8 = _criteria.TestCompareValues(value2, value2, Comparison.LessThan);
-            var result9 = _criteria.TestCompareValues(value2, value3, Comparison.LessThan);
+        var result7 = _criteria.TestCompareValues(value2, value1, Comparison.LessThan);
+        var result8 = _criteria.TestCompareValues(value2, value2, Comparison.LessThan);
+        var result9 = _criteria.TestCompareValues(value2, value3, Comparison.LessThan);
 
-            var result10 = _criteria.TestCompareValues(value2, value1, Comparison.LessThanOrEqual);
-            var result11 = _criteria.TestCompareValues(value2, value2, Comparison.LessThanOrEqual);
-            var result12 = _criteria.TestCompareValues(value2, value3, Comparison.LessThanOrEqual);
+        var result10 = _criteria.TestCompareValues(value2, value1, Comparison.LessThanOrEqual);
+        var result11 = _criteria.TestCompareValues(value2, value2, Comparison.LessThanOrEqual);
+        var result12 = _criteria.TestCompareValues(value2, value3, Comparison.LessThanOrEqual);
 
-            // Assert
-            Assert.IsTrue(result);
-            Assert.IsFalse(result2);
-            Assert.IsFalse(result3);
+        // Assert
+        Assert.IsTrue(result);
+        Assert.IsFalse(result2);
+        Assert.IsFalse(result3);
 
-            Assert.IsTrue(result4);
-            Assert.IsTrue(result5);
-            Assert.IsFalse(result6);
+        Assert.IsTrue(result4);
+        Assert.IsTrue(result5);
+        Assert.IsFalse(result6);
 
-            Assert.IsFalse(result7);
-            Assert.IsFalse(result8);
-            Assert.IsTrue(result9);
+        Assert.IsFalse(result7);
+        Assert.IsFalse(result8);
+        Assert.IsTrue(result9);
 
-            Assert.IsFalse(result10);
-            Assert.IsTrue(result11);
-            Assert.IsTrue(result12);
-        }
+        Assert.IsFalse(result10);
+        Assert.IsTrue(result11);
+        Assert.IsTrue(result12);
+    }
 
-        [Test]
-        public void PersonalisationGroupCriteriaBase_TestCompareValues_StringComparisons_ReturnsCorrectValues()
-        {
-            // Arrange
-            const string value1 = "a";
-            const string value2 = "b";
-            const string value3 = "c";
+    [Test]
+    public void PersonalisationGroupCriteriaBase_TestCompareValues_StringComparisons_ReturnsCorrectValues()
+    {
+        // Arrange
+        const string value1 = "a";
+        const string value2 = "b";
+        const string value3 = "c";
 
-            // Act
-            var result = _criteria.TestCompareValues(value2, value1, Comparison.GreaterThan);
-            var result2 = _criteria.TestCompareValues(value2, value2, Comparison.GreaterThan);
-            var result3 = _criteria.TestCompareValues(value2, value3, Comparison.GreaterThan);
+        // Act
+        var result = _criteria.TestCompareValues(value2, value1, Comparison.GreaterThan);
+        var result2 = _criteria.TestCompareValues(value2, value2, Comparison.GreaterThan);
+        var result3 = _criteria.TestCompareValues(value2, value3, Comparison.GreaterThan);
 
-            var result4 = _criteria.TestCompareValues(value2, value1, Comparison.GreaterThanOrEqual);
-            var result5 = _criteria.TestCompareValues(value2, value2, Comparison.GreaterThanOrEqual);
-            var result6 = _criteria.TestCompareValues(value2, value3, Comparison.GreaterThanOrEqual);
+        var result4 = _criteria.TestCompareValues(value2, value1, Comparison.GreaterThanOrEqual);
+        var result5 = _criteria.TestCompareValues(value2, value2, Comparison.GreaterThanOrEqual);
+        var result6 = _criteria.TestCompareValues(value2, value3, Comparison.GreaterThanOrEqual);
 
-            var result7 = _criteria.TestCompareValues(value2, value1, Comparison.LessThan);
-            var result8 = _criteria.TestCompareValues(value2, value2, Comparison.LessThan);
-            var result9 = _criteria.TestCompareValues(value2, value3, Comparison.LessThan);
+        var result7 = _criteria.TestCompareValues(value2, value1, Comparison.LessThan);
+        var result8 = _criteria.TestCompareValues(value2, value2, Comparison.LessThan);
+        var result9 = _criteria.TestCompareValues(value2, value3, Comparison.LessThan);
 
-            var result10 = _criteria.TestCompareValues(value2, value1, Comparison.LessThanOrEqual);
-            var result11 = _criteria.TestCompareValues(value2, value2, Comparison.LessThanOrEqual);
-            var result12 = _criteria.TestCompareValues(value2, value3, Comparison.LessThanOrEqual);
+        var result10 = _criteria.TestCompareValues(value2, value1, Comparison.LessThanOrEqual);
+        var result11 = _criteria.TestCompareValues(value2, value2, Comparison.LessThanOrEqual);
+        var result12 = _criteria.TestCompareValues(value2, value3, Comparison.LessThanOrEqual);
 
-            // Assert
-            Assert.IsTrue(result);
-            Assert.IsFalse(result2);
-            Assert.IsFalse(result3);
+        // Assert
+        Assert.IsTrue(result);
+        Assert.IsFalse(result2);
+        Assert.IsFalse(result3);
 
-            Assert.IsTrue(result4);
-            Assert.IsTrue(result5);
-            Assert.IsFalse(result6);
+        Assert.IsTrue(result4);
+        Assert.IsTrue(result5);
+        Assert.IsFalse(result6);
 
-            Assert.IsFalse(result7);
-            Assert.IsFalse(result8);
-            Assert.IsTrue(result9);
+        Assert.IsFalse(result7);
+        Assert.IsFalse(result8);
+        Assert.IsTrue(result9);
 
-            Assert.IsFalse(result10);
-            Assert.IsTrue(result11);
-            Assert.IsTrue(result12);
-        }
+        Assert.IsFalse(result10);
+        Assert.IsTrue(result11);
+        Assert.IsTrue(result12);
     }
 }

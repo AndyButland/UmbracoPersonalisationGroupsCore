@@ -1,0 +1,13 @@
+{
+  "id": "UmbracoPersonalisationGroups",
+  "name": "Personalisation Groups",
+  "version": "4.0.0-rc1",
+  "extensions": [
+    {
+      "name": "Umbraco EntryPoint",
+      "alias": "PersonalisationGroups.EntryPoint",
+      "type": "entryPoint",
+      "js": "/App_Plugins/PersonalisationGroups/personalisation-groups.js"
+    }
+  ]
+}

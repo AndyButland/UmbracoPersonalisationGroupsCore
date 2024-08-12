@@ -1,166 +1,165 @@
-﻿namespace Our.Umbraco.PersonalisationGroups.Tests.Criteria.Host
+﻿namespace Our.Umbraco.PersonalisationGroups.Tests.Criteria.Host;
+
+using System;
+using NUnit.Framework;
+using Moq;
+using Our.Umbraco.PersonalisationGroups.Criteria.Host;
+using Our.Umbraco.PersonalisationGroups.Providers.Host;
+
+[TestFixture]
+public class HostPersonalisationGroupCriteriaTests
 {
-    using System;
-    using NUnit.Framework;
-    using Moq;
-    using Our.Umbraco.PersonalisationGroups.Core.Criteria.Host;
-    using Our.Umbraco.PersonalisationGroups.Core.Providers.Host;
+    private const string DefinitionFormat = "{{ \"value\": \"{0}\", \"match\": \"{1}\" }}";
 
-    [TestFixture]
-    public class HostPersonalisationGroupCriteriaTests
+    [Test]
+    public void HostPersonalisationGroupCriteria_MatchesVisitor_WithEmptyDefinition_ThrowsException()
     {
-        private const string DefinitionFormat = "{{ \"value\": \"{0}\", \"match\": \"{1}\" }}";
+        // Arrange
+        var mockHostProvider = MockHostProvider();
+        var criteria = new HostPersonalisationGroupCriteria(mockHostProvider.Object);
 
-        [Test]
-        public void HostPersonalisationGroupCriteria_MatchesVisitor_WithEmptyDefinition_ThrowsException()
-        {
-            // Arrange
-            var mockHostProvider = MockHostProvider();
-            var criteria = new HostPersonalisationGroupCriteria(mockHostProvider.Object);
+        // Act
+        Assert.Throws<ArgumentNullException>(() => criteria.MatchesVisitor(string.Empty));
+    }
 
-            // Act
-            Assert.Throws<ArgumentNullException>(() => criteria.MatchesVisitor(null));
-        }
+    [Test]
+    public void HostPersonalisationGroupCriteria_MatchesVisitor_WithInvalidDefinition_ThrowsException()
+    {
+        // Arrange
+        var mockHostProvider = MockHostProvider();
+        var criteria = new HostPersonalisationGroupCriteria(mockHostProvider.Object);
+        var definition = "invalid";
 
-        [Test]
-        public void HostPersonalisationGroupCriteria_MatchesVisitor_WithInvalidDefinition_ThrowsException()
-        {
-            // Arrange
-            var mockHostProvider = MockHostProvider();
-            var criteria = new HostPersonalisationGroupCriteria(mockHostProvider.Object);
-            var definition = "invalid";
+        // Act
+        Assert.Throws<ArgumentException>(() => criteria.MatchesVisitor(definition));
+    }
 
-            // Act
-            Assert.Throws<ArgumentException>(() => criteria.MatchesVisitor(definition));
-        }
+    [Test]
+    public void HostPersonalisationGroupCriteria_MatchesVisitor_WithDefinitionForHostMatches_WithMatchingValue_ReturnsTrue()
+    {
+        // Arrange
+        var mockHostProvider = MockHostProvider();
+        var criteria = new HostPersonalisationGroupCriteria(mockHostProvider.Object);
+        var definition = string.Format(DefinitionFormat, "http://www.example.com/", "MatchesValue");
 
-        [Test]
-        public void HostPersonalisationGroupCriteria_MatchesVisitor_WithDefinitionForHostMatches_WithMatchingValue_ReturnsTrue()
-        {
-            // Arrange
-            var mockHostProvider = MockHostProvider();
-            var criteria = new HostPersonalisationGroupCriteria(mockHostProvider.Object);
-            var definition = string.Format(DefinitionFormat, "http://www.example.com/", "MatchesValue");
+        // Act
+        var result = criteria.MatchesVisitor(definition);
 
-            // Act
-            var result = criteria.MatchesVisitor(definition);
+        // Assert
+        Assert.IsTrue(result);
+    }
 
-            // Assert
-            Assert.IsTrue(result);
-        }
+    [Test]
+    public void HostPersonalisationGroupCriteria_MatchesVisitor_WithDefinitionForHostMatches_WithNonMatchingValue_ReturnsFalse()
+    {
+        // Arrange
+        var mockHostProvider = MockHostProvider();
+        var criteria = new HostPersonalisationGroupCriteria(mockHostProvider.Object);
+        var definition = string.Format(DefinitionFormat, "http://www.another-example.com/", "MatchesValue");
 
-        [Test]
-        public void HostPersonalisationGroupCriteria_MatchesVisitor_WithDefinitionForHostMatches_WithNonMatchingValue_ReturnsFalse()
-        {
-            // Arrange
-            var mockHostProvider = MockHostProvider();
-            var criteria = new HostPersonalisationGroupCriteria(mockHostProvider.Object);
-            var definition = string.Format(DefinitionFormat, "http://www.another-example.com/", "MatchesValue");
+        // Act
+        var result = criteria.MatchesVisitor(definition);
 
-            // Act
-            var result = criteria.MatchesVisitor(definition);
+        // Assert
+        Assert.IsFalse(result);
+    }
 
-            // Assert
-            Assert.IsFalse(result);
-        }
+    [Test]
+    public void HostPersonalisationGroupCriteria_MatchesVisitor_WithDefinitionForHostDoesNotMatch_WithNonMatchingValue_ReturnsTrue()
+    {
+        // Arrange
+        var mockHostProvider = MockHostProvider();
+        var criteria = new HostPersonalisationGroupCriteria(mockHostProvider.Object);
+        var definition = string.Format(DefinitionFormat, "http://www.another-example.com/", "DoesNotMatchValue");
 
-        [Test]
-        public void HostPersonalisationGroupCriteria_MatchesVisitor_WithDefinitionForHostDoesNotMatch_WithNonMatchingValue_ReturnsTrue()
-        {
-            // Arrange
-            var mockHostProvider = MockHostProvider();
-            var criteria = new HostPersonalisationGroupCriteria(mockHostProvider.Object);
-            var definition = string.Format(DefinitionFormat, "http://www.another-example.com/", "DoesNotMatchValue");
+        // Act
+        var result = criteria.MatchesVisitor(definition);
 
-            // Act
-            var result = criteria.MatchesVisitor(definition);
+        // Assert
+        Assert.IsTrue(result);
+    }
 
-            // Assert
-            Assert.IsTrue(result);
-        }
+    [Test]
+    public void HostPersonalisationGroupCriteria_MatchesVisitor_WithDefinitionForHostDoesNotMatch_WithMatchingValue_ReturnsFalse()
+    {
+        // Arrange
+        var mockHostProvider = MockHostProvider();
+        var criteria = new HostPersonalisationGroupCriteria(mockHostProvider.Object);
+        var definition = string.Format(DefinitionFormat, "http://www.example.com/", "DoesNotMatchValue");
 
-        [Test]
-        public void HostPersonalisationGroupCriteria_MatchesVisitor_WithDefinitionForHostDoesNotMatch_WithMatchingValue_ReturnsFalse()
-        {
-            // Arrange
-            var mockHostProvider = MockHostProvider();
-            var criteria = new HostPersonalisationGroupCriteria(mockHostProvider.Object);
-            var definition = string.Format(DefinitionFormat, "http://www.example.com/", "DoesNotMatchValue");
+        // Act
+        var result = criteria.MatchesVisitor(definition);
 
-            // Act
-            var result = criteria.MatchesVisitor(definition);
+        // Assert
+        Assert.IsFalse(result);
+    }
+    
+    [Test]
+    public void HostPersonalisationGroupCriteria_ContainsVisitor_WithDefinitionForHostContains_WithMatchingValue_ReturnsTrue()
+    {
+        // Arrange
+        var mockHostProvider = MockHostProvider();
+        var criteria = new HostPersonalisationGroupCriteria(mockHostProvider.Object);
+        var definition = string.Format(DefinitionFormat, "example", "ContainsValue");
 
-            // Assert
-            Assert.IsFalse(result);
-        }
-        
-        [Test]
-        public void HostPersonalisationGroupCriteria_ContainsVisitor_WithDefinitionForHostContains_WithMatchingValue_ReturnsTrue()
-        {
-            // Arrange
-            var mockHostProvider = MockHostProvider();
-            var criteria = new HostPersonalisationGroupCriteria(mockHostProvider.Object);
-            var definition = string.Format(DefinitionFormat, "example", "ContainsValue");
+        // Act
+        var result = criteria.MatchesVisitor(definition);
 
-            // Act
-            var result = criteria.MatchesVisitor(definition);
+        // Assert
+        Assert.IsTrue(result);
+    }
 
-            // Assert
-            Assert.IsTrue(result);
-        }
+    [Test]
+    public void HostPersonalisationGroupCriteria_ContainsVisitor_WithDefinitionForHostContains_WithNonMatchingValue_ReturnsFalse()
+    {
+        // Arrange
+        var mockHostProvider = MockHostProvider();
+        var criteria = new HostPersonalisationGroupCriteria(mockHostProvider.Object);
+        var definition = string.Format(DefinitionFormat, "another-example", "ContainsValue");
 
-        [Test]
-        public void HostPersonalisationGroupCriteria_ContainsVisitor_WithDefinitionForHostContains_WithNonMatchingValue_ReturnsFalse()
-        {
-            // Arrange
-            var mockHostProvider = MockHostProvider();
-            var criteria = new HostPersonalisationGroupCriteria(mockHostProvider.Object);
-            var definition = string.Format(DefinitionFormat, "another-example", "ContainsValue");
+        // Act
+        var result = criteria.MatchesVisitor(definition);
 
-            // Act
-            var result = criteria.MatchesVisitor(definition);
+        // Assert
+        Assert.IsFalse(result);
+    }
 
-            // Assert
-            Assert.IsFalse(result);
-        }
+    [Test]
+    public void HostPersonalisationGroupCriteria_ContainsVisitor_WithDefinitionForHostDoesNotMatch_WithNonMatchingValue_ReturnsTrue()
+    {
+        // Arrange
+        var mockHostProvider = MockHostProvider();
+        var criteria = new HostPersonalisationGroupCriteria(mockHostProvider.Object);
+        var definition = string.Format(DefinitionFormat, "another-example", "DoesNotContainValue");
 
-        [Test]
-        public void HostPersonalisationGroupCriteria_ContainsVisitor_WithDefinitionForHostDoesNotMatch_WithNonMatchingValue_ReturnsTrue()
-        {
-            // Arrange
-            var mockHostProvider = MockHostProvider();
-            var criteria = new HostPersonalisationGroupCriteria(mockHostProvider.Object);
-            var definition = string.Format(DefinitionFormat, "another-example", "DoesNotContainValue");
+        // Act
+        var result = criteria.MatchesVisitor(definition);
 
-            // Act
-            var result = criteria.MatchesVisitor(definition);
+        // Assert
+        Assert.IsTrue(result);
+    }
 
-            // Assert
-            Assert.IsTrue(result);
-        }
+    [Test]
+    public void HostPersonalisationGroupCriteria_ContainsVisitor_WithDefinitionForHostDoesNotMatch_WithMatchingValue_ReturnsFalse()
+    {
+        // Arrange
+        var mockHostProvider = MockHostProvider();
+        var criteria = new HostPersonalisationGroupCriteria(mockHostProvider.Object);
+        var definition = string.Format(DefinitionFormat, "example", "DoesNotContainValue");
 
-        [Test]
-        public void HostPersonalisationGroupCriteria_ContainsVisitor_WithDefinitionForHostDoesNotMatch_WithMatchingValue_ReturnsFalse()
-        {
-            // Arrange
-            var mockHostProvider = MockHostProvider();
-            var criteria = new HostPersonalisationGroupCriteria(mockHostProvider.Object);
-            var definition = string.Format(DefinitionFormat, "example", "DoesNotContainValue");
+        // Act
+        var result = criteria.MatchesVisitor(definition);
 
-            // Act
-            var result = criteria.MatchesVisitor(definition);
+        // Assert
+        Assert.IsFalse(result);
+    }
 
-            // Assert
-            Assert.IsFalse(result);
-        }
+    private static Mock<IHostProvider> MockHostProvider()
+    {
+        var mock = new Mock<IHostProvider>();
 
-        private static Mock<IHostProvider> MockHostProvider()
-        {
-            var mock = new Mock<IHostProvider>();
+        mock.Setup(x => x.GetHost()).Returns("http://www.example.com/");
 
-            mock.Setup(x => x.GetHost()).Returns("http://www.example.com/");
-
-            return mock;
-        }
+        return mock;
     }
 }
