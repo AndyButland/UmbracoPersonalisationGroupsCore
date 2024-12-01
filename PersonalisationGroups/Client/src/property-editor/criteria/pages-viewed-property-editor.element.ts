@@ -6,7 +6,7 @@ import {
   repeat,
   css,
 } from "@umbraco-cms/backoffice/external/lit";
-import type { UmbPropertyEditorUiElement } from "@umbraco-cms/backoffice/extension-registry";
+import { UmbPropertyEditorUiElement } from "@umbraco-cms/backoffice/property-editor";
 import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
 import { UUISelectEvent } from "@umbraco-cms/backoffice/external/uui";
 import { UmbDocumentItemModel, UmbDocumentItemRepository, UmbDocumentPickerContext } from "@umbraco-cms/backoffice/document";

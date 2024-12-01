@@ -4,7 +4,7 @@ import {
   property,
   state,
 } from "@umbraco-cms/backoffice/external/lit";
-import type { UmbPropertyEditorUiElement } from "@umbraco-cms/backoffice/extension-registry";
+import { UmbPropertyEditorUiElement } from "@umbraco-cms/backoffice/property-editor";
 import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
 
 const elementName = "personalisation-group-authentication-status-criteria-property-editor";

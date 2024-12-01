@@ -3,20 +3,16 @@
 	<PropertyGroup>
 		<AssemblyName>Our.Umbraco.PersonalisationGroups.Tests</AssemblyName>
 		<RootNamespace>Our.Umbraco.PersonalisationGroups.Tests</RootNamespace>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>net9.0</TargetFramework>
 		<IsPackable>false</IsPackable>
 		<Nullable>enable</Nullable>
 		<WarningsAsErrors>nullable</WarningsAsErrors>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Folder Include="Criteria\" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
 		<PackageReference Include="NUnit3TestAdapter" Version="3.16.1" />
-		<PackageReference Include="Umbraco.Cms.Tests" Version="14.0.0" />
+		<PackageReference Include="Umbraco.Cms.Tests" Version="15.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

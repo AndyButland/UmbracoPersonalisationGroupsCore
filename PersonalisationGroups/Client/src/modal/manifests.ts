@@ -1,4 +1,4 @@
-import type { ManifestModal } from "@umbraco-cms/backoffice/extension-registry";
+import { ManifestModal } from "@umbraco-cms/backoffice/modal";
 import {
   EDIT_DETAIL_DEFINITION_MODAL_ALIAS,
 } from "./index.js";
