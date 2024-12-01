@@ -21,6 +21,10 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
+    "types": [
+      "@umbraco-cms/backoffice/extension-types"
+    ],
+
     "paths": {
       "@personalisationgroups/generated": [
         "./generated/index.ts"

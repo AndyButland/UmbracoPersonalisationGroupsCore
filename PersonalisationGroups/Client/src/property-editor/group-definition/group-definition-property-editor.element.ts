@@ -3,7 +3,7 @@ import {
   customElement,
   property,
 } from "@umbraco-cms/backoffice/external/lit";
-import type { UmbPropertyEditorUiElement } from "@umbraco-cms/backoffice/extension-registry";
+import { UmbPropertyEditorUiElement } from "@umbraco-cms/backoffice/property-editor";
 import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
 import { PersonalisationGroup } from "../../types";
 import PersonalisationGroupDefinitionInput from "./group-definition-input.element";

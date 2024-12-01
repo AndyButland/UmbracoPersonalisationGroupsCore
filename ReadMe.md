@@ -478,6 +478,9 @@ See [here](https://github.com/AndyButland/UmbracoPersonalisationGroups#version-h
 - 4.0.0
 
 > [!WARNING]
-> The 4.0.0 release running on Umbraco 14 contains various breaking changes at the code levelrelated to the backoffice update, the move to a single project using an RCL, and the migration of controllers into a management API.
+> The 4.0.0 release running on Umbraco 14 contains various breaking changes at the code level related to the backoffice update, the move to a single project using an RCL, and the migration of controllers into a management API.
 > From a data perspective please note:
 > - The "pages viewed" criteria now uses GUID keys rather than integer IDs.
+
+- 5.0.0
+    - Package updated to work with Umbraco 15.
