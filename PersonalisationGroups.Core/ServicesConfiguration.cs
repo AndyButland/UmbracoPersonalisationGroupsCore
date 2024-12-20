@@ -19,7 +19,6 @@ using Our.Umbraco.PersonalisationGroups.Core.Providers.Referrer;
 using Our.Umbraco.PersonalisationGroups.Core.Providers.RequestHeaders;
 using Our.Umbraco.PersonalisationGroups.Core.Providers.Session;
 using Our.Umbraco.PersonalisationGroups.Core.Services;
-using System;
 using Umbraco.Cms.Core.DependencyInjection;
 using Umbraco.Cms.Web.Common.ApplicationBuilder;
 using Umbraco.Extensions;
