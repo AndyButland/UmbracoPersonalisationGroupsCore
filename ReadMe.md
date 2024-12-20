@@ -77,8 +77,45 @@ Once installed, the default Umbraco `StartUp.cs` class should be augmented with 
     }
 ```
 
+From Umbraco 13+, the equivalent code will be in `Program.cs` and look like this:
+
+```
+using Our.Umbraco.PersonalisationGroups.Core;
+
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+builder.CreateUmbracoBuilder()
+    .AddBackOffice()
+    .AddWebsite()
+    .AddDeliveryApi()
+    .AddComposers()
+    .AddPersonalisationGroups(builder.Configuration)
+    .Build();
+
+WebApplication app = builder.Build();
+
+await app.BootUmbracoAsync();
+
+
+app.UseUmbraco()
+    .WithMiddleware(u =>
+    {
+        u.UseBackOffice();
+        u.UseWebsite();
+    })
+    .WithEndpoints(u =>
+    {
+        u.UseInstallerEndpoints();
+        u.UseBackOfficeEndpoints();
+        u.UseWebsiteEndpoints();
+        u.UsePersonalisationGroupsEndpoints();
+    });
+
+await app.RunAsync();
+```
+
 > [!NOTE]
-> For Umbraco 14, the addition of `u.UsePersonalisationGroupsEndpoints();` is not required.
+> For Umbraco 14+, the addition of `u.UsePersonalisationGroupsEndpoints();` is not required.
 
 The package includes a migration that will create the necessary document types, data types and root content nodes.
 
