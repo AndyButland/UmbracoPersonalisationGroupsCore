@@ -6,7 +6,7 @@
     {
       "name": "Umbraco EntryPoint",
       "alias": "PersonalisationGroups.EntryPoint",
-      "type": "entryPoint",
+      "type": "backofficeEntryPoint",
       "js": "/App_Plugins/PersonalisationGroups/personalisation-groups.js"
     }
   ]

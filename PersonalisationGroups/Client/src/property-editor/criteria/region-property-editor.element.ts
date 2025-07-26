@@ -10,6 +10,7 @@ import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
 import { UUISelectEvent } from "@umbraco-cms/backoffice/external/uui";
 import { CountryDto, RegionDto, GeoLocationService } from "@personalisationgroups/generated";
 import { tryExecute } from "@umbraco-cms/backoffice/resources";
+import { UmbControllerHost } from "@umbraco-cms/backoffice/controller-api";
 
 type RegionSetting = {
   match: string;
@@ -22,6 +23,13 @@ const elementName = "personalisation-group-region-criteria-property-editor";
 
 @customElement(elementName)
 export class RegionCriteriaPropertyUiElement extends UmbLitElement implements UmbPropertyEditorUiElement {
+
+  #host: UmbControllerHost;
+
+  constructor(host: UmbControllerHost) {
+    super();
+    this.#host = host;
+  }
 
   #value: string = "";
   @property({ type: String })
@@ -56,18 +64,16 @@ export class RegionCriteriaPropertyUiElement extends UmbLitElement implements Um
   }
 
   async #getCountries() {
-    const { data } = await tryExecute(GeoLocationService.getCountryCollection());
-    this._countries = data || [];
-    if (data && data.length > 0) {
-      this._availableRegions = await this.#getAvailableRegions(data[0].code);
+    this._countries = await tryExecute(this.#host, GeoLocationService.getCountryCollection());
+    if (this._countries.length > 0) {
+      this._availableRegions = await this.#getAvailableRegions(this._countries[0].code);
     } else {
       this._availableRegions = [];
     }
   }
 
   async #getAvailableRegions(countryCode: string) {
-    const { data } = await tryExecute(GeoLocationService.getRegionCollection({ countryCode }));
-    return data || [];
+    return await tryExecute(this.#host, GeoLocationService.getRegionCollection({ countryCode }));
   }
 
   #getMatchOptions() {

@@ -10,6 +10,7 @@ import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
 import { UUISelectEvent } from "@umbraco-cms/backoffice/external/uui";
 import { CountryDto, GeoLocationService } from "@personalisationgroups/generated";
 import { tryExecute } from "@umbraco-cms/backoffice/resources";
+import { UmbControllerHost } from "@umbraco-cms/backoffice/controller-api";
 
 type CountrySetting = {
   match: string;
@@ -21,6 +22,13 @@ const elementName = "personalisation-group-country-criteria-property-editor";
 
 @customElement(elementName)
 export class CountryCriteriaPropertyUiElement extends UmbLitElement implements UmbPropertyEditorUiElement {
+
+  #host: UmbControllerHost;
+
+  constructor(host: UmbControllerHost) {
+    super();
+    this.#host = host;
+  }
 
   #value: string = "";
   @property({ type: String })
@@ -52,8 +60,7 @@ export class CountryCriteriaPropertyUiElement extends UmbLitElement implements U
   }
 
   async #getAvailableCountries() {
-    const { data } = await tryExecute(GeoLocationService.getCountryCollection());
-    this._availableCountries = data || [];
+    this._availableCountries = await tryExecute(this.#host, GeoLocationService.getCountryCollection());
     this._selectedCountry = this._availableCountries.length > 0
         ? this._availableCountries[0]
         : undefined;

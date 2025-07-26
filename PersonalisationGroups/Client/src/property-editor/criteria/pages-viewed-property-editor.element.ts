@@ -9,7 +9,7 @@ import {
 import { UmbPropertyEditorUiElement } from "@umbraco-cms/backoffice/property-editor";
 import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
 import { UUISelectEvent } from "@umbraco-cms/backoffice/external/uui";
-import { UmbDocumentItemModel, UmbDocumentItemRepository, UmbDocumentPickerContext } from "@umbraco-cms/backoffice/document";
+import { UmbDocumentItemModel, UmbDocumentItemRepository, UmbDocumentPickerInputContext } from "@umbraco-cms/backoffice/document";
 
 const elementName = "personalisation-group-pages-viewed-criteria-property-editor";
 
@@ -20,6 +20,11 @@ type PagesViewedSetting = {
 
 @customElement(elementName)
 export class PagesViewedCriteriaPropertyUiElement extends UmbLitElement implements UmbPropertyEditorUiElement {
+
+  constructor() {
+    super();
+    this.observe(this.#pickerContext?.selection, async (selection) => (await this.#refreshPickedPages(selection)), '_observeSelection');
+  }
 
   #value: string = "";
   @property({ type: String })
@@ -37,18 +42,13 @@ export class PagesViewedCriteriaPropertyUiElement extends UmbLitElement implemen
 
   #itemRepository = new UmbDocumentItemRepository(this);
 
-  #pickerContext = new UmbDocumentPickerContext(this);
+	#pickerContext = new UmbDocumentPickerInputContext(this);
 
   @state()
   private _typedValue: PagesViewedSetting = { match: "ViewedAny", nodeKeys: [] };
 
   @state()
   private _pickedItems: Array<UmbDocumentItemModel> = [];
-
-	constructor() {
-		super();
-    this.observe(this.#pickerContext.selection, async (selection) => (await this.#refreshPickedPages(selection)), '_observeSelection');
-  }
 
 	protected async firstUpdated(): Promise<void> {
 		this._pickedItems = await this.#getPickedPages(this._typedValue.nodeKeys);

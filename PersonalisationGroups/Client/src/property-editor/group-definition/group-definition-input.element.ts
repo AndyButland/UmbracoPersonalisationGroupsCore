@@ -9,11 +9,27 @@ import { ManifestPersonalisationGroupDefinitionDetailTranslator, Personalisation
 import { loadManifestApi } from "@umbraco-cms/backoffice/extension-api";
 import { UMB_MODAL_MANAGER_CONTEXT, umbConfirmModal } from "@umbraco-cms/backoffice/modal";
 import { EDIT_DETAIL_DEFINITION_MODAL, EditDetailDefinitionModalValue } from "../../modal";
+import { UmbControllerHost } from "@umbraco-cms/backoffice/controller-api";
 
 const elementName = "personalisation-group-definition-input";
 
 @customElement(elementName)
 export class PersonalisationGroupDefinitionInput extends UmbLitElement {
+
+    #host: UmbControllerHost;
+
+    constructor(host: UmbControllerHost) {
+      super();
+      this.#host = host;
+
+      this.consumeContext(UMB_MODAL_MANAGER_CONTEXT, (instance) => {
+        this.#modalContext = instance;
+      });
+
+      this.#translators = umbExtensionsRegistry.getAllExtensions()
+        .filter(e => e.type === "PersonalisationGroupDetailDefinitionTranslator")
+        .map(mt => mt as ManifestPersonalisationGroupDefinitionDetailTranslator);
+    }
 
     @property({ attribute: false })
     set value(data: PersonalisationGroup) {
@@ -42,26 +58,13 @@ export class PersonalisationGroupDefinitionInput extends UmbLitElement {
 
     #translators: Array<ManifestPersonalisationGroupDefinitionDetailTranslator> = [];
 
-    constructor() {
-        super();
-
-        this.consumeContext(UMB_MODAL_MANAGER_CONTEXT, (instance) => {
-            this.#modalContext = instance;
-          });
-
-        this.#translators = umbExtensionsRegistry.getAllExtensions()
-            .filter(e => e.type === "PersonalisationGroupDetailDefinitionTranslator")
-            .map(mt => mt as ManifestPersonalisationGroupDefinitionDetailTranslator);
-    }
-
     async connectedCallback() {
         super.connectedCallback();
         await this.#getAvailableCriteria();
     }
 
     async #getAvailableCriteria() {
-        const { data } = await tryExecute(CriteriaService.getCriteriaCollection());
-        this._availableCriteria = data || [];
+        this._availableCriteria = await tryExecute(this.#host, CriteriaService.getCriteriaCollection());
         this._selectedCriteria = this._availableCriteria.length > 0
             ? this._availableCriteria[0]
             : undefined;

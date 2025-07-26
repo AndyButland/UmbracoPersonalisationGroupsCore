@@ -15,16 +15,13 @@ const manifests: Array<UmbExtensionManifest> = [
   ...translatorManifests,
 ];
 
-export const onInit: UmbEntryPointOnInit = (_host, extensionRegistry) => {
+export const onInit: UmbEntryPointOnInit = (host, extensionRegistry) => {
   extensionRegistry.registerMany(manifests);
 
-  _host.consumeContext(UMB_AUTH_CONTEXT, async (auth) => {
-    if (!auth) return;
+  host.consumeContext(UMB_AUTH_CONTEXT, async (instance) => {
+    if (!instance) return;
 
-    const umbOpenApi = auth.getOpenApiConfiguration();
-    OpenAPI.BASE = umbOpenApi.base;
-    OpenAPI.TOKEN = umbOpenApi.token;
-    OpenAPI.WITH_CREDENTIALS = umbOpenApi.withCredentials;
-    OpenAPI.CREDENTIALS = umbOpenApi.credentials;
+    OpenAPI.TOKEN = () => instance.getLatestToken();
+    OpenAPI.WITH_CREDENTIALS = true;
   });
 };
