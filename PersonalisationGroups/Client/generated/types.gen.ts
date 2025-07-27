@@ -35,127 +35,171 @@ export type RegionDto = {
     name: string;
 };
 
-export type GetCriteriaCollectionResponse = Array<(CriteriaDto)>;
+export type GetCriteriaCollectionData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/umbraco/personalisation-groups/management/api/v1/criteria';
+};
 
-export type GetContinentCollectionResponse = Array<(ContinentDto)>;
+export type GetCriteriaCollectionErrors = {
+    /**
+     * The resource is protected and requires an authentication token
+     */
+    401: unknown;
+};
+
+export type GetCriteriaCollectionResponses = {
+    /**
+     * OK
+     */
+    200: Array<CriteriaDto>;
+};
+
+export type GetCriteriaCollectionResponse = GetCriteriaCollectionResponses[keyof GetCriteriaCollectionResponses];
+
+export type GetContinentCollectionData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/umbraco/personalisation-groups/management/api/v1/continent';
+};
+
+export type GetContinentCollectionErrors = {
+    /**
+     * The resource is protected and requires an authentication token
+     */
+    401: unknown;
+};
+
+export type GetContinentCollectionResponses = {
+    /**
+     * OK
+     */
+    200: Array<ContinentDto>;
+};
+
+export type GetContinentCollectionResponse = GetContinentCollectionResponses[keyof GetContinentCollectionResponses];
 
 export type GetCountryCollectionData = {
-    withRegionsOnly?: boolean;
+    body?: never;
+    path?: never;
+    query?: {
+        withRegionsOnly?: boolean;
+    };
+    url: '/umbraco/personalisation-groups/management/api/v1/country';
 };
 
-export type GetCountryCollectionResponse = Array<(CountryDto)>;
+export type GetCountryCollectionErrors = {
+    /**
+     * The resource is protected and requires an authentication token
+     */
+    401: unknown;
+};
+
+export type GetCountryCollectionResponses = {
+    /**
+     * OK
+     */
+    200: Array<CountryDto>;
+};
+
+export type GetCountryCollectionResponse = GetCountryCollectionResponses[keyof GetCountryCollectionResponses];
 
 export type GetRegionCollectionData = {
-    countryCode: string;
+    body?: never;
+    path: {
+        countryCode: string;
+    };
+    query?: never;
+    url: '/umbraco/personalisation-groups/management/api/v1/country/{countryCode}/region';
 };
 
-export type GetRegionCollectionResponse = Array<(RegionDto)>;
+export type GetRegionCollectionErrors = {
+    /**
+     * The resource is protected and requires an authentication token
+     */
+    401: unknown;
+};
 
-export type GetMemberGroupCollectionResponse = Array<(MemberGroupDto)>;
+export type GetRegionCollectionResponses = {
+    /**
+     * OK
+     */
+    200: Array<RegionDto>;
+};
 
-export type GetMemberProfileFieldCollectionResponse = Array<(MemberProfileFieldDto)>;
+export type GetRegionCollectionResponse = GetRegionCollectionResponses[keyof GetRegionCollectionResponses];
 
-export type GetMemberTypeCollectionResponse = Array<(MemberTypeDto)>;
+export type GetMemberGroupCollectionData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/umbraco/personalisation-groups/management/api/v1/member-group';
+};
 
-export type $OpenApiTs = {
-    '/umbraco/personalisation-groups/management/api/v1/criteria': {
-        get: {
-            res: {
-                /**
-                 * OK
-                 */
-                200: Array<(CriteriaDto)>;
-                /**
-                 * The resource is protected and requires an authentication token
-                 */
-                401: unknown;
-            };
-        };
-    };
-    '/umbraco/personalisation-groups/management/api/v1/continent': {
-        get: {
-            res: {
-                /**
-                 * OK
-                 */
-                200: Array<(ContinentDto)>;
-                /**
-                 * The resource is protected and requires an authentication token
-                 */
-                401: unknown;
-            };
-        };
-    };
-    '/umbraco/personalisation-groups/management/api/v1/country': {
-        get: {
-            req: GetCountryCollectionData;
-            res: {
-                /**
-                 * OK
-                 */
-                200: Array<(CountryDto)>;
-                /**
-                 * The resource is protected and requires an authentication token
-                 */
-                401: unknown;
-            };
-        };
-    };
-    '/umbraco/personalisation-groups/management/api/v1/country/{countryCode}/region': {
-        get: {
-            req: GetRegionCollectionData;
-            res: {
-                /**
-                 * OK
-                 */
-                200: Array<(RegionDto)>;
-                /**
-                 * The resource is protected and requires an authentication token
-                 */
-                401: unknown;
-            };
-        };
-    };
-    '/umbraco/personalisation-groups/management/api/v1/member-group': {
-        get: {
-            res: {
-                /**
-                 * OK
-                 */
-                200: Array<(MemberGroupDto)>;
-                /**
-                 * The resource is protected and requires an authentication token
-                 */
-                401: unknown;
-            };
-        };
-    };
-    '/umbraco/personalisation-groups/management/api/v1/member-profile-field': {
-        get: {
-            res: {
-                /**
-                 * OK
-                 */
-                200: Array<(MemberProfileFieldDto)>;
-                /**
-                 * The resource is protected and requires an authentication token
-                 */
-                401: unknown;
-            };
-        };
-    };
-    '/umbraco/personalisation-groups/management/api/v1/member-type': {
-        get: {
-            res: {
-                /**
-                 * OK
-                 */
-                200: Array<(MemberTypeDto)>;
-                /**
-                 * The resource is protected and requires an authentication token
-                 */
-                401: unknown;
-            };
-        };
-    };
+export type GetMemberGroupCollectionErrors = {
+    /**
+     * The resource is protected and requires an authentication token
+     */
+    401: unknown;
+};
+
+export type GetMemberGroupCollectionResponses = {
+    /**
+     * OK
+     */
+    200: Array<MemberGroupDto>;
+};
+
+export type GetMemberGroupCollectionResponse = GetMemberGroupCollectionResponses[keyof GetMemberGroupCollectionResponses];
+
+export type GetMemberProfileFieldCollectionData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/umbraco/personalisation-groups/management/api/v1/member-profile-field';
+};
+
+export type GetMemberProfileFieldCollectionErrors = {
+    /**
+     * The resource is protected and requires an authentication token
+     */
+    401: unknown;
+};
+
+export type GetMemberProfileFieldCollectionResponses = {
+    /**
+     * OK
+     */
+    200: Array<MemberProfileFieldDto>;
+};
+
+export type GetMemberProfileFieldCollectionResponse = GetMemberProfileFieldCollectionResponses[keyof GetMemberProfileFieldCollectionResponses];
+
+export type GetMemberTypeCollectionData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/umbraco/personalisation-groups/management/api/v1/member-type';
+};
+
+export type GetMemberTypeCollectionErrors = {
+    /**
+     * The resource is protected and requires an authentication token
+     */
+    401: unknown;
+};
+
+export type GetMemberTypeCollectionResponses = {
+    /**
+     * OK
+     */
+    200: Array<MemberTypeDto>;
+};
+
+export type GetMemberTypeCollectionResponse = GetMemberTypeCollectionResponses[keyof GetMemberTypeCollectionResponses];
+
+export type ClientOptions = {
+    baseUrl: 'http://localhost:42192' | (string & {});
 };

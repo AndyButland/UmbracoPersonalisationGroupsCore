@@ -22,8 +22,8 @@
 
 	<ItemGroup>
 		<PackageReference Include="MaxMind.GeoIP2" Version="4.0.1" />
-		<PackageReference Include="Umbraco.Cms.Web.Common" Version="[15.0.0, 16)" />
-		<PackageReference Include="Umbraco.Cms.Api.Management" Version="[15.0.0, 16)" />
+		<PackageReference Include="Umbraco.Cms.Web.Common" Version="[16.1.0, 17)" />
+		<PackageReference Include="Umbraco.Cms.Api.Management" Version="[16.1.0, 17)" />
 	</ItemGroup>
 
 	<ItemGroup>

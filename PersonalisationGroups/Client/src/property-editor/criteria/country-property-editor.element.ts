@@ -52,8 +52,8 @@ export class CountryCriteriaPropertyUiElement extends UmbLitElement implements U
   }
 
   async #getAvailableCountries() {
-    const { data } = await tryExecute(GeoLocationService.getCountryCollection());
-    this._availableCountries = data || [];
+    const { data } = await tryExecute(this, GeoLocationService.getCountryCollection());
+    this._availableCountries = data;
     this._selectedCountry = this._availableCountries.length > 0
         ? this._availableCountries[0]
         : undefined;

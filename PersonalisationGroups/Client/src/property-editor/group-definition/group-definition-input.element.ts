@@ -15,6 +15,18 @@ const elementName = "personalisation-group-definition-input";
 @customElement(elementName)
 export class PersonalisationGroupDefinitionInput extends UmbLitElement {
 
+    constructor() {
+      super();
+
+      this.consumeContext(UMB_MODAL_MANAGER_CONTEXT, (instance) => {
+        this.#modalContext = instance;
+      });
+
+      this.#translators = umbExtensionsRegistry.getAllExtensions()
+        .filter(e => e.type === "PersonalisationGroupDetailDefinitionTranslator")
+        .map(mt => mt as ManifestPersonalisationGroupDefinitionDetailTranslator);
+    }
+
     @property({ attribute: false })
     set value(data: PersonalisationGroup) {
         // Need to create a new object here, as the incoming one is immutable.
@@ -42,26 +54,14 @@ export class PersonalisationGroupDefinitionInput extends UmbLitElement {
 
     #translators: Array<ManifestPersonalisationGroupDefinitionDetailTranslator> = [];
 
-    constructor() {
-        super();
-
-        this.consumeContext(UMB_MODAL_MANAGER_CONTEXT, (instance) => {
-            this.#modalContext = instance;
-          });
-
-        this.#translators = umbExtensionsRegistry.getAllExtensions()
-            .filter(e => e.type === "PersonalisationGroupDetailDefinitionTranslator")
-            .map(mt => mt as ManifestPersonalisationGroupDefinitionDetailTranslator);
-    }
-
     async connectedCallback() {
         super.connectedCallback();
         await this.#getAvailableCriteria();
     }
 
     async #getAvailableCriteria() {
-        const { data } = await tryExecute(CriteriaService.getCriteriaCollection());
-        this._availableCriteria = data || [];
+        const { data } = await tryExecute(this, CriteriaService.getCriteriaCollection());
+        this._availableCriteria = data;
         this._selectedCriteria = this._availableCriteria.length > 0
             ? this._availableCriteria[0]
             : undefined;

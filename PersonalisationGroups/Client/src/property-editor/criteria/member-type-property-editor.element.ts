@@ -48,8 +48,8 @@ export class MemberTypeCriteriaPropertyUiElement extends UmbLitElement implement
   }
 
   async #getMemberTypes() {
-      const { data } = await tryExecute(MemberService.getMemberTypeCollection());
-      this._memberTypes = data || [];
+    const {data } = await tryExecute(this, MemberService.getMemberTypeCollection());
+    this._memberTypes = data;
   }
 
   #getMatchOptions() {

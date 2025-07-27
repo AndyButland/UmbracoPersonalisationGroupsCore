@@ -49,8 +49,8 @@ export class MemberProfileFieldCriteriaPropertyUiElement extends UmbLitElement i
   }
 
   async #getMemberProfileFields() {
-      const { data } = await tryExecute(MemberService.getMemberProfileFieldCollection());
-      this._memberProfileFields = data || [];
+    const { data } = await tryExecute(this, MemberService.getMemberProfileFieldCollection());
+    this._memberProfileFields = data;
   }
 
   #getFieldOptions() {

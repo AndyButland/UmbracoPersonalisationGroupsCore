@@ -56,18 +56,18 @@ export class RegionCriteriaPropertyUiElement extends UmbLitElement implements Um
   }
 
   async #getCountries() {
-    const { data } = await tryExecute(GeoLocationService.getCountryCollection());
-    this._countries = data || [];
-    if (data && data.length > 0) {
-      this._availableRegions = await this.#getAvailableRegions(data[0].code);
+    const { data } = await tryExecute(this, GeoLocationService.getCountryCollection());
+    this._countries = data;
+    if (this._countries.length > 0) {
+      const { data } = await this.#getAvailableRegions(this._countries[0].code);
+      this._availableRegions = data;
     } else {
       this._availableRegions = [];
     }
   }
 
   async #getAvailableRegions(countryCode: string) {
-    const { data } = await tryExecute(GeoLocationService.getRegionCollection({ countryCode }));
-    return data || [];
+    return await tryExecute(this, GeoLocationService.getRegionCollection({ path : { countryCode } }));
   }
 
   #getMatchOptions() {
@@ -106,7 +106,8 @@ export class RegionCriteriaPropertyUiElement extends UmbLitElement implements Um
   async #onCountryChange(e: UUISelectEvent) {
     const countryCode = e.target.value.toString();
     this._typedValue.countryCode = countryCode;
-    this._availableRegions = await this.#getAvailableRegions(countryCode);
+    const { data } = await this.#getAvailableRegions(countryCode);
+    this._availableRegions = data;
     this.#refreshValue();
   }
 

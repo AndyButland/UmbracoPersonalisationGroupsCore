@@ -48,8 +48,8 @@ export class MemberGroupCriteriaPropertyUiElement extends UmbLitElement implemen
   }
 
   async #getMemberGroups() {
-      const { data } = await tryExecute(MemberService.getMemberGroupCollection());
-      this._memberGroups = data || [];
+    const {data } = await tryExecute(this, MemberService.getMemberGroupCollection());
+    this._memberGroups = data;
   }
 
   #getMatchOptions() {

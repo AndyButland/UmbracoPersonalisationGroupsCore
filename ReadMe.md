@@ -521,3 +521,6 @@ See [here](https://github.com/AndyButland/UmbracoPersonalisationGroups#version-h
 
 - 5.0.0
     - Package updated to work with Umbraco 15.
+
+- 6.0.0
+    - Package updated to work with Umbraco 16.

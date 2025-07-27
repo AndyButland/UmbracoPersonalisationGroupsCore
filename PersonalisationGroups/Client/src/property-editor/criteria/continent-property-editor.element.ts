@@ -52,8 +52,8 @@ export class ContinentCriteriaPropertyUiElement extends UmbLitElement implements
   }
 
   async #getAvailableContinents() {
-    const { data } = await tryExecute(GeoLocationService.getContinentCollection());
-    this._availableContinents = data || [];
+    const { data } = await tryExecute(this, GeoLocationService.getContinentCollection());
+    this._availableContinents = data;
     this._selectedContinent = this._availableContinents.length > 0
         ? this._availableContinents[0]
         : undefined;
