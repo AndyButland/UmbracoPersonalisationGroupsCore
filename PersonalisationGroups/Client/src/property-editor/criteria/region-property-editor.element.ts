@@ -10,7 +10,6 @@ import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
 import { UUISelectEvent } from "@umbraco-cms/backoffice/external/uui";
 import { CountryDto, RegionDto, GeoLocationService } from "@personalisationgroups/generated";
 import { tryExecute } from "@umbraco-cms/backoffice/resources";
-import { UmbControllerHost } from "@umbraco-cms/backoffice/controller-api";
 
 type RegionSetting = {
   match: string;
@@ -23,13 +22,6 @@ const elementName = "personalisation-group-region-criteria-property-editor";
 
 @customElement(elementName)
 export class RegionCriteriaPropertyUiElement extends UmbLitElement implements UmbPropertyEditorUiElement {
-
-  #host: UmbControllerHost;
-
-  constructor(host: UmbControllerHost) {
-    super();
-    this.#host = host;
-  }
 
   #value: string = "";
   @property({ type: String })
@@ -64,16 +56,18 @@ export class RegionCriteriaPropertyUiElement extends UmbLitElement implements Um
   }
 
   async #getCountries() {
-    this._countries = await tryExecute(this.#host, GeoLocationService.getCountryCollection());
+    const { data } = await tryExecute(this, GeoLocationService.getCountryCollection());
+    this._countries = data;
     if (this._countries.length > 0) {
-      this._availableRegions = await this.#getAvailableRegions(this._countries[0].code);
+      const { data } = await this.#getAvailableRegions(this._countries[0].code);
+      this._availableRegions = data;
     } else {
       this._availableRegions = [];
     }
   }
 
   async #getAvailableRegions(countryCode: string) {
-    return await tryExecute(this.#host, GeoLocationService.getRegionCollection({ countryCode }));
+    return await tryExecute(this, GeoLocationService.getRegionCollection({ path : { countryCode } }));
   }
 
   #getMatchOptions() {
@@ -112,7 +106,8 @@ export class RegionCriteriaPropertyUiElement extends UmbLitElement implements Um
   async #onCountryChange(e: UUISelectEvent) {
     const countryCode = e.target.value.toString();
     this._typedValue.countryCode = countryCode;
-    this._availableRegions = await this.#getAvailableRegions(countryCode);
+    const { data } = await this.#getAvailableRegions(countryCode);
+    this._availableRegions = data;
     this.#refreshValue();
   }
 

@@ -9,18 +9,14 @@ import { ManifestPersonalisationGroupDefinitionDetailTranslator, Personalisation
 import { loadManifestApi } from "@umbraco-cms/backoffice/extension-api";
 import { UMB_MODAL_MANAGER_CONTEXT, umbConfirmModal } from "@umbraco-cms/backoffice/modal";
 import { EDIT_DETAIL_DEFINITION_MODAL, EditDetailDefinitionModalValue } from "../../modal";
-import { UmbControllerHost } from "@umbraco-cms/backoffice/controller-api";
 
 const elementName = "personalisation-group-definition-input";
 
 @customElement(elementName)
 export class PersonalisationGroupDefinitionInput extends UmbLitElement {
 
-    #host: UmbControllerHost;
-
-    constructor(host: UmbControllerHost) {
+    constructor() {
       super();
-      this.#host = host;
 
       this.consumeContext(UMB_MODAL_MANAGER_CONTEXT, (instance) => {
         this.#modalContext = instance;
@@ -64,7 +60,8 @@ export class PersonalisationGroupDefinitionInput extends UmbLitElement {
     }
 
     async #getAvailableCriteria() {
-        this._availableCriteria = await tryExecute(this.#host, CriteriaService.getCriteriaCollection());
+        const { data } = await tryExecute(this, CriteriaService.getCriteriaCollection());
+        this._availableCriteria = data;
         this._selectedCriteria = this._availableCriteria.length > 0
             ? this._availableCriteria[0]
             : undefined;

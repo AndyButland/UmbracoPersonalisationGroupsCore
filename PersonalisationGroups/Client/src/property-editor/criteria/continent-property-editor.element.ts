@@ -10,7 +10,6 @@ import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
 import { UUISelectEvent } from "@umbraco-cms/backoffice/external/uui";
 import { ContinentDto, GeoLocationService } from "@personalisationgroups/generated";
 import { tryExecute } from "@umbraco-cms/backoffice/resources";
-import { UmbControllerHost } from "@umbraco-cms/backoffice/controller-api";
 
 type ContinentSetting = {
   match: string;
@@ -22,13 +21,6 @@ const elementName = "personalisation-group-continent-criteria-property-editor";
 
 @customElement(elementName)
 export class ContinentCriteriaPropertyUiElement extends UmbLitElement implements UmbPropertyEditorUiElement {
-
-  #host: UmbControllerHost;
-
-  constructor(host: UmbControllerHost) {
-    super();
-    this.#host = host;
-  }
 
   #value: string = "";
   @property({ type: String })
@@ -60,7 +52,8 @@ export class ContinentCriteriaPropertyUiElement extends UmbLitElement implements
   }
 
   async #getAvailableContinents() {
-    this._availableContinents = await tryExecute(this.#host, GeoLocationService.getContinentCollection());
+    const { data } = await tryExecute(this, GeoLocationService.getContinentCollection());
+    this._availableContinents = data;
     this._selectedContinent = this._availableContinents.length > 0
         ? this._availableContinents[0]
         : undefined;

@@ -10,7 +10,6 @@ import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
 import { UUIInputEvent, UUISelectEvent } from "@umbraco-cms/backoffice/external/uui";
 import { tryExecute } from "@umbraco-cms/backoffice/resources";
 import { MemberProfileFieldDto, MemberService } from "@personalisationgroups/generated";
-import { UmbControllerHost } from "@umbraco-cms/backoffice/controller-api";
 
 type MemberProfileFieldSetting = {
   alias: string;
@@ -22,13 +21,6 @@ const elementName = "personalisation-group-member-profile-field-criteria-propert
 
 @customElement(elementName)
 export class MemberProfileFieldCriteriaPropertyUiElement extends UmbLitElement implements UmbPropertyEditorUiElement {
-
-  #host: UmbControllerHost;
-
-  constructor(host: UmbControllerHost) {
-    super();
-    this.#host = host;
-  }
 
   #value: string = "";
   @property({ type: String })
@@ -57,7 +49,8 @@ export class MemberProfileFieldCriteriaPropertyUiElement extends UmbLitElement i
   }
 
   async #getMemberProfileFields() {
-    this._memberProfileFields = await tryExecute(this.#host, MemberService.getMemberProfileFieldCollection());
+    const { data } = await tryExecute(this, MemberService.getMemberProfileFieldCollection());
+    this._memberProfileFields = data;
   }
 
   #getFieldOptions() {

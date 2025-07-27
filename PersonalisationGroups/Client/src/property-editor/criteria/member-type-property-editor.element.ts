@@ -10,7 +10,6 @@ import { UmbLitElement } from "@umbraco-cms/backoffice/lit-element";
 import { UUISelectEvent } from "@umbraco-cms/backoffice/external/uui";
 import { tryExecute } from "@umbraco-cms/backoffice/resources";
 import { MemberTypeDto, MemberService } from "@personalisationgroups/generated";
-import { UmbControllerHost } from "@umbraco-cms/backoffice/controller-api";
 
 type MemberTypeSetting = {
   match: string;
@@ -21,13 +20,6 @@ const elementName = "personalisation-group-member-type-criteria-property-editor"
 
 @customElement(elementName)
 export class MemberTypeCriteriaPropertyUiElement extends UmbLitElement implements UmbPropertyEditorUiElement {
-
-  #host: UmbControllerHost;
-
-  constructor(host: UmbControllerHost) {
-    super();
-    this.#host = host;
-  }
 
   #value: string = "";
   @property({ type: String })
@@ -56,7 +48,8 @@ export class MemberTypeCriteriaPropertyUiElement extends UmbLitElement implement
   }
 
   async #getMemberTypes() {
-    this._memberTypes = await tryExecute(this.#host, MemberService.getMemberTypeCollection());
+    const {data } = await tryExecute(this, MemberService.getMemberTypeCollection());
+    this._memberTypes = data;
   }
 
   #getMatchOptions() {
