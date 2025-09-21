@@ -1,7 +1,7 @@
 {
   "id": "UmbracoPersonalisationGroups",
   "name": "Personalisation Groups",
-  "version": "4.0.0",
+  "version": "6.1.0",
   "extensions": [
     {
       "name": "Umbraco EntryPoint",

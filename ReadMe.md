@@ -43,6 +43,10 @@ Installation is via NuGet:
 PM> Install-Package UmbracoPersonalisationGroups
 ```
 
+The package includes a migration that will create the necessary document types, data types and root content nodes.
+
+#### Umbraco 9-12
+
 Once installed, the default Umbraco `StartUp.cs` class should be augmented with additional extension methods for registering the package: `AddPersonalisationGroups` and `UsePersonalisationGroupsEndpoints`.  When complete, it should look like this:
 
 ```
@@ -76,6 +80,8 @@ Once installed, the default Umbraco `StartUp.cs` class should be augmented with 
             });
     }
 ```
+
+#### Umbraco 13
 
 From Umbraco 13+, the equivalent code will be in `Program.cs` and look like this:
 
@@ -114,10 +120,43 @@ app.UseUmbraco()
 await app.RunAsync();
 ```
 
-> [!NOTE]
-> For Umbraco 14+, the addition of `u.UsePersonalisationGroupsEndpoints();` is not required.
+#### Umbraco 14+
 
-The package includes a migration that will create the necessary document types, data types and root content nodes.
+For Umbraco 14+, the addition of `u.UsePersonalisationGroupsEndpoints();` is not required and the namespace changes:
+
+```
+using Our.Umbraco.PersonalisationGroups;
+
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+builder.CreateUmbracoBuilder()
+    .AddBackOffice()
+    .AddWebsite()
+    .AddDeliveryApi()
+    .AddComposers()
+    .AddPersonalisationGroups(builder.Configuration)
+    .Build();
+
+WebApplication app = builder.Build();
+
+await app.BootUmbracoAsync();
+
+
+app.UseUmbraco()
+    .WithMiddleware(u =>
+    {
+        u.UseBackOffice();
+        u.UseWebsite();
+    })
+    .WithEndpoints(u =>
+    {
+        u.UseInstallerEndpoints();
+        u.UseBackOfficeEndpoints();
+        u.UseWebsiteEndpoints();
+    });
+
+await app.RunAsync();
+```
 
 ### Upgrades
 
@@ -524,3 +563,5 @@ See [here](https://github.com/AndyButland/UmbracoPersonalisationGroups#version-h
 
 - 6.0.0
     - Package updated to work with Umbraco 16.
+- 6.1.0
+    - Resolved issues running on Umbraco 16. Simplified client side dependencies and took minimum Umbraco dependency to 16.2.0.

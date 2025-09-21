@@ -1,7 +1,7 @@
 {
   "name": "personalisation-groups",
   "private": true,
-  "version": "6.0.0",
+  "version": "6.1.0",
   "type": "module",
   "engines": {
     "node": ">=22",
@@ -18,35 +18,14 @@
     "lint": "eslint src"
   },
   "devDependencies": {
-    "@eslint/compat": "^1.3.1",
-    "@eslint/eslintrc": "^3.3.1",
-    "@eslint/js": "^9.29.0",
-    "@hey-api/openapi-ts": "0.77.0",
-    "@types/node": "^22.15.33",
-    "@typescript-eslint/eslint-plugin": "^8.35.0",
-    "@typescript-eslint/parser": "^8.35.0",
-    "@umbraco-cms/backoffice": "16.0.0",
-    "eslint": "^9.29.0",
-    "eslint-config-prettier": "^10.1.5",
-    "eslint-import-resolver-typescript": "^4.4.4",
-    "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-lit": "^2.1.1",
-    "eslint-plugin-lit-a11y": "^4.1.4",
-    "eslint-plugin-local-rules": "^3.0.2",
-    "eslint-plugin-prettier": "^5.5.1",
-    "eslint-plugin-wc": "^3.0.1",
-    "globals": "^16.2.0",
-    "remark-gfm": "^4.0.1",
+    "@hey-api/client-fetch": "0.12.0",
+    "@hey-api/openapi-ts": "0.71.0",
+    "@umbraco-cms/backoffice": "16.2.0",
+    "chalk": "^5.4.1",
+    "cross-env": "^7.0.3",
+    "node-fetch": "^3.3.2",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.35.0",
-    "vite": "^6.3.5",
-    "vite-plugin-static-copy": "^3.1.0",
-    "vite-tsconfig-paths": "^5.1.4",
-    "web-component-analyzer": "^2.0.0"
-  },
-  "overrides": {
-    "@umbraco-cms/backoffice": {
-      "@hey-api/client-fetch": "^0.13.1"
-    }
+    "vite": "^6.3.4",
+    "vite-tsconfig-paths": "^5.1.4"
   }
 }
