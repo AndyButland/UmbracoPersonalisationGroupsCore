@@ -13,6 +13,10 @@
 		<EnableDefaultContentItems>false</EnableDefaultContentItems>
 		<Nullable>enable</Nullable>
 		<WarningsAsErrors>nullable</WarningsAsErrors>
+		<!-- Disable compression for static files to avoid ApplyCompressionNegotiation issues with umbraco-package.json -->
+		<CompressionEnabled>false</CompressionEnabled>
+		<!-- Force generation of endpoints props file even with compression disabled -->
+		<GenerateStaticWebAssetEndpointsPropsFile>true</GenerateStaticWebAssetEndpointsPropsFile>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -22,8 +26,8 @@
 
 	<ItemGroup>
 		<PackageReference Include="MaxMind.GeoIP2" Version="4.0.1" />
-		<PackageReference Include="Umbraco.Cms.Web.Common" Version="[16.2.0, 17)" />
-		<PackageReference Include="Umbraco.Cms.Api.Management" Version="[16.2.0, 17)" />
+		<PackageReference Include="Umbraco.Cms.Web.Common" Version="[17.1.0, 18)" />
+		<PackageReference Include="Umbraco.Cms.Api.Management" Version="[17.1.0, 18)" />
 	</ItemGroup>
 
 	<ItemGroup>

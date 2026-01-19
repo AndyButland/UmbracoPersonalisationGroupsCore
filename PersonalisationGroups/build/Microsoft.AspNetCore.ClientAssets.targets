@@ -58,4 +58,16 @@
 		</DefineStaticWebAssets>
 	</Target>
 
+	<!-- Create empty StaticWebAssetEndpoints props file for .NET 9+ compatibility -->
+	<Target Name="CreateEmptyEndpointsPropsFile" AfterTargets="DefineClientAssets" BeforeTargets="GenerateStaticWebAssetEndpointsPropsFile">
+		<PropertyGroup>
+			<_EndpointsPropsFile>$(IntermediateOutputPath)staticwebassets\msbuild.$(PackageId).Microsoft.AspNetCore.StaticWebAssetEndpoints.props</_EndpointsPropsFile>
+		</PropertyGroup>
+		<MakeDir Directories="$(IntermediateOutputPath)staticwebassets" Condition="!Exists('$(IntermediateOutputPath)staticwebassets')" />
+		<WriteLinesToFile File="$(_EndpointsPropsFile)" Lines="&lt;Project&gt;&lt;ItemGroup&gt;&lt;/ItemGroup&gt;&lt;/Project&gt;" Overwrite="true" Condition="!Exists('$(_EndpointsPropsFile)')" />
+		<ItemGroup>
+			<FileWrites Include="$(_EndpointsPropsFile)" />
+		</ItemGroup>
+	</Target>
+
 </Project>

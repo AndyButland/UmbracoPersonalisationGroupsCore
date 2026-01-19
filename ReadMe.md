@@ -565,3 +565,7 @@ See [here](https://github.com/AndyButland/UmbracoPersonalisationGroups#version-h
     - Package updated to work with Umbraco 16.
 - 6.1.0
     - Resolved issues running on Umbraco 16. Simplified client side dependencies and took minimum Umbraco dependency to 16.2.0.
+- 7.0.0
+    - Package updated to work with Umbraco 17.
+- 7.0.1
+    - Fixed issue with client side assets packaging.

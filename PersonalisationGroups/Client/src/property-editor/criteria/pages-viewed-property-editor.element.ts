@@ -149,8 +149,9 @@ export class PagesViewedCriteriaPropertyUiElement extends UmbLitElement implemen
   }
 
   #renderItem(item: UmbDocumentItemModel) {
+    const name = item.variants[0]?.name ?? '(Untitled)';
     return html`
-      <uui-ref-node name="${item.name}">
+      <uui-ref-node name="${name}">
         <umb-icon slot="icon" name="${item.documentType.icon}"></umb-icon>
         <uui-action-bar slot="actions">
           <uui-button

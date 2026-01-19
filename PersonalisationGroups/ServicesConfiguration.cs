@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Our.Umbraco.PersonalisationGroups.Api.Configuration;
 using Our.Umbraco.PersonalisationGroups.Configuration;
 using Our.Umbraco.PersonalisationGroups.Middleware;
